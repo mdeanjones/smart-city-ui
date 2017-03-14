@@ -18,11 +18,10 @@ You will need the following things properly installed on your computer.
 * `git clone <repository-url>` this repository
 * `cd smart-city-ui`
 * `npm install`
-* `bower install`
 
 ## Running / Development
 
-* `ember serve`
+* `npm start`
 * Visit your app at [http://localhost:4200](http://localhost:4200).
 
 ### Code Generators
@@ -31,13 +30,13 @@ Make use of the many generators for code, try `ember help generate` for more det
 
 ### Running Tests
 
-* `ember test`
-* `ember test --server`
+* `npm test`
+* `npm test -- --server`
 
 ### Building
 
-* `ember build` (development)
-* `ember build --environment production` (production)
+* `npm build` (development)
+* `npm build -- --environment production` (production)
 
 ### Deploying
 
