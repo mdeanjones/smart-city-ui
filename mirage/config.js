@@ -14,6 +14,16 @@ export default function() {
     return gasStationLocations.all();
   });
 
+
+  this.get('/grid_attributes', ({ gridAttributes }) => {
+    return gridAttributes.all();
+  });
+
+
+  this.get('/zone_class_cords', ({ zoneClassCords }) => {
+    return zoneClassCords.all();
+  });
+
   // These comments are here to help you get started. Feel free to delete them.
 
   /*

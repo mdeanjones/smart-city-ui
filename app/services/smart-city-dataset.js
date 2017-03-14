@@ -12,6 +12,10 @@ export default Service.extend({
 
   chargingStations: null,
 
+  gridAttributes: null,
+
+  zoneClassCords: null,
+
 
   load() {
     const ajax = get(this, 'ajax');
@@ -19,7 +23,9 @@ export default Service.extend({
     return RSVP.hash({
       evLocations: ajax.request('/ev_station_locations'),
       chargingStations: ajax.request('/existing_charging_stations'),
-      gasLocations: ajax.request('/gas_station_locations')
+      gasLocations: ajax.request('/gas_station_locations'),
+      gridAttributes: ajax.request('/grid_attributes'),
+      zoneClassCords: ajax.request('/zone_class_cords'),
     }).then((results) => {
       setProperties(this, results);
     });
