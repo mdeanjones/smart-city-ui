@@ -1,11 +1,87 @@
+.map-features {
+  padding-bottom: 30px;
+}
+
+h4 {
+  margin: 0;
+  color: $med-blue;
+  font-family: $main-stack;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+hr {
+  border: 1px solid $med-blue;
+  margin: 3px auto 10px;
+}
+
+.sidebar-row {
+  padding-bottom: 7px;
+}
+
+input {
+  width: 17px;
+  height: 17px;
+  vertical-align: middle;
+}
+
 .icon {
   width: 25px;
+  margin: 0 5px;
 }
 
 .color-box {
-  background-color: red;
   display: inline-block;
   margin: 0 5px;
   width: 17px;
   height: 17px;
+  vertical-align: middle;
+}
+
+.agriculture {
+  background-color: rgba($agriculture-green, $opacity-half);
+  border: $br $agriculture-border;
+}
+
+.commercial {
+  background-color: rgba($commercial-yellow, $opacity-half);
+  border: $br $commercial-border;
+}
+
+.downtown {
+  background-color: rgba($downtown-blue, $opacity-half);
+  border: $br $downtown-blue;
+}
+
+.industrial {
+  background-color: rgba($industrial-grey, $opacity-half);
+  border: $br $industrial-border;
+}
+
+.parking {
+  background-color: rgba($parking-purple, $opacity-half);
+  border: $br $parking-purple;
+}
+
+.public-land {
+  background-color: rgba($public-green, $opacity-half);
+  border: $br $public-green;
+}
+
+.residential {
+  background-color: rgba($residential-red, $opacity-half);
+  border: $br $residential-red;
+}
+
+.residential-multi {
+  background-color: rgba($residential-red, $opacity-half);
+  border: 1px dotted $residential-red;
+}
+
+label {
+  color: $main-text-color;
+  font-family: $main-stack;
+  font-size: 12px;
+  margin: 0;
+  vertical-align: middle;
 }
