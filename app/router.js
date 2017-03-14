@@ -7,8 +7,10 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
-  this.route('charging-stations');
-  this.route('demand-and-emissions');
+  this.route('maps', function() {
+    this.route('charging-stations');
+    this.route('demand-and-emissions');
+  });
 });
 
 export default Router;

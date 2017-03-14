@@ -1,0 +1,15 @@
+<ul class="nav nav-tabs">
+    {{#link-to 'maps.charging-stations' tagName='li' ariaRole='presentation'}}
+        {{link-to 'Charging Stations' 'maps.charging-stations'}}
+    {{/link-to}}
+
+    {{#link-to 'maps.demand-and-emissions' tagName='li' ariaRole='presentation'}}
+        {{link-to 'Demand & Emissions' 'maps.demand-and-emissions'}}
+    {{/link-to}}
+</ul>
+
+<div class="panel panel-primary">
+    <div class="panel-body">
+        {{outlet}}
+    </div>
+</div>

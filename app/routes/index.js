@@ -5,6 +5,6 @@ const { Route } = Ember;
 
 export default Route.extend({
   beforeModel() {
-    this.transitionTo('charging-stations');
+    this.transitionTo('maps.charging-stations');
   },
 });
