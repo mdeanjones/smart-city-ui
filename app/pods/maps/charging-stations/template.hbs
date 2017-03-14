@@ -4,6 +4,8 @@
     </div>
 
     <div class="col-sm-9">
-        {{leaflet-map height='500px' onMapReady=(action 'mapReady')}}
+        <div id="map">
+          {{leaflet-map height='500px' onMapReady=(action 'mapReady')}}
+        </div>
     </div>
 </div>
