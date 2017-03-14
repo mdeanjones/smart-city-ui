@@ -7,8 +7,6 @@ const { Service, get, set, computed, typeOf, inject } = Ember;
 export default Service.extend({
   currentMap: null,
 
-  ajax: inject.service(),
-
   maxActiveDataPoints: 4,
 
   currentActiveDataPoints: 0,
@@ -24,61 +22,17 @@ export default Service.extend({
 
   accessToken: 'pk.eyJ1IjoiYmR1bGFuIiwiYSI6ImNpemZzOTYyYTAwbncycW5ueWYyaHkyeTkifQ.Iotxd_KBWcont6Hggmal1g',
 
+  store: inject.service('smart-city-dataset'),
 
-  evStationLocations: computed(function() {
-    return get(this, 'ajax').request('/ev_station_locations');
-  }).readOnly(),
+  layers: inject.service('smart-city-map-layers'),
 
-
-  existingStationLocation: computed(function() {
-    return get(this, 'ajax').request('/existing_charging_stations');
-  }).readOnly(),
+  icons: inject.service('smart-city-map-icons'),
 
 
-  gasStationLocations: computed(function() {
-    return get(this, 'ajax').request('/gas_station_locations');
-  }).readOnly(),
-
-
-  gasStationIcon: computed(function() {
-    return L.icon({
-      iconUrl: '/images/gas-station-map-icon.png',
-      shadowUrl: '/images/gas-station-map-icon.png',
-      iconSize: [30, 30],     // size of the icon
-      shadowSize: [50, 64],   // size of the shadow
-      iconAnchor: [22, 94],   // point of the icon which will correspond to marker's location
-      shadowAnchor: [4, 62],  // the same for the shadow
-      popupAnchor: [-3, -76]  // point from which the popup should open relative to the iconAnchor
-    });
-  }).readOnly(),
-
-
-  evStationIcon: computed(function () {
-    return L.icon({
-      iconUrl: '/images/ev-station-map-icon.png',
-      shadowUrl: '/images/ev-station-map-icon.png',
-      iconSize: [35, 35],     // size of the icon
-      shadowSize: [50, 64],   // size of the shadow
-      iconAnchor: [22, 94],   // point of the icon which will correspond to marker's location
-      shadowAnchor: [4, 62],  // the same for the shadow
-      popupAnchor: [-3, -76], // point from which the popup should open relative to the iconAnchor
-    });
-  }).readOnly(),
-
-
-  grayScaleLayer: computed(function() {
-    const url = `https://api.mapbox.com/styles/v1/mapbox/streets-v10/tiles/256/{z}/{x}/{y}?access_token=${get(this, 'accessToken')}`;
-
-    return L.tileLayer(url, {
-      attribution: 'Map data &copy; ' +
-      '<a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-      '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-      'Imagery © <a href="http://mapbox.com">Mapbox</a>',
-    });
-  }).readOnly(),
-
-
-
+  init() {
+    this._super(...arguments);
+    set(this, 'layers.accessToken', get(this, 'accessToken'));
+  },
 
 
   setMap(map) {
@@ -114,7 +68,7 @@ export default Service.extend({
 
     if (map) {
       if (typeOf(layer) === 'string') {
-        layer = get(this, layer);
+        layer = get(this, `layers.${layer}`);
 
         if (layer) {
           map.addLayer(layer);
@@ -122,7 +76,7 @@ export default Service.extend({
       }
       else if (typeOf(layer) === 'array') {
         for (let i = 0; i < layer.length; i += 1) {
-          this.addLayer(layer[i], id);
+          this.addLayer(layer[i], map);
         }
       }
       else {

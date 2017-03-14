@@ -11,7 +11,7 @@ export default Controller.extend({
     mapReady(map) {
       get(this, 'mapService')
         .setMap(map)
-        .addLayer('grayScaleLayer')
+        .addLayer(['grayScaleLayer', 'gasLocationLayer', 'evLocationLayer'])
         .setZoom()
         .setCenter();
     },
