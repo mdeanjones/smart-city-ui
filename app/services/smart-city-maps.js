@@ -21,8 +21,6 @@ export default Service.extend({
 
   accessToken: 'pk.eyJ1IjoiYmR1bGFuIiwiYSI6ImNpemZzOTYyYTAwbncycW5ueWYyaHkyeTkifQ.Iotxd_KBWcont6Hggmal1g',
 
-  store: inject.service('smart-city-dataset'),
-
   layers: inject.service('smart-city-map-layers'),
 
   icons: inject.service('smart-city-map-icons'),

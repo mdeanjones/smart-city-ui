@@ -5,7 +5,7 @@ const { Service, get, computed, inject } = Ember;
 
 
 export default Service.extend({
-  store: inject.service('smart-city-dataset'),
+  store: inject.service('store'),
 
   icons: inject.service('smart-city-map-icons'),
 
@@ -25,104 +25,88 @@ export default Service.extend({
 
 
   gasLocationLayer: computed(function() {
-    return this._buildMarkerLayerGroup(get(this, 'store.gasLocations'), get(this, 'icons.gasLocationIcon'));
+    const records = get(this, 'store').peekAll('gas-station-location');
+    return this._buildMarkerLayerGroup(records, get(this, 'icons.gasLocationIcon'));
   }).readOnly(),
 
 
   proposedEvLocationLayer: computed(function() {
-    return this._buildMarkerLayerGroup(get(this, 'store.proposedEvLocations'), get(this, 'icons.proposedEvLocationIcon'));
+    const records = get(this, 'store').peekAll('ev-station-location');
+    return this._buildMarkerLayerGroup(records, get(this, 'icons.proposedEvLocationIcon'));
   }).readOnly(),
 
 
   currentEvLocationLayer: computed(function() {
-    return this._buildMarkerLayerGroup(get(this, 'store.currentEvLocations'), get(this, 'icons.currentEvLocationIcon'));
+    const records = get(this, 'store').peekAll('existing-charging-station');
+    return this._buildMarkerLayerGroup(records, get(this, 'icons.currentEvLocationIcon'));
   }).readOnly(),
 
 
   agricultureZoneLayer: computed(function() {
-    const store = get(this, 'store');
-    const type = get(store, 'zoneConstants.agriculture');
-
-    return this._buildRectangleLayerGroup(store.getZonesByType(type), '#66FF00');
+    const records = get(this, 'store').peekAll('zone-class-cord').filterBy('isAgricultureZone');
+    return this._buildRectangleLayerGroup(records, '#66FF00');
   }).readOnly(),
 
 
   commercialZoneLayer: computed(function() {
-    const store = get(this, 'store');
-    const type = get(store, 'zoneConstants.commercial');
-
-    return this._buildRectangleLayerGroup(store.getZonesByType(type), '#FFCC00');
+    const records = get(this, 'store').peekAll('zone-class-cord').filterBy('isCommercialZone');
+    return this._buildRectangleLayerGroup(records, '#FFCC00');
   }).readOnly(),
 
 
   downtownZoneLayer: computed(function() {
-    const store = get(this, 'store');
-    const type = get(store, 'zoneConstants.downtown');
-
-    return this._buildRectangleLayerGroup(store.getZonesByType(type), '#0099FF');
+    const records = get(this, 'store').peekAll('zone-class-cord').filterBy('isDowntownZone');
+    return this._buildRectangleLayerGroup(records, '#0099FF');
   }).readOnly(),
 
 
   industrialZoneLayer: computed(function() {
-    const store = get(this, 'store');
-    const type = get(store, 'zoneConstants.industrial');
-
-    return this._buildRectangleLayerGroup(store.getZonesByType(type), '#666');
+    const records = get(this, 'store').peekAll('zone-class-cord').filterBy('isIndustrialZone');
+    return this._buildRectangleLayerGroup(records, '#666');
   }).readOnly(),
 
 
   parkingZoneLayer: computed(function() {
-    const store = get(this, 'store');
-    const type = get(store, 'zoneConstants.parking');
-
-    return this._buildRectangleLayerGroup(store.getZonesByType(type), '#800080');
+    const records = get(this, 'store').peekAll('zone-class-cord').filterBy('isParkingZone');
+    return this._buildRectangleLayerGroup(records, '#800080');
   }).readOnly(),
 
 
   publicLandZoneLayer: computed(function() {
-    const store = get(this, 'store');
-    const type = get(store, 'zoneConstants.publicLand');
-
-    return this._buildRectangleLayerGroup(store.getZonesByType(type), '#33CC00');
+    const records = get(this, 'store').peekAll('zone-class-cord').filterBy('isPublicLandZone');
+    return this._buildRectangleLayerGroup(records, '#33CC00');
   }).readOnly(),
 
 
   residentialSingleZoneLayer: computed(function() {
-    const store = get(this, 'store');
-    const type = get(store, 'zoneConstants.residentialSingle');
-
-    return this._buildRectangleLayerGroup(store.getZonesByType(type), '#FF0000');
+    const records = get(this, 'store').peekAll('zone-class-cord').filterBy('isResidentialSingleZone');
+    return this._buildRectangleLayerGroup(records, '#FF0000');
   }).readOnly(),
 
 
   residentialMultiZoneLayer: computed(function() {
-    const store = get(this, 'store');
-    const type = get(store, 'zoneConstants.residentialMulti');
-
-    return this._buildRectangleLayerGroup(store.getZonesByType(type), '#FF0000', [5, 5]);
+    const records = get(this, 'store').peekAll('zone-class-cord').filterBy('isResidentialMultiZone');
+    return this._buildRectangleLayerGroup(records, '#FF0000', [5, 5]);
   }).readOnly(),
 
 
-  _buildMarkerLayerGroup(latLongArray, icon) {
+  _buildMarkerLayerGroup(records, icon) {
     const items = [];
 
-    for (let i = 0; i < latLongArray.length; i += 1) {
-      items.push(L.marker([parseFloat(latLongArray[i].lat), parseFloat(latLongArray[i].long)], { icon }));
-    }
+    records.forEach((item) => {
+      items.push(L.marker(get(item, 'coordinates'), { icon }));
+    });
 
     return L.layerGroup(items);
   },
 
 
-  _buildRectangleLayerGroup(latLongArray, fillColor, strokeDashArray = null) {
+  _buildRectangleLayerGroup(records, fillColor, strokeDashArray = null) {
     const items = [];
 
-    for (let i = 0; i < latLongArray.length; i += 1) {
-      const item = latLongArray[i];
-      const bounds = [[parseFloat(item.lat1), parseFloat(item.long1)], [parseFloat(item.lat2), parseFloat(item.long2)]];
-
-      items.push(L.rectangle(bounds, { color: fillColor, weight: 1, dashArray: strokeDashArray }));
-    }
+    records.forEach((item) => {
+      items.push(L.rectangle(get(item, 'bounds'), { color: fillColor, weight: 1, dashArray: strokeDashArray }));
+    });
 
     return L.layerGroup(items);
   },
