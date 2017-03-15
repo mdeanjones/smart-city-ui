@@ -4,7 +4,7 @@ body {
 }
 
 .panel {
-  border: 1px solid $med-blue;
+  border: $br $med-blue;
 }
 
 .panel-primary {
@@ -12,5 +12,5 @@ body {
 }
 
 #map {
-  border: 1px solid $med-blue;
+  border: $br $med-blue;
 }

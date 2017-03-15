@@ -2,7 +2,7 @@
   padding-bottom: 30px;
 }
 
-h4 {
+.section-title {
   margin: 0;
   color: $med-blue;
   font-family: $main-stack;
@@ -11,7 +11,7 @@ h4 {
 }
 
 hr {
-  border: 1px solid $med-blue;
+  border: $br $med-blue;
   margin: 3px auto 10px;
 }
 
@@ -19,10 +19,13 @@ hr {
   padding-bottom: 7px;
 }
 
-input {
+input[type="checkbox"] + label:before {
+  background-color: red;
   width: 17px;
   height: 17px;
+  padding: 30px;
   vertical-align: middle;
+  border: 5px solid black;
 }
 
 .icon {
@@ -82,6 +85,7 @@ label {
   color: $main-text-color;
   font-family: $main-stack;
   font-size: 12px;
+  font-weight: normal;
   margin: 0;
   vertical-align: middle;
 }

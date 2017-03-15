@@ -1,8 +1,10 @@
-// Color
+// Font Stacks
+$main-stack: Arial, sans-serif;
+
+// Main Color
 $body-bg: #9ef5ff;
 
 $main-text-color: #333;
-
 $med-blue: #32B3C2;
 
 // Background Color - Zoning Section
@@ -21,9 +23,9 @@ $industrial-border: #333;
 
 
 $opacity-half: 0.5;
-
 $br: 1px solid;
 
 
-// Font Stacks
-$main-stack: Arial, sans-serif;
+//Tabs
+$selected-tab: white;
+$unselected-tab: #B6E7E1;
