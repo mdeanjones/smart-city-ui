@@ -8,9 +8,9 @@ export default Service.extend({
 
   gasLocations: null,
 
-  evLocations: null,
+  proposedEvLocations: null,
 
-  chargingStations: null,
+  currentEvLocations: null,
 
   gridAttributes: null,
 
@@ -21,8 +21,8 @@ export default Service.extend({
     const ajax = get(this, 'ajax');
 
     return RSVP.hash({
-      evLocations: ajax.request('/ev_station_locations'),
-      chargingStations: ajax.request('/existing_charging_stations'),
+      proposedEvLocations: ajax.request('/ev_station_locations'),
+      currentEvLocations: ajax.request('/existing_charging_stations'),
       gasLocations: ajax.request('/gas_station_locations'),
       gridAttributes: ajax.request('/grid_attributes'),
       zoneClassCords: ajax.request('/zone_class_cords'),

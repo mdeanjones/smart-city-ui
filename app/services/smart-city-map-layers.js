@@ -25,27 +25,27 @@ export default Service.extend({
 
 
   gasLocationLayer: computed('store.gasLocations', 'icons.gasStationIcon', function() {
-    const set = get(this, 'store.gasLocations');
-    const icon = get(this, 'icons.gasLocationIcon');
-    const items = [];
-
-    for (let i = 0; i < set.length; i += 1) {
-      items.push(L.marker([parseFloat(set[i].lat), parseFloat(set[i].long)], { icon }));
-    }
-
-    return L.layerGroup(items);
+    return this._buildLayerGroup(get(this, 'store.gasLocations'), get(this, 'icons.gasLocationIcon'));
   }).readOnly(),
 
 
-  evLocationLayer: computed('store.evLocations', 'icons.evLocationIcon', function() {
-    const set = get(this, 'store.evLocations');
-    const icon = get(this, 'icons.evLocationIcon');
+  proposedEvLocationLayer: computed('store.proposedEvLocations', 'icons.proposedEvLocationIcon', function() {
+    return this._buildLayerGroup(get(this, 'store.proposedEvLocations'), get(this, 'icons.proposedEvLocationIcon'));
+  }).readOnly(),
+
+
+  currentEvLocationLayer: computed('store.currentEvLocations', 'icons.currentEvLocationIcon', function() {
+    return this._buildLayerGroup(get(this, 'store.currentEvLocations'), get(this, 'icons.currentEvLocationIcon'));
+  }).readOnly(),
+
+
+  _buildLayerGroup(latLongArray, icon) {
     const items = [];
 
-    for (let i = 0; i < set.length; i += 1) {
-      items.push(L.marker([parseFloat(set[i].lat), parseFloat(set[i].long)], { icon }));
+    for (let i = 0; i < latLongArray.length; i += 1) {
+      items.push(L.marker([parseFloat(latLongArray[i].lat), parseFloat(latLongArray[i].long)], { icon }));
     }
 
     return L.layerGroup(items);
-  }).readOnly(),
+  },
 });
