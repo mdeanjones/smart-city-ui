@@ -1,0 +1,121 @@
+<div class="map-features">
+    <h4 class="section-title">Map Features</h4>
+    <hr>
+
+    <div class="checkbox">
+        <label>
+            {{input type='checkbox' checked=mapService.proposedEvMarkers.isVisible}}
+            <img class="icon" src="/assets/images/icon_fastcharge.png" alt="Proposed EV Station Locations">
+            Proposed EV Station Locations
+        </label>
+    </div>
+
+    <div class="checkbox">
+        <label>
+            {{input type="checkbox" checked=mapService.existingEvMarkers.isVisible}}
+            <img class="icon" src="/assets/images/ex_fastcharge-icon.png" alt="Existing charging stations">
+            Existing Charging Stations
+        </label>
+    </div>
+
+    <div class="checkbox">
+        <label>
+            {{input type="checkbox" checked=mapService.gasStationMarkers.isVisible}}
+            <img class="icon" src="/assets/images/icon_gas.png" alt="Gas Station Locations">
+            Gas Station Locations
+        </label>
+    </div>
+
+    <div class="checkbox disabled">
+        <label>
+            {{input type="checkbox" disabled=true}}
+            <img class="icon" src="/assets/images/icon_bus.png" alt="Bus stops">
+            Bus stops
+        </label>
+    </div>
+
+    <div class="checkbox disabled">
+        <label>
+            {{input type="checkbox" disabled=true}}
+            <img class="icon" src="/assets/images/icon_park.png" alt="Parks">
+            Parks
+        </label>
+    </div>
+
+    <div class="checkbox disabled">
+        <label>
+            {{input type="checkbox" disabled=true}}
+            <img class="icon" src="/assets/images/icon_school.png" alt="Schools">
+            Schools
+        </label>
+    </div>
+
+</div>
+
+<div class="zoning">
+    <h4 class="section-title">Zoning</h4>
+    <hr>
+    <div class="checkbox">
+        <label>
+            {{input type="checkbox" checked=mapService.agricultureZone.isVisible}}
+            <div class="color-box agriculture"></div>
+            Agriculture
+        </label>
+    </div>
+
+    <div class="checkbox">
+        <label>
+            {{input type="checkbox" checked=mapService.commercialZone.isVisible}}
+            <div class="color-box commercial"></div>
+            Commercial
+        </label>
+    </div>
+
+    <div class="checkbox">
+        <label>
+            {{input type="checkbox" checked=mapService.downtownZone.isVisible}}
+            <div class="color-box downtown"></div>
+            Downtown
+        </label>
+    </div>
+
+    <div class="checkbox">
+        <label>
+            {{input type="checkbox" checked=mapService.industrialZone.isVisible}}
+            <div class="color-box industrial"></div>
+            Industrial
+        </label>
+    </div>
+
+    <div class="checkbox">
+        <label>
+            {{input type="checkbox" checked=mapService.parkingZone.isVisible}}
+            <div class="color-box parking"></div>
+            Parking
+        </label>
+    </div>
+
+    <div class="checkbox">
+        <label>
+            {{input type="checkbox" checked=mapService.publicLandZone.isVisible}}
+            <div class="color-box public-land"></div>
+            Public Land
+        </label>
+    </div>
+
+    <div class="checkbox">
+        <label>
+            {{input type="checkbox" checked=mapService.residentialSingleZone.isVisible}}
+            <div class="color-box residential"></div>
+            Residential (Single)
+        </label>
+    </div>
+
+    <div class="checkbox">
+        <label>
+            {{input type="checkbox" checked=mapService.residentialMultiZone.isVisible}}
+            <div class="color-box residential-multi"></div>
+            Residential (Multi)
+        </label>
+    </div>
+</div>
