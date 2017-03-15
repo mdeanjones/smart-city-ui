@@ -126,3 +126,8 @@ p {
 .onoffswitch-checkbox-third:checked + .onoffswitch-label-third .onoffswitch-switch-third {
   @extend %onoffswitch-checkbox-label-switch;
 }
+
+.pad-map {
+  padding-top: 15px;
+  padding-left: 0;
+}
