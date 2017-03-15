@@ -5,7 +5,7 @@ export default ApplicationSerializer.extend({
   attrs: ['lat', 'long'],
 
 
-  serialize(response) {
+  serialize(/* response */) {
     const resp = ApplicationSerializer.prototype.serialize.apply(this, arguments);
     return resp.existingChargingStations || resp.existingChargingStation;
   },
