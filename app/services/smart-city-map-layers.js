@@ -43,7 +43,7 @@ export default Service.extend({
     const items = [];
 
     for (let i = 0; i < set.length; i += 1) {
-      items.push(L.marker([parseFloat(set[i].lat), parseFloat(set[i].long)], { icon }))
+      items.push(L.marker([parseFloat(set[i].lat), parseFloat(set[i].long)], { icon }));
     }
 
     return L.layerGroup(items);

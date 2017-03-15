@@ -1,7 +1,6 @@
-/* global L */
 import Ember from 'ember';
 
-const { Service, get, set, computed, typeOf, inject } = Ember;
+const { Service, get, set, typeOf, inject } = Ember;
 
 
 export default Service.extend({
