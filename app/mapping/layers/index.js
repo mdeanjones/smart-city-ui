@@ -13,6 +13,9 @@ import PublicLandZone from './zones/public-land';
 import ResidentialSingleZone from './zones/residential-single';
 import ResidentialMultiZone from './zones/residential-multi';
 
+import GridAttributes from './zones/grid-attributes';
+
+
 export {
   StreetMapTiles,
 
@@ -28,4 +31,6 @@ export {
   PublicLandZone,
   ResidentialSingleZone,
   ResidentialMultiZone,
+
+  GridAttributes,
 };

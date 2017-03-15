@@ -15,6 +15,8 @@ import {
   PublicLandZone,
   ResidentialSingleZone,
   ResidentialMultiZone,
+
+  GridAttributes,
 } from 'smart-city-ui/mapping/layers';
 
 const {
@@ -50,7 +52,7 @@ export default Service.extend({
   layerKeys: computed(function() {
     return ['streetMapTiles', 'existingEvMarkers', 'proposedEvMarkers', 'gasStationMarkers',
       'agricultureZone', 'commercialZone', 'downtownZone', 'industrialZone', 'parkingZone',
-      'publicLandZone', 'residentialSingleZone', 'residentialMultiZone'];
+      'publicLandZone', 'residentialSingleZone', 'residentialMultiZone', 'gridAttributes'];
   }).readOnly(),
 
 
@@ -123,6 +125,12 @@ export default Service.extend({
   residentialMultiZone: computed(function() {
     const records = get(this, 'store').peekAll('zone-class-cord').filterBy('isResidentialMultiZone');
     return ResidentialMultiZone.create({ records });
+  }).readOnly(),
+
+
+  gridAttributes: computed(function() {
+    const records = get(this, 'store').peekAll('grid-attribute');
+    return GridAttributes.create({ records });
   }).readOnly(),
 
 

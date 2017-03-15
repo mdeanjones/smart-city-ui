@@ -29,7 +29,7 @@ export default MapLayer.extend({
       const items = [];
 
       records.forEach((item) => {
-        items.push(this.createRectangle(get(item, boundaryKey), polygonProperties));
+        items.push(this.createRectangle(get(item, boundaryKey), polygonProperties, item));
       });
 
       return L.layerGroup(items);
