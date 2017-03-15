@@ -1,10 +1,35 @@
 import Ember from 'ember';
 
-const { Service, get, set, typeOf, inject } = Ember;
+import {
+  StreetMapTiles,
+
+  ExistingEvMarkers,
+  ProposedEvMarkers,
+  GasStationMarkers,
+
+  AgricultureZone,
+  CommercialZone,
+  DowntownZone,
+  IndustrialZone,
+  ParkingZone,
+  PublicLandZone,
+  ResidentialSingleZone,
+  ResidentialMultiZone,
+} from 'smart-city-ui/mapping/layers';
+
+const {
+  Service,
+  get,
+  set,
+  inject,
+  computed,
+} = Ember;
 
 
 export default Service.extend({
-  currentMap: null,
+  store: inject.service(),
+
+  map: null,
 
   maxActiveDataPoints: 4,
 
@@ -21,42 +46,112 @@ export default Service.extend({
 
   accessToken: 'pk.eyJ1IjoiYmR1bGFuIiwiYSI6ImNpemZzOTYyYTAwbncycW5ueWYyaHkyeTkifQ.Iotxd_KBWcont6Hggmal1g',
 
-  layers: inject.service('smart-city-map-layers'),
 
-  icons: inject.service('smart-city-map-icons'),
-
-
-  init() {
-    this._super(...arguments);
-    set(this, 'layers.accessToken', get(this, 'accessToken'));
-  },
+  layerKeys: computed(function() {
+    return ['streetMapTiles', 'existingEvMarkers', 'proposedEvMarkers', 'gasStationMarkers',
+      'agricultureZone', 'commercialZone', 'downtownZone', 'industrialZone', 'parkingZone',
+      'publicLandZone', 'residentialSingleZone', 'residentialMultiZone'];
+  }).readOnly(),
 
 
-  setMap(map) {
-    set(this, 'currentMap', map);
-    return this;
-  },
+  streetMapTiles: computed(function() {
+    const accessToken = get(this, 'accessToken');
+    return StreetMapTiles.create({ accessToken });
+  }).readOnly(),
 
 
-  removeMap() {
-    set(this, 'currentMap', null);
-    return this;
-  },
+  existingEvMarkers: computed(function() {
+    const records = get(this, 'store').peekAll('existing-charging-station');
+    return ExistingEvMarkers.create({ records });
+  }).readOnly(),
 
 
-  setCenter(coords, map = null) {
-    map = map || get(this, 'currentMap');
+  proposedEvMarkers: computed(function() {
+    const records = get(this, 'store').peekAll('ev-station-location');
+    return ProposedEvMarkers.create({ records });
+  }).readOnly(),
 
-    if (map) {
-      map.panTo(coords || get(this, 'defaultCoordinates'));
+
+  gasStationMarkers: computed(function() {
+    const records = get(this, 'store').peekAll('gas-station-location');
+    return GasStationMarkers.create({ records });
+  }).readOnly(),
+
+
+  agricultureZone: computed(function() {
+    const records = get(this, 'store').peekAll('zone-class-cord').filterBy('isAgricultureZone');
+    return AgricultureZone.create({ records });
+  }).readOnly(),
+
+
+  commercialZone: computed(function() {
+    const records = get(this, 'store').peekAll('zone-class-cord').filterBy('isCommercialZone');
+    return CommercialZone.create({ records });
+  }).readOnly(),
+
+
+  downtownZone: computed(function() {
+    const records = get(this, 'store').peekAll('zone-class-cord').filterBy('isDowntownZone');
+    return DowntownZone.create({ records });
+  }).readOnly(),
+
+
+  industrialZone: computed(function() {
+    const records = get(this, 'store').peekAll('zone-class-cord').filterBy('isIndustrialZone');
+    return IndustrialZone.create({ records });
+  }).readOnly(),
+
+
+  parkingZone: computed(function() {
+    const records = get(this, 'store').peekAll('zone-class-cord').filterBy('isParkingZone');
+    return ParkingZone.create({ records });
+  }).readOnly(),
+
+
+  publicLandZone: computed(function() {
+    const records = get(this, 'store').peekAll('zone-class-cord').filterBy('isPublicLandZone');
+    return PublicLandZone.create({ records });
+  }).readOnly(),
+
+
+  residentialSingleZone: computed(function() {
+    const records = get(this, 'store').peekAll('zone-class-cord').filterBy('isResidentialSingleZone');
+    return ResidentialSingleZone.create({ records });
+  }).readOnly(),
+
+
+  residentialMultiZone: computed(function() {
+    const records = get(this, 'store').peekAll('zone-class-cord').filterBy('isResidentialMultiZone');
+    return ResidentialMultiZone.create({ records });
+  }).readOnly(),
+
+
+  updateTargetMap(map) {
+    set(this, 'map', map);
+
+    const layerKeys = get(this, 'layerKeys');
+
+    for (let i = 0; i < layerKeys.length; i += 1) {
+      get(this, layerKeys[i]).updateTargetMap(map);
     }
 
     return this;
   },
 
 
-  setZoom(zoom, map = null) {
-    map = map || get(this, 'currentMap');
+  setCenter(coordindates) {
+    const map = get(this, 'map');
+
+    if (map) {
+      map.panTo(coordindates || get(this, 'defaultCoordinates'));
+    }
+
+    return this;
+  },
+
+
+  setZoom(zoom) {
+    const map = get(this, 'map');
 
     if (map) {
       map.setZoom(zoom || get(this, 'defaultZoom'));
@@ -64,43 +159,4 @@ export default Service.extend({
 
     return this;
   },
-
-
-  addLayer(layer, map = null) {
-    map = map || get(this, 'currentMap');
-    return this._toggleLayer(layer, map, 'addLayer');
-  },
-
-
-  removeLayer(layer, map = null) {
-    map = map || get(this, 'currentMap');
-    return this._toggleLayer(layer, map, 'removeLayer');
-  },
-
-
-  _toggleLayer(layer, map, fn) {
-    if (map) {
-      if (typeOf(layer) === 'string') {
-        layer = get(this, `layers.${layer}`);
-
-        if (layer) {
-          if ((fn === 'addLayer' && !map.hasLayer(layer)) || (fn === 'removeLayer' && map.hasLayer(layer))) {
-            map[fn](layer);
-          }
-        }
-      }
-      else if (typeOf(layer) === 'array') {
-        for (let i = 0; i < layer.length; i += 1) {
-          this._toggleLayer(layer[i], map, fn);
-        }
-      }
-      else {
-        if ((fn === 'addLayer' && !map.hasLayer(layer)) || (fn === 'removeLayer' && map.hasLayer(layer))) {
-          map[fn](layer);
-        }
-      }
-    }
-
-    return this;
-  }
 });
