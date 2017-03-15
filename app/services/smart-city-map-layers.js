@@ -24,28 +24,106 @@ export default Service.extend({
   }).readOnly(),
 
 
-  gasLocationLayer: computed('store.gasLocations', 'icons.gasStationIcon', function() {
-    const set = get(this, 'store.gasLocations');
-    const icon = get(this, 'icons.gasLocationIcon');
-    const items = [];
-
-    for (let i = 0; i < set.length; i += 1) {
-      items.push(L.marker([parseFloat(set[i].lat), parseFloat(set[i].long)], { icon }));
-    }
-
-    return L.layerGroup(items);
+  gasLocationLayer: computed(function() {
+    return this._buildMarkerLayerGroup(get(this, 'store.gasLocations'), get(this, 'icons.gasLocationIcon'));
   }).readOnly(),
 
 
-  evLocationLayer: computed('store.evLocations', 'icons.evLocationIcon', function() {
-    const set = get(this, 'store.evLocations');
-    const icon = get(this, 'icons.evLocationIcon');
+  proposedEvLocationLayer: computed(function() {
+    return this._buildMarkerLayerGroup(get(this, 'store.proposedEvLocations'), get(this, 'icons.proposedEvLocationIcon'));
+  }).readOnly(),
+
+
+  currentEvLocationLayer: computed(function() {
+    return this._buildMarkerLayerGroup(get(this, 'store.currentEvLocations'), get(this, 'icons.currentEvLocationIcon'));
+  }).readOnly(),
+
+
+  agricultureZoneLayer: computed(function() {
+    const store = get(this, 'store');
+    const type = get(store, 'zoneConstants.agriculture');
+
+    return this._buildRectangleLayerGroup(store.getZonesByType(type), '#66FF00');
+  }).readOnly(),
+
+
+  commercialZoneLayer: computed(function() {
+    const store = get(this, 'store');
+    const type = get(store, 'zoneConstants.commercial');
+
+    return this._buildRectangleLayerGroup(store.getZonesByType(type), '#FFCC00');
+  }).readOnly(),
+
+
+  downtownZoneLayer: computed(function() {
+    const store = get(this, 'store');
+    const type = get(store, 'zoneConstants.downtown');
+
+    return this._buildRectangleLayerGroup(store.getZonesByType(type), '#0099FF');
+  }).readOnly(),
+
+
+  industrialZoneLayer: computed(function() {
+    const store = get(this, 'store');
+    const type = get(store, 'zoneConstants.industrial');
+
+    return this._buildRectangleLayerGroup(store.getZonesByType(type), '#666');
+  }).readOnly(),
+
+
+  parkingZoneLayer: computed(function() {
+    const store = get(this, 'store');
+    const type = get(store, 'zoneConstants.parking');
+
+    return this._buildRectangleLayerGroup(store.getZonesByType(type), '#800080');
+  }).readOnly(),
+
+
+  publicLandZoneLayer: computed(function() {
+    const store = get(this, 'store');
+    const type = get(store, 'zoneConstants.publicLand');
+
+    return this._buildRectangleLayerGroup(store.getZonesByType(type), '#33CC00');
+  }).readOnly(),
+
+
+  residentialSingleZoneLayer: computed(function() {
+    const store = get(this, 'store');
+    const type = get(store, 'zoneConstants.residentialSingle');
+
+    return this._buildRectangleLayerGroup(store.getZonesByType(type), '#FF0000');
+  }).readOnly(),
+
+
+  residentialMultiZoneLayer: computed(function() {
+    const store = get(this, 'store');
+    const type = get(store, 'zoneConstants.residentialMulti');
+
+    return this._buildRectangleLayerGroup(store.getZonesByType(type), '#FF0000', [5, 5]);
+  }).readOnly(),
+
+
+  _buildMarkerLayerGroup(latLongArray, icon) {
     const items = [];
 
-    for (let i = 0; i < set.length; i += 1) {
-      items.push(L.marker([parseFloat(set[i].lat), parseFloat(set[i].long)], { icon }));
+    for (let i = 0; i < latLongArray.length; i += 1) {
+      items.push(L.marker([parseFloat(latLongArray[i].lat), parseFloat(latLongArray[i].long)], { icon }));
     }
 
     return L.layerGroup(items);
-  }).readOnly(),
+  },
+
+
+  _buildRectangleLayerGroup(latLongArray, fillColor, strokeDashArray = null) {
+    const items = [];
+
+    for (let i = 0; i < latLongArray.length; i += 1) {
+      const item = latLongArray[i];
+      const bounds = [[parseFloat(item.lat1), parseFloat(item.long1)], [parseFloat(item.lat2), parseFloat(item.long2)]];
+
+      items.push(L.rectangle(bounds, { color: fillColor, weight: 1, dashArray: strokeDashArray }));
+    }
+
+    return L.layerGroup(items);
+  },
 });

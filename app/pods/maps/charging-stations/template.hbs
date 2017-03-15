@@ -6,7 +6,7 @@
 
         <div class="checkbox">
           <label>
-            {{input type='checkbox'}}
+            {{input type='checkbox' checked=mapFeatureToggles.proposedEv}}
             <img class="icon" src="/assets/images/icon_fastcharge.png" alt="Proposed EV Station Locations">
             Proposed EV Station Locations
           </label>
@@ -14,7 +14,7 @@
 
         <div class="checkbox">
           <label>
-            {{input type="checkbox"}}
+            {{input type="checkbox" checked=mapFeatureToggles.currentEv}}
             <img class="icon" src="/assets/images/ex_fastcharge-icon.png" alt="Existing charging stations">
             Existing Charging Stations
           </label>
@@ -22,31 +22,31 @@
 
         <div class="checkbox">
           <label>
-            {{input type="checkbox"}}
+            {{input type="checkbox" checked=mapFeatureToggles.gas}}
             <img class="icon" src="/assets/images/icon_gas.png" alt="Gas Station Locations">
             Gas Station Locations
           </label>
         </div>
 
-        <div class="checkbox">
+        <div class="checkbox disabled">
           <label>
-            {{input type="checkbox"}}
+            {{input type="checkbox" checked=mapFeatureToggles.buses disabled=true}}
             <img class="icon" src="/assets/images/icon_bus.png" alt="Bus stops">
             Bus stops
           </label>
         </div>
 
-        <div class="checkbox">
+        <div class="checkbox disabled">
           <label>
-            {{input type="checkbox"}}
+            {{input type="checkbox" checked=mapFeatureToggles.parks disabled=true}}
             <img class="icon" src="/assets/images/icon_park.png" alt="Parks">
             Parks
           </label>
         </div>
 
-        <div class="checkbox">
+        <div class="checkbox disabled">
           <label>
-            {{input type="checkbox"}}
+            {{input type="checkbox" checked=mapFeatureToggles.schools disabled=true}}
             <img class="icon" src="/assets/images/icon_school.png" alt="Schools">
             Schools
           </label>
@@ -59,7 +59,7 @@
         <hr>
         <div class="checkbox">
           <label>
-            {{input type="checkbox"}}
+            {{input type="checkbox" checked=zoningToggles.agriculture}}
             <div class="color-box agriculture"></div>
             Agriculture
           </label>
@@ -67,7 +67,7 @@
 
         <div class="checkbox">
           <label>
-            {{input type="checkbox"}}
+            {{input type="checkbox" checked=zoningToggles.commercial}}
             <div class="color-box commercial"></div>
             Commercial
           </label>
@@ -75,7 +75,7 @@
 
         <div class="checkbox">
           <label>
-            {{input type="checkbox"}}
+            {{input type="checkbox" checked=zoningToggles.downtown}}
             <div class="color-box downtown"></div>
             Downtown
           </label>
@@ -83,7 +83,7 @@
 
         <div class="checkbox">
           <label>
-            {{input type="checkbox"}}
+            {{input type="checkbox" checked=zoningToggles.industrial}}
             <div class="color-box industrial"></div>
             Industrial
           </label>
@@ -91,7 +91,7 @@
 
         <div class="checkbox">
           <label>
-            {{input type="checkbox"}}
+            {{input type="checkbox" checked=zoningToggles.parking}}
             <div class="color-box parking"></div>
             Parking
           </label>
@@ -99,7 +99,7 @@
 
         <div class="checkbox">
           <label>
-            {{input type="checkbox"}}
+            {{input type="checkbox" checked=zoningToggles.publicLand}}
             <div class="color-box public-land"></div>
             Public Land
           </label>
@@ -107,7 +107,7 @@
 
         <div class="checkbox">
           <label>
-            {{input type="checkbox"}}
+            {{input type="checkbox" checked=zoningToggles.residentialSingle}}
             <div class="color-box residential"></div>
             Residential (Single)
           </label>
@@ -115,7 +115,7 @@
 
         <div class="checkbox">
           <label>
-            {{input type="checkbox"}}
+            {{input type="checkbox" checked=zoningToggles.residentialMulti}}
             <div class="color-box residential-multi"></div>
             Residential (Multi)
           </label>

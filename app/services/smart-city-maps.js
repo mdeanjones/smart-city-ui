@@ -40,6 +40,12 @@ export default Service.extend({
   },
 
 
+  removeMap() {
+    set(this, 'currentMap', null);
+    return this;
+  },
+
+
   setCenter(coords, map = null) {
     map = map || get(this, 'currentMap');
 
@@ -64,25 +70,39 @@ export default Service.extend({
 
   addLayer(layer, map = null) {
     map = map || get(this, 'currentMap');
+    return this._toggleLayer(layer, map, 'addLayer');
+  },
 
+
+  removeLayer(layer, map = null) {
+    map = map || get(this, 'currentMap');
+    return this._toggleLayer(layer, map, 'removeLayer');
+  },
+
+
+  _toggleLayer(layer, map, fn) {
     if (map) {
       if (typeOf(layer) === 'string') {
         layer = get(this, `layers.${layer}`);
 
         if (layer) {
-          map.addLayer(layer);
+          if ((fn === 'addLayer' && !map.hasLayer(layer)) || (fn === 'removeLayer' && map.hasLayer(layer))) {
+            map[fn](layer);
+          }
         }
       }
       else if (typeOf(layer) === 'array') {
         for (let i = 0; i < layer.length; i += 1) {
-          this.addLayer(layer[i], map);
+          this._toggleLayer(layer[i], map, fn);
         }
       }
       else {
-        map.addLayer(layer);
+        if ((fn === 'addLayer' && !map.hasLayer(layer)) || (fn === 'removeLayer' && map.hasLayer(layer))) {
+          map[fn](layer);
+        }
       }
     }
 
     return this;
-  },
+  }
 });
