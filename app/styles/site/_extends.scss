@@ -1,0 +1,81 @@
+// Font family
+%font-family {
+  color: $med-blue;
+  font-family: $main-stack;
+  font-size: 13px;
+}
+
+//Regular Text
+%text {
+  color: $main-text-color;
+  font-family: $main-stack;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+//Blue Border
+%blue-border {
+  border: $br $med-blue;
+}
+
+//Toggle Buttons
+%onoffswitch {
+  position: relative;
+}
+%onoffswitch-checkbox {
+  display: none;
+}
+%onoffswitch-label {
+  display: block;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid #CCCCCC;
+  border-radius: 0px;
+}
+%onoffswitch-inner {
+  display: block;
+  width: 200%;
+  margin-left: -100%;
+  transition: margin 0.3s ease-in 0s;
+}
+%onoffswitch-inner-before-after {
+  display: block;
+  float: left;
+  width: 50%;
+  height: 25px;
+  padding: 0;
+  line-height: 25px;
+  font-size: 12px;
+  color: white;
+  font-family: $main-stack;
+  font-weight: bold;
+  box-sizing: border-box;
+}
+%onoffswitch-inner-before {
+  padding-left: 10px;
+  background-color: #2EE7CF;
+  color: #333333;
+}
+%onoffswitch-inner-after {
+  padding-right: 10px;
+  background-color: #EEEEEE;
+  color: #999999;
+  text-align: right;
+}
+%onoffswitch-switch {
+  display: block;
+  width: 25px;
+  margin: 0px;
+  background: #E4E4E4;
+  position: absolute;
+  top: 0; bottom: 0;
+  border: 2px solid #CCCCCC;
+  border-radius: 0px;
+  transition: all 0.3s ease-in 0s;
+}
+%onoffswitch-checkbox-label-inner {
+  margin-left: 0;
+}
+%onoffswitch-checkbox-label-switch {
+  right: 0px;
+}

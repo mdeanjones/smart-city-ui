@@ -1,0 +1,128 @@
+// Demand & Emissions - Top Section
+p {
+  @extend %text;
+  margin: 0;
+}
+
+.no-pad {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.main-text {
+  @extend %text;
+  font-weight: bold;
+}
+
+.pad-top {
+  padding-top: 20px;
+}
+
+//---- FIRST SWITCH
+.onoffswitch {
+  @extend %onoffswitch;
+  width: 104px;
+}
+.onoffswitch-checkbox {
+  @extend %onoffswitch-checkbox;
+}
+.onoffswitch-label {
+  @extend %onoffswitch-label;
+}
+.onoffswitch-inner {
+  @extend %onoffswitch-inner;
+}
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+  @extend %onoffswitch-inner-before-after;
+}
+.onoffswitch-inner:before {
+  @extend %onoffswitch-inner-before;
+  content: "Demand";
+}
+.onoffswitch-inner:after {
+  @extend %onoffswitch-inner-after;
+  content: "Emissions";
+}
+.onoffswitch-switch {
+  @extend %onoffswitch-switch;
+  right: 80px;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+  @extend %onoffswitch-checkbox-label-inner;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+  @extend %onoffswitch-checkbox-label-switch;
+}
+
+
+//---- SECOND SWITCH
+.onoffswitch-second {
+  @extend %onoffswitch;
+  width: 69px;
+}
+.onoffswitch-checkbox-second {
+  @extend %onoffswitch-checkbox;
+}
+.onoffswitch-label-second {
+  @extend %onoffswitch-label;
+}
+.onoffswitch-inner-second {
+  @extend %onoffswitch-inner;
+}
+.onoffswitch-inner-second:before, .onoffswitch-inner-second:after {
+  @extend %onoffswitch-inner-before-after;
+}
+.onoffswitch-inner-second:before {
+  @extend %onoffswitch-inner-before;
+  content: "EV";
+}
+.onoffswitch-inner-second:after {
+  @extend %onoffswitch-inner-after;
+  content: "Gas";
+}
+.onoffswitch-switch-second {
+  @extend %onoffswitch-switch;
+  right: 45px;
+}
+.onoffswitch-checkbox-second:checked + .onoffswitch-label-second .onoffswitch-inner-second {
+  @extend %onoffswitch-checkbox-label-inner;
+}
+.onoffswitch-checkbox-second:checked + .onoffswitch-label-second .onoffswitch-switch-second {
+  @extend %onoffswitch-checkbox-label-switch;
+}
+
+//---- THIRD SWITCH
+.onoffswitch-third {
+  @extend %onoffswitch;
+  width: 90px;
+}
+.onoffswitch-checkbox-third {
+  @extend %onoffswitch-checkbox;
+}
+.onoffswitch-label-third {
+  @extend %onoffswitch-label;
+}
+.onoffswitch-inner-third {
+  @extend %onoffswitch-inner;
+}
+.onoffswitch-inner-third:before, .onoffswitch-inner-third:after {
+  @extend %onoffswitch-inner-before-after;
+}
+.onoffswitch-inner-third:before {
+  @extend %onoffswitch-inner-before;
+  content: "Aggregate";
+}
+.onoffswitch-inner-third:after {
+  @extend %onoffswitch-inner-before;
+  content: "Sweep";
+}
+.onoffswitch-switch-third {
+  @extend %onoffswitch-switch;
+  right: 65px;
+}
+.onoffswitch-checkbox-third:checked + .onoffswitch-label-third .onoffswitch-inner-third {
+  @extend %onoffswitch-checkbox-label-inner;
+}
+.onoffswitch-checkbox-third:checked + .onoffswitch-label-third .onoffswitch-switch-third {
+  @extend %onoffswitch-checkbox-label-switch;
+}

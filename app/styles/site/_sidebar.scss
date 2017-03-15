@@ -3,30 +3,24 @@
 }
 
 .section-title {
-  margin: 0;
-  color: $med-blue;
-  font-family: $main-stack;
-  font-size: 13px;
+  @extend %font-family;
   font-weight: bold;
+  margin: 0;
 }
 
 hr {
-  border: $br $med-blue;
+  @extend %blue-border;
   margin: 3px auto 10px;
 }
 
-.sidebar-row {
-  padding-bottom: 7px;
-}
-
-input[type="checkbox"] + label:before {
-  background-color: red;
-  width: 17px;
-  height: 17px;
-  padding: 30px;
-  vertical-align: middle;
-  border: 5px solid black;
-}
+// input[type="checkbox"] + label:before {
+//   background-color: red;
+//   width: 17px;
+//   height: 17px;
+//   padding: 30px;
+//   vertical-align: middle;
+//   border: 5px solid black;
+// }
 
 .icon {
   width: 25px;
@@ -82,10 +76,9 @@ input[type="checkbox"] + label:before {
 }
 
 label {
-  color: $main-text-color;
-  font-family: $main-stack;
-  font-size: 12px;
-  font-weight: normal;
+  @extend %text;
   margin: 0;
-  vertical-align: middle;
+  display: inline-block;
+  // padding-bottom: 20px;
+  // vertical-align: top;
 }

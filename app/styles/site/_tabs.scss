@@ -4,30 +4,26 @@
 }
 
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+  @extend %font-family;
+  @extend %blue-border;
   background-color: rgba($selected-tab, 0.65);
-  border: $br $med-blue;
   border-bottom: none;
-  color: $med-blue;
-  font-family: $main-stack;
-  font-size: 13px;
   font-weight: bold;
   padding: 3px 15px;
 }
 
 .inactive {
+  @extend %font-family;
   background-color: $unselected-tab;
   border-bottom: none;
-  color: $med-blue;
-  font-family: $main-stack;
-  font-size: 13px;
   font-weight: normal;
   margin: 0;
   padding: 0;
 }
 
 .nav > li > a, .nav > li > a:hover {
+  @extend %font-family;
+  @extend %blue-border;
   background-color: $unselected-tab;
   padding: 3px 15px;
-  border: $br $med-blue;
-  color: $med-blue;
 }
