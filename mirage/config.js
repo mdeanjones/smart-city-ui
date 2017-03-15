@@ -1,26 +1,26 @@
 export default function() {
 
-  this.get('/ev_station_locations', ({ evStationLocations }) => {
+  this.get('/evStationLocations', ({ evStationLocations }) => {
     return evStationLocations.all();
   });
 
 
-  this.get('/existing_charging_stations', ({ existingChargingStations }) => {
+  this.get('/existingChargingStations', ({ existingChargingStations }) => {
     return existingChargingStations.all();
   });
 
 
-  this.get('/gas_station_locations', ({ gasStationLocations }) => {
+  this.get('/gasStationLocations', ({ gasStationLocations }) => {
     return gasStationLocations.all();
   });
 
 
-  this.get('/grid_attributes', ({ gridAttributes }) => {
+  this.get('/gridAttributes', ({ gridAttributes }) => {
     return gridAttributes.all();
   });
 
 
-  this.get('/zone_class_cords', ({ zoneClassCords }) => {
+  this.get('/zoneClassCords', ({ zoneClassCords }) => {
     return zoneClassCords.all();
   });
 

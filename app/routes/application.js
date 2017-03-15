@@ -1,14 +1,22 @@
 import Ember from 'ember';
 
-const { Route, inject, get } = Ember;
+const {
+  Route,
+  RSVP: {
+    all,
+  },
+} = Ember;
 
 
 export default Route.extend({
-  mapService: inject.service('smart-city-maps'),
-
-
   // Load fixture data when the application first initializes.
   beforeModel() {
-    return get(this, 'mapService.store').load();
+    return all([
+      this.store.findAll('ev-station-location'),
+      this.store.findAll('existing-charging-station'),
+      this.store.findAll('gas-station-location'),
+      this.store.findAll('grid-attribute'),
+      this.store.findAll('zone-class-cord'),
+    ]);
   },
 });
