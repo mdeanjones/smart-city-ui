@@ -9,10 +9,6 @@ p {
   padding-right: 0;
 }
 
-.pad-right {
-  padding-right: 5px;
-}
-
 .main-text {
   @extend %text;
   font-weight: bold;
