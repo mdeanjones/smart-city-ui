@@ -73,12 +73,12 @@ $toggle-default-color:  #999;
   }
 
   .btn-default {
-    background-color: $toggle-default-bg;
-    color: $toggle-default-color;
+    background-color: $toggle-primary-bg;
+    color: $toggle-primary-color;
 
     &:hover, &:focus, &:active {
-      background-color: $toggle-default-bg;
-      color: $toggle-default-color;
+      background-color: $toggle-primary-bg;
+      color: $toggle-primary-color;
     }
   }
 }

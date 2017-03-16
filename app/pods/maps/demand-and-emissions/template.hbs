@@ -14,13 +14,7 @@
           </div>
 
           <div class="col-sm-6 no-pad">
-            <div class="onoffswitch">
-              <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
-              <label class="onoffswitch-label" for="myonoffswitch">
-                  <span class="onoffswitch-inner"></span>
-                  <span class="onoffswitch-switch"></span>
-              </label>
-            </div>
+            {{toggle-switch on='Demand' off='Emissions' offStyle=“btn-default”}}
           </div>
       </div>
 
@@ -35,20 +29,11 @@
 
         <div class="col-sm-5 no-pad">
           <br>
-            {{toggle-switch on='Aggregate' off='Sweep' onChange=(action 'aggregateOrSweepToggleChange')}}
-
-
-          <div class="onoffswitch-third">
-            <input type="checkbox" name="onoffswitch-third" class="onoffswitch-checkbox-third" id="myonoffswitch-third" checked>
-            <label class="onoffswitch-label-third" for="myonoffswitch-third">
-                <span class="onoffswitch-inner-third"></span>
-                <span class="onoffswitch-switch-third"></span>
-            </label>
-          </div>
+          {{toggle-switch on='Aggregate' off='Sweep' offStyle=“btn-default”}}
         </div>
 
         <div class="col-sm-7 no-pad">
-            {{#dropdown-list as |dropdown|}}
+            <!-- {{#dropdown-list as |dropdown|}}
                 <p>Select day:</p>
                 {{dropdown.toggle 'Monday' class='btn btn-secondary'}}
 
@@ -62,9 +47,10 @@
                         <button class="btn btn-default" type="button">Sunday</button>
                     </div>
                 {{/dropdown.options}}
-            {{/dropdown-list}}
+            {{/dropdown-list}} -->
 
             <!-- I like this dropdown - how can I keep this style inside the curlies ?? -->
+            <p>Select day:</p>
             <select class="select-dropdown">
               <option class="btn btn-default" value="monday">Monday</option>
               <option class="btn btn-default" value="monday">Tuesday</option>
@@ -89,7 +75,8 @@
             <p>Select between EV and IC vehicles.</p>
           </div>
 
-          <div class="col-sm-6 no-pad">
+          {{toggle-switch on='EV' off='Gas'  offStyle=“primary”}}
+          <!-- <div class="col-sm-6 no-pad">
             <div class="onoffswitch-second">
               <input type="checkbox" name="onoffswitch-second" class="onoffswitch-checkbox-second" id="myonoffswitch-second" checked>
               <label class="onoffswitch-label-second" for="myonoffswitch-second">
@@ -97,7 +84,7 @@
                   <span class="onoffswitch-switch-second"></span>
               </label>
             </div>
-          </div>
+          </div> -->
       </div>
 
       <div class="col-sm-5 no-pad">

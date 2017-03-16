@@ -18,8 +18,18 @@ export default Controller.extend({
         .setCenter();
     },
 
+    demandOrEmissionsToggleChange(isChecked) {
+      console.log(`The demand or emissions toggle switch is currently set to "${isChecked ? 'Demand' : 'Emissions'}"`);
+    },
+
+    evOrGasToggleChange(isChecked) {
+      console.log(`The EV or gas toggle switch is currently set to "${isChecked ? 'Ev' : 'Gas'}"`);
+    },
+
     aggregateOrSweepToggleChange(isChecked) {
       console.log(`The aggregate or sweep toggle switch is currently set to "${isChecked ? 'Aggregate' : 'Sweep'}"`);
     }
+
+
   }
 });
