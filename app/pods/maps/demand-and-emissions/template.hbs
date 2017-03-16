@@ -1,103 +1,139 @@
 <div class="row">
-    <div class="col-sm-3">
-        {{maps-sidebar mapService=mapService}}
-    </div>
+  <!-- Sidebar Starts -->
+  <div class="col-sm-3">
+    {{maps-sidebar mapService=mapService}}
+  </div>
+  <!-- Sidebar Ends -->
 
-    <div class="col-sm-9 no-pad">
+  <!-- Top Section - First Starts -->
+  <div class="col-sm-9 no-pad">
+    <!-- Top - Left Column, First Row Starts -->
+    <div class="col-sm-7 no-pad">
+      <h4 class="section-title">Demand & Emissions</h4>
+      <hr>
+
       <div class="col-sm-7 no-pad">
-        <h4 class="section-title">Demand & Emissions</h4>
-        <hr>
+        <div class="col-sm-6 no-pad">
+          <p>View information on predicted charging demand or actual emissions data.</p>
+        </div>
 
-        <div class="col-sm-7 no-pad">
-          <div class="col-sm-6 no-pad">
-            <p>View information on predicted charging demand or actual emissions data.</p>
-          </div>
-
-          <div class="col-sm-6 no-pad">
-            {{toggle-switch on='Demand' off='Emissions' offStyle=“btn-default”}}
-          </div>
+        <div class="col-sm-6 no-pad">
+          {{toggle-switch on='Demand' off='Emissions' offStyle=“btn-default”}}
+        </div>
       </div>
 
-      <div class="col-sm-5 no-pad">
+      <div class="col-sm-5 no-pad pad-right">
         <p>Select percentage of EV in fleet</p>
+        {{ui-slider
+            value=0
+            min=0
+            max=20
+            step=1
+            orientation='horizontal'
+            tooltip='show'
+            disabled=false
+            handle='square'
+            reversed=false
+            focus=false
+            naturalArrowKeys=false
+            immediateResponse=false
+        }}
+        <div class="range ev-charge-left">0</div>
+        <div class="range ev-charge-right">20</div>
       </div>
     </div>
+    <!-- Top - Left Column, First Row Ends -->
 
-      <div class="col-sm-5">
-        <h4 class="section-title">Set time range</h4>
-        <hr>
+    <!-- Top - Rigth Column Starts -->
+    <div class="col-sm-5">
+      <h4 class="section-title">Set time range</h4>
+      <hr>
 
-        <div class="col-sm-5 no-pad">
-          <br>
-          {{toggle-switch on='Aggregate' off='Sweep' offStyle=“btn-default”}}
-        </div>
-
-        <div class="col-sm-7 no-pad">
-            <!-- {{#dropdown-list as |dropdown|}}
-                <p>Select day:</p>
-                {{dropdown.toggle 'Monday' class='btn btn-secondary'}}
-
-                {{#dropdown.options}}
-                    <div class="btn-group-vertical dropdown-toggle" role="group">
-                        <button class="btn btn-default" type="button">Tuesday</button>
-                        <button class="btn btn-default" type="button">Wednesday</button>
-                        <button class="btn btn-default" type="button">Thursday</button>
-                        <button class="btn btn-default" type="button">Friday</button>
-                        <button class="btn btn-default" type="button">Saturday</button>
-                        <button class="btn btn-default" type="button">Sunday</button>
-                    </div>
-                {{/dropdown.options}}
-            {{/dropdown-list}} -->
-
-            <!-- I like this dropdown - how can I keep this style inside the curlies ?? -->
-            <p>Select day:</p>
-            <select class="select-dropdown">
-              <option class="btn btn-default" value="monday">Monday</option>
-              <option class="btn btn-default" value="monday">Tuesday</option>
-              <option class="btn btn-default" value="monday">Wednesday</option>
-              <option class="btn btn-default" value="monday">Thursday</option>
-              <option class="btn btn-default" value="monday">Friday</option>
-              <option class="btn btn-default" value="monday">Saturday</option>
-              <option class="btn btn-default" value="monday">Sunday</option>
-            </select>
-        </div>
+      <!-- Aggregate Switch Button Starts -->
+      <div class="col-sm-5 no-pad">
+        <br>
+        {{toggle-switch on='Aggregate' off='Sweep' offStyle=“btn-default”}}
       </div>
-    </div>
+      <!-- Aggregate Switch Button Ends -->
 
-
-    <div class="col-sm-9 no-pad">
+      <!-- Dropdown Menu Starts -->
       <div class="col-sm-7 no-pad">
-        <h4 class="section-title pad-top">Select Vehicle Type</h4>
-        <hr>
+        <p>Select day:</p>
+        <select class="select-dropdown">
+          <option class="btn btn-default" value="monday">Monday</option>
+          <option class="btn btn-default" value="monday">Tuesday</option>
+          <option class="btn btn-default" value="monday">Wednesday</option>
+          <option class="btn btn-default" value="monday">Thursday</option>
+          <option class="btn btn-default" value="monday">Friday</option>
+          <option class="btn btn-default" value="monday">Saturday</option>
+          <option class="btn btn-default" value="monday">Sunday</option>
+        </select>
+      </div>
+      <!-- Dropdown Menu Ends -->
+    </div>
+    <!-- Top - Rigth Column Ends -->
+  </div>
+  <!-- Top Section - First Row Ends -->
 
-        <div class="col-sm-7 no-pad">
-          <div class="col-sm-6 no-pad">
-            <p>Select between EV and IC vehicles.</p>
-          </div>
+  <!-- Top Section - Second Row Starts -->
+  <div class="col-sm-9 no-pad">
+    <div class="col-sm-7 no-pad">
+      <h4 class="section-title pad-top">Select Vehicle Type</h4>
+      <hr>
 
-          {{toggle-switch on='EV' off='Gas'  offStyle=“primary”}}
-          <!-- <div class="col-sm-6 no-pad">
-            <div class="onoffswitch-second">
-              <input type="checkbox" name="onoffswitch-second" class="onoffswitch-checkbox-second" id="myonoffswitch-second" checked>
-              <label class="onoffswitch-label-second" for="myonoffswitch-second">
-                  <span class="onoffswitch-inner-second"></span>
-                  <span class="onoffswitch-switch-second"></span>
-              </label>
-            </div>
-          </div> -->
+      <div class="col-sm-7 no-pad">
+        <div class="col-sm-6 no-pad">
+          <p>Select between EV and IC vehicles.</p>
+        </div>
+        {{toggle-switch on='EV' off='Gas'  offStyle=“primary”}}
       </div>
 
       <div class="col-sm-5 no-pad">
         <p>Charge remaining or less</p>
+        {{ui-slider
+            value=0
+            min=0
+            max=100
+            step=1
+            orientation='horizontal'
+            tooltip='show'
+            disabled=false
+            handle='square'
+            reversed=false
+            focus=false
+            naturalArrowKeys=false
+            immediateResponse=false
+        }}
+        <div class="range ev-charge-left">0</div>
+        <div class="range ev-charge-right">100</div>
       </div>
     </div>
-
-
+    <div class="col-sm-5">
+      {{range-slider
+          value=0
+          min=12:00am
+          max=11:59pm
+          step=12:00am
+          orientation='horizontal'
+          tooltip='show'
+          disabled=false
+          handle='square'
+          reversed=false
+          focus=false
+          naturalArrowKeys=false
+          immediateResponse=false
+      }}
+      <div class="range left">12:00am</div>
+      <div class="range right">11:59pm</div>
     </div>
+  </div>
+  <!-- Top Section - Second Row End-->
 
-    <div class="col-sm-9 pad-map">
-      <div id="map">
-        {{leaflet-map height='500px' onMapReady=(action 'mapReady')}}
-      </div>
+  <!-- Map Section Starts -->
+  <div class="col-sm-9 pad-map">
+    <div id="map">
+      {{leaflet-map height='500px' onMapReady=(action 'mapReady')}}
     </div>
+  </div>
+  <!-- Map Section Ends -->
 </div>

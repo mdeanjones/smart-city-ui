@@ -9,126 +9,67 @@ p {
   padding-right: 0;
 }
 
+.pad-right {
+  padding-right: 5px;
+}
+
 .main-text {
   @extend %text;
   font-weight: bold;
 }
 
+input {
+  width: 40px;
+}
+
+// Sliders
+.slider {
+  margin-top: 10px;
+}
+
+.slider-handle {
+  border: 2px solid black;
+  background-color: $light-blue;
+  background-image: none;
+  margin-right: 0;
+  width: 10px;
+}
+
+.slider.slider-horizontal .slider-tick, .slider.slider-horizontal .slider-handle {
+  margin-left: 0;
+}
+
+.slider.slider-horizontal {
+  width: 250px;
+}
+
+//Slider Info
+.range {
+  font-size: 10px;
+  display: inline;
+  padding-top: 5px;
+}
+
+.ev-charge-left {
+  padding-right: 70px;
+}
+
+.ev-charge-right {
+  padding-left: 70px;
+}
+
+.left {
+  padding-right: 90px;
+}
+
+.right {
+  padding-left: 90px;
+}
+
+
+// Map Section
 .pad-top {
   padding-top: 20px;
-}
-
-//---- FIRST SWITCH
-.onoffswitch {
-  @extend %onoffswitch;
-  width: 90px;
-}
-.onoffswitch-checkbox {
-  @extend %onoffswitch-checkbox;
-}
-.onoffswitch-label {
-  @extend %onoffswitch-label;
-}
-.onoffswitch-inner {
-  @extend %onoffswitch-inner;
-}
-.onoffswitch-inner:before, .onoffswitch-inner:after {
-  @extend %onoffswitch-inner-before-after;
-}
-.onoffswitch-inner:before {
-  @extend %onoffswitch-inner-before;
-  content: "Demand";
-}
-.onoffswitch-inner:after {
-  @extend %onoffswitch-inner-after;
-  content: "Emissions";
-  text-align: right;
-}
-.onoffswitch-switch {
-  @extend %onoffswitch-switch;
-  right: 68px;
-}
-.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
-  @extend %onoffswitch-checkbox-label-inner;
-}
-.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
-  @extend %onoffswitch-checkbox-label-switch;
-}
-
-
-//---- SECOND SWITCH
-.onoffswitch-second {
-  @extend %onoffswitch;
-  width: 60px;
-}
-.onoffswitch-checkbox-second {
-  @extend %onoffswitch-checkbox;
-}
-.onoffswitch-label-second {
-  @extend %onoffswitch-label;
-}
-.onoffswitch-inner-second {
-  @extend %onoffswitch-inner;
-}
-.onoffswitch-inner-second:before, .onoffswitch-inner-second:after {
-  @extend %onoffswitch-inner-before-after;
-}
-.onoffswitch-inner-second:before {
-  @extend %onoffswitch-inner-before;
-  content: "EV";
-}
-.onoffswitch-inner-second:after {
-  @extend %onoffswitch-inner-after;
-  content: "Gas";
-  text-align: right;
-}
-.onoffswitch-switch-second {
-  @extend %onoffswitch-switch;
-  right: 35px;
-}
-.onoffswitch-checkbox-second:checked + .onoffswitch-label-second .onoffswitch-inner-second {
-  @extend %onoffswitch-checkbox-label-inner;
-}
-.onoffswitch-checkbox-second:checked + .onoffswitch-label-second .onoffswitch-switch-second {
-  @extend %onoffswitch-checkbox-label-switch;
-}
-
-//---- THIRD SWITCH
-.onoffswitch-third {
-  @extend %onoffswitch;
-  width: 100px;
-}
-.onoffswitch-checkbox-third {
-  @extend %onoffswitch-checkbox;
-}
-.onoffswitch-label-third {
-  @extend %onoffswitch-label;
-}
-.onoffswitch-inner-third {
-  @extend %onoffswitch-inner;
-}
-.onoffswitch-inner-third:before, .onoffswitch-inner-third:after {
-  @extend %onoffswitch-inner-before-after;
-}
-.onoffswitch-inner-third:before {
-  @extend %onoffswitch-inner-before;
-  content: "Aggregate";
-}
-.onoffswitch-inner-third:after {
-  @extend %onoffswitch-inner-after;
-  content: "Sweep";
-  text-align: center;
-  // padding-left: 80px;
-}
-.onoffswitch-switch-third {
-  @extend %onoffswitch-switch;
-  right: 75px;
-}
-.onoffswitch-checkbox-third:checked + .onoffswitch-label-third .onoffswitch-inner-third {
-  @extend %onoffswitch-checkbox-label-inner;
-}
-.onoffswitch-checkbox-third:checked + .onoffswitch-label-third .onoffswitch-switch-third {
-  @extend %onoffswitch-checkbox-label-switch;
 }
 
 .pad-map {
