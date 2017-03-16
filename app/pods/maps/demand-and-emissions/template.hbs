@@ -50,16 +50,30 @@
         <div class="col-sm-7 no-pad">
             {{#dropdown-list as |dropdown|}}
                 <p>Select day:</p>
-                {{dropdown.toggle 'Dropdown' class='btn btn-secondary'}}
+                {{dropdown.toggle 'Monday' class='btn btn-secondary'}}
 
                 {{#dropdown.options}}
-                    <div class="btn-group-vertical" role="group">
-                        <button class="btn btn-default" type="button">Action</button>
-                        <button class="btn btn-default" type="button">Another action</button>
-                        <button class="btn btn-default" type="button">Something else here</button>
+                    <div class="btn-group-vertical dropdown-toggle" role="group">
+                        <button class="btn btn-default" type="button">Tuesday</button>
+                        <button class="btn btn-default" type="button">Wednesday</button>
+                        <button class="btn btn-default" type="button">Thursday</button>
+                        <button class="btn btn-default" type="button">Friday</button>
+                        <button class="btn btn-default" type="button">Saturday</button>
+                        <button class="btn btn-default" type="button">Sunday</button>
                     </div>
                 {{/dropdown.options}}
             {{/dropdown-list}}
+
+            <!-- I like this dropdown - how can I keep this style inside the curlies ?? -->
+            <select class="select-dropdown">
+              <option class="btn btn-default" value="monday">Monday</option>
+              <option class="btn btn-default" value="monday">Tuesday</option>
+              <option class="btn btn-default" value="monday">Wednesday</option>
+              <option class="btn btn-default" value="monday">Thursday</option>
+              <option class="btn btn-default" value="monday">Friday</option>
+              <option class="btn btn-default" value="monday">Saturday</option>
+              <option class="btn btn-default" value="monday">Sunday</option>
+            </select>
         </div>
       </div>
     </div>

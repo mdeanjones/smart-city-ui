@@ -52,15 +52,14 @@
   box-sizing: border-box;
 }
 %onoffswitch-inner-before {
-  padding-left: 10px;
+  padding-left: 5px;
   background-color: #2EE7CF;
   color: #333333;
 }
 %onoffswitch-inner-after {
-  padding-right: 10px;
-  background-color: #EEEEEE;
-  color: #999999;
-  text-align: right;
+  padding-right: 5px;
+  background-color: #2EE7CF;
+  color: #333333;
 }
 %onoffswitch-switch {
   display: block;
