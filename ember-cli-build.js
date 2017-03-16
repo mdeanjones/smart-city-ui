@@ -25,6 +25,10 @@ module.exports = function(defaults) {
   // along with the exports of each module as its value.
   app.import('bower_components/leaflet/dist/leaflet.css');
   app.import('bower_components/leaflet/dist/leaflet.js');
+
+  app.import('bower_components/bootstrap-toggle/css/bootstrap-toggle.css');
+  app.import('bower_components/bootstrap-toggle/js/bootstrap-toggle.js');
+
   app.import('bower_components/leaflet/dist/images/layers.png', { destDir: 'assets/images' });
   app.import('bower_components/leaflet/dist/images/layers-2x.png', { destDir: 'assets/images' });
   app.import('bower_components/leaflet/dist/images/marker-icon.png', { destDir: 'assets/images' });

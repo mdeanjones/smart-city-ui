@@ -1,0 +1,84 @@
+$toggle-font-weight:    bold;
+$toggle-font-size:      12px;
+$toggle-border-weight:  2px;
+$toggle-border-color:   #ccc;
+$toggle-handle-bg:      #e4e4e4;
+$toggle-primary-bg:     #2ee7cf;
+$toggle-primary-color:  #333;
+$toggle-default-bg:     #eee;
+$toggle-default-color:  #999;
+
+
+.toggle {
+  border-radius: 0;
+
+  &.btn {
+    min-height: 0;
+  }
+
+  .btn {
+    font-size: $toggle-font-size;
+    font-weight: $toggle-font-weight;
+  }
+
+  .toggle-on, .toggle-off {
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+
+    &:hover, &:focus, &:active {
+      box-shadow: none;
+    }
+  }
+
+  .toggle-handle, .toggle-handle.btn-default {
+    background-color: $toggle-handle-bg;
+    border-color: $toggle-border-color;
+    border-radius: 0;
+    border-top: none;
+    border-bottom: none;
+
+    &:hover, &:focus, &:active {
+      background-color: $toggle-handle-bg;
+      border-color: $toggle-border-color;
+      border-radius: 0;
+      box-shadow: none;
+    }
+  }
+
+  &.off .toggle-handle {
+    border-right: solid $toggle-border-weight $toggle-border-color;
+  }
+
+  &:not(.off) .toggle-handle {
+    border-left: solid $toggle-border-weight $toggle-border-color;
+  }
+
+  &.btn-primary, &.btn-default {
+    border: solid $toggle-border-weight $toggle-border-color;
+
+    &:hover, &:focus, &:active {
+      border: solid $toggle-border-weight $toggle-border-color;
+    }
+  }
+
+  .btn-primary {
+    background-color: $toggle-primary-bg;
+    color: $toggle-primary-color;
+
+    &:hover, &:focus, &:active {
+      background-color: $toggle-primary-bg;
+      color: $toggle-primary-color;
+    }
+  }
+
+  .btn-default {
+    background-color: $toggle-default-bg;
+    color: $toggle-default-color;
+
+    &:hover, &:focus, &:active {
+      background-color: $toggle-default-bg;
+      color: $toggle-default-color;
+    }
+  }
+}
