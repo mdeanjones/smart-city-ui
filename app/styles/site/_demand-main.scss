@@ -21,7 +21,7 @@ p {
 //---- FIRST SWITCH
 .onoffswitch {
   @extend %onoffswitch;
-  width: 104px;
+  width: 90px;
 }
 .onoffswitch-checkbox {
   @extend %onoffswitch-checkbox;
@@ -42,10 +42,11 @@ p {
 .onoffswitch-inner:after {
   @extend %onoffswitch-inner-after;
   content: "Emissions";
+  text-align: right;
 }
 .onoffswitch-switch {
   @extend %onoffswitch-switch;
-  right: 80px;
+  right: 68px;
 }
 .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
   @extend %onoffswitch-checkbox-label-inner;
@@ -58,7 +59,7 @@ p {
 //---- SECOND SWITCH
 .onoffswitch-second {
   @extend %onoffswitch;
-  width: 69px;
+  width: 60px;
 }
 .onoffswitch-checkbox-second {
   @extend %onoffswitch-checkbox;
@@ -79,10 +80,11 @@ p {
 .onoffswitch-inner-second:after {
   @extend %onoffswitch-inner-after;
   content: "Gas";
+  text-align: right;
 }
 .onoffswitch-switch-second {
   @extend %onoffswitch-switch;
-  right: 45px;
+  right: 35px;
 }
 .onoffswitch-checkbox-second:checked + .onoffswitch-label-second .onoffswitch-inner-second {
   @extend %onoffswitch-checkbox-label-inner;
@@ -94,7 +96,7 @@ p {
 //---- THIRD SWITCH
 .onoffswitch-third {
   @extend %onoffswitch;
-  width: 90px;
+  width: 100px;
 }
 .onoffswitch-checkbox-third {
   @extend %onoffswitch-checkbox;
@@ -113,12 +115,14 @@ p {
   content: "Aggregate";
 }
 .onoffswitch-inner-third:after {
-  @extend %onoffswitch-inner-before;
+  @extend %onoffswitch-inner-after;
   content: "Sweep";
+  text-align: center;
+  // padding-left: 80px;
 }
 .onoffswitch-switch-third {
   @extend %onoffswitch-switch;
-  right: 65px;
+  right: 75px;
 }
 .onoffswitch-checkbox-third:checked + .onoffswitch-label-third .onoffswitch-inner-third {
   @extend %onoffswitch-checkbox-label-inner;
