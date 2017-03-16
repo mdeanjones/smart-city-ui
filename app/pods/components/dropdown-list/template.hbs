@@ -1,0 +1,4 @@
+{{yield (hash isOpen  = isOpen
+              toggle  = (component 'dropdown-list/dropdown-list-toggle' id=toggleId isOpen=isOpen toggleAction=(action 'toggleAction'))
+              options = (component 'dropdown-list/dropdown-list-options' ariaLabelledBy=toggleId))
+}}

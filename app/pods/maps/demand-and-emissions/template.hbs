@@ -45,20 +45,19 @@
         </div>
 
         <div class="col-sm-7 no-pad">
-          <div class="dropdown">
-            <!-- Bootstrap not working -->
-            <p>Select  day:</p>
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Dropdown
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-              <button class="dropdown-item" type="button">Action</button>
-              <button class="dropdown-item" type="button">Another action</button>
-              <button class="dropdown-item" type="button">Something else here</button>
-            </div>
-          </div>
-        </div>
+            {{#dropdown-list as |dropdown|}}
+                <p>Select day:</p>
+                {{dropdown.toggle 'Dropdown' class='btn btn-secondary'}}
 
+                {{#dropdown.options}}
+                    <div class="btn-group-vertical" role="group">
+                        <button class="btn btn-default" type="button">Action</button>
+                        <button class="btn btn-default" type="button">Another action</button>
+                        <button class="btn btn-default" type="button">Something else here</button>
+                    </div>
+                {{/dropdown.options}}
+            {{/dropdown-list}}
+        </div>
       </div>
     </div>
 
