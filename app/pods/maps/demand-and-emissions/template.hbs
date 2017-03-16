@@ -35,6 +35,9 @@
 
         <div class="col-sm-5 no-pad">
           <br>
+            {{toggle-switch on='Aggregate' off='Sweep' onChange=(action 'aggregateOrSweepToggleChange')}}
+
+
           <div class="onoffswitch-third">
             <input type="checkbox" name="onoffswitch-third" class="onoffswitch-checkbox-third" id="myonoffswitch-third" checked>
             <label class="onoffswitch-label-third" for="myonoffswitch-third">

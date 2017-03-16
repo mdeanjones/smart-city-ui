@@ -16,6 +16,10 @@ export default Controller.extend({
         .updateTargetMap(map)
         .setZoom()
         .setCenter();
+    },
+
+    aggregateOrSweepToggleChange(isChecked) {
+      console.log(`The aggregate or sweep toggle switch is currently set to "${isChecked ? 'Aggregate' : 'Sweep'}"`);
     }
   }
 });
