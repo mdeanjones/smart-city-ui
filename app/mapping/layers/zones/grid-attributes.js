@@ -27,9 +27,6 @@ export default Zone.extend({
     const zones = [];
 
 
-    console.log(get(record, 'agricultureRollupValue'));
-
-
     if (get(record, 'agricultureRollupValue')) {
       zones.push('Agriculture');
     }
