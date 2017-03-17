@@ -65,7 +65,7 @@ const Toggle =  Component.extend({
 
 
   willDestroyElement() {
-    get(this, 'targetElement').destroy();
+    get(this, 'targetElement').bootstrapToggle('destroy');
     this._super(...arguments);
   },
 });
