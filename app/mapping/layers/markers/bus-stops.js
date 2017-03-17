@@ -9,6 +9,8 @@ const {
 
 
 export default Marker.extend({
+  cluster: true,
+
   icon: computed(function() {
     return L.icon({
       iconUrl: '/assets/images/icon_bus.png',

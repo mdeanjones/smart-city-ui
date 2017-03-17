@@ -12,6 +12,10 @@ const {
 export default MapLayer.extend({
   coordinatesKey: 'coordinates',
 
+  cluster: false,
+
+  clusterOptions: {},
+
 
   icon: computed(function() {
     return L.icon({});
@@ -25,18 +29,31 @@ export default MapLayer.extend({
       icon,
     } = getProperties(this, ['records', 'coordinatesKey', 'icon']);
 
+    return this.createLayer(records, coordinatesKey, icon);
+  }).readOnly(),
+
+
+  createLayer(records, coordinatesKey, icon) {
     if (records && get(records, 'length')) {
-      const items = [];
+      const cluster = get(this, 'cluster');
+      const items = cluster ? L.markerClusterGroup(get(this, 'clusterOptions')) : [];
 
       records.forEach((item) => {
-        items.push(this.createMarker(get(item, coordinatesKey), icon));
+        const marker = this.createMarker(get(item, coordinatesKey), icon, item);
+
+        if (cluster) {
+          items.addLayer(marker);
+        }
+        else {
+          items.push(marker);
+        }
       });
 
-      return L.layerGroup(items);
+      return cluster ? items : L.layerGroup(items);
     }
 
     return null;
-  }).readOnly(),
+  },
 
 
   createMarker(coordinates, icon) {
