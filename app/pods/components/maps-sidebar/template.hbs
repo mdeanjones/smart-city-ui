@@ -12,7 +12,7 @@
 
     <div class="checkbox">
         <label>
-            {{input type="checkbox" checked=mapService.existingEvMarkers.isVisible}}
+            {{input type="checkbox" checked=mapService.existingEvMarkers.isVisible disabled=true}}
             <img class="icon" src="/assets/images/ex_fastcharge-icon.png" alt="Existing charging stations">
             Existing Charging Stations
         </label>
@@ -26,9 +26,9 @@
         </label>
     </div>
 
-    <div class="checkbox disabled">
+    <div class="checkbox">
         <label>
-            {{input type="checkbox" disabled=true}}
+            {{input type="checkbox" checked=mapService.busStopMarkers.isVisible}}
             <img class="icon" src="/assets/images/icon_bus.png" alt="Bus stops">
             Bus stops
         </label>

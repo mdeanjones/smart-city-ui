@@ -15,6 +15,11 @@ export default function() {
   });
 
 
+  this.get('/busStops', ({ busStops }) => {
+    return busStops.all();
+  });
+
+
   this.get('/gridAttributes', ({ gridAttributes }) => {
     return gridAttributes.all();
   });
