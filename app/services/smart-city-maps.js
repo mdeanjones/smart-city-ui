@@ -6,6 +6,7 @@ import {
   ExistingEvMarkers,
   ProposedEvMarkers,
   GasStationMarkers,
+  BusStopMarkers,
 
   AgricultureZone,
   CommercialZone,
@@ -51,8 +52,9 @@ export default Service.extend({
 
   layerKeys: computed(function() {
     return ['streetMapTiles', 'existingEvMarkers', 'proposedEvMarkers', 'gasStationMarkers',
-      'agricultureZone', 'commercialZone', 'downtownZone', 'industrialZone', 'parkingZone',
-      'publicLandZone', 'residentialSingleZone', 'residentialMultiZone', 'gridAttributes'];
+      'busStopMarkers', 'agricultureZone', 'commercialZone', 'downtownZone', 'industrialZone',
+      'parkingZone', 'publicLandZone', 'residentialSingleZone', 'residentialMultiZone',
+      'gridAttributes'];
   }).readOnly(),
 
 
@@ -77,6 +79,12 @@ export default Service.extend({
   gasStationMarkers: computed(function() {
     const records = get(this, 'store').peekAll('gas-station-location');
     return GasStationMarkers.create({ records });
+  }).readOnly(),
+
+
+  busStopMarkers: computed(function() {
+    const records = get(this, 'store').peekAll('bus-stop');
+    return BusStopMarkers.create({ records });
   }).readOnly(),
 
 

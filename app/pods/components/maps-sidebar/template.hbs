@@ -2,9 +2,9 @@
     <h4 class="section-title">Map Features</h4>
     <hr>
 
-    <div class="checkbox">
+    <div class="checkbox disabled">
         <label>
-            {{input type='checkbox' checked=mapService.proposedEvMarkers.isVisible}}
+            {{input type='checkbox' checked=mapService.proposedEvMarkers.isVisible disabled=true}}
             <img class="icon" src="/assets/images/icon_fastcharge.png" alt="Proposed EV Station Locations">
             Proposed EV Station Locations
         </label>
@@ -26,9 +26,9 @@
         </label>
     </div>
 
-    <div class="checkbox disabled">
+    <div class="checkbox">
         <label>
-            {{input type="checkbox" disabled=true}}
+            {{input type="checkbox" checked=mapService.busStopMarkers.isVisible}}
             <img class="icon" src="/assets/images/icon_bus.png" alt="Bus stops">
             Bus stops
         </label>
