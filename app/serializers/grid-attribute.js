@@ -48,6 +48,7 @@ export default RESTSerializer.extend({
     residentialSingleB: 'r1B',
     residentialSingleC: 'r1C',
     residentialSingleD: 'r1D',
+    residentialTownhouse: 'r3',
 
     office: 'o',
     officeResearchLimitedIndustrial: 'oRL',
@@ -59,8 +60,6 @@ export default RESTSerializer.extend({
     research: 'rE',
 
     schools: 'school',
-
-    townhouseDwelling: 'r3',
 
     twp: 'tWP',
 
