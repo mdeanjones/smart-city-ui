@@ -61,38 +61,40 @@ export default Zone.extend({
 
 
     const content = `
-        <p class="features-heading">Features:</p>
-        
+        <p class="features-title">Cell Name/Number</p>
+        <hr class="rule">
+        <p class="heading">Features:</p>
+
         <table class="features-table">
             <tbody>
                 <tr>
                     <td><strong></strong></td>
-                    <td>Proposed Charging Stations</td>
+                    <td class="features-description">Proposed Charging Stations</td>
                 </tr>
                 <tr>
                     <td><strong></strong></td>
-                    <td>Existing Charging Stations</td>
+                    <td class="features-description">Existing Charging Stations</td>
                 </tr>
                 <tr>
                     <td><strong>${get(record, 'gasStations')}</strong></td>
-                    <td>Gas Stations</td>
+                    <td class="features-description">Gas Stations</td>
                 </tr>
                 <tr>
                     <td><strong>${get(record, 'busStops')}</strong></td>
-                    <td>Bus Stops</td>
+                    <td class="features-description">Bus Stops</td>
                 </tr>
                 <tr>
                     <td><strong>${get(record, 'schools')}</strong></td>
-                    <td>Schools</td>
+                    <td class="features-description">Schools</td>
                 </tr>
                 <tr>
                     <td><strong>${get(record, 'isPark')}</strong></td>
-                    <td>Parks</td>
+                    <td class="features-description">Parks</td>
                 </tr>
             </tbody>
         </table>
-        
-        <p class="zones-heading">Zones:</p>
+
+        <p class="heading">Zones:</p>
         <p class="zones-list">${zones.join(', ')}</p>
     `;
 
