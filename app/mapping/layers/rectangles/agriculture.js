@@ -1,4 +1,4 @@
-import Zone from './-zone';
+import Zone from './-rectangle';
 
 
 export default Zone.extend({

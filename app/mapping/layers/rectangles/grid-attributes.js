@@ -1,5 +1,5 @@
 /* global L */
-import Zone from './-zone';
+import Zone from './-rectangle';
 import Ember from 'ember';
 
 
@@ -39,6 +39,13 @@ export default Zone.extend({
 
   createRectangle(bounds, polygonProperties, record) {
     const rectangle = this._super(bounds, polygonProperties);
+
+    rectangle.bindPopup(this.createRectanglePopup(record));
+    return rectangle;
+  },
+
+
+  createRectanglePopup(record) {
     const popup = L.popup({ maxWidth: 170 });
     const zones = [];
 
@@ -115,8 +122,7 @@ export default Zone.extend({
     `;
 
     popup.setContent(content);
-    rectangle.bindPopup(popup);
 
-    return rectangle;
+    return popup;
   },
 });
