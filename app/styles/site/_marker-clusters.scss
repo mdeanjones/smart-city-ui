@@ -1,0 +1,35 @@
+@mixin markerClusterColorVariant($bg, $color: #000, $ringColor: #fff) {
+  &.marker-cluster-large {
+    background-color: $ringColor;
+
+    div {
+      background-color: darken($bg, 15%);
+      color: $color;
+    }
+  }
+
+  &.marker-cluster-medium {
+    background-color: $ringColor;
+
+    div {
+      background-color: $bg;
+      color: $color;
+    }
+  }
+
+  &.marker-cluster-small {
+    background-color: $ringColor;
+
+    div {
+      background-color: lighten($bg, 15%);
+      color: $color;
+    }
+  }
+}
+
+
+.marker-cluster {
+  &.marker-cluster-bus-stops {
+    @include markerClusterColorVariant(#0433ff, #fff);
+  }
+}
