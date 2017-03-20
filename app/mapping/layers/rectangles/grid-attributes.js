@@ -5,10 +5,13 @@ import Ember from 'ember';
 
 const {
   get,
+  observer,
 } = Ember;
 
 
 export default Zone.extend({
+  showScoreColors: false,
+
   isVisible: true,
 
   defaultVisibility: true,
@@ -19,6 +22,18 @@ export default Zone.extend({
     opacity: 0.3,
     fillOpacity: 0,
   },
+
+
+  showScoreColorObserver: observer('showScoreColors', function() {
+    const showScoreColors = get(this, 'showScoreColors');
+
+    if (showScoreColors) {
+
+    }
+    else {
+
+    }
+  }),
 
 
   containsArrayItems(input) {
