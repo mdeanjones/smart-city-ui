@@ -1,5 +1,5 @@
 /* global L */
-import Zone from './-zone';
+import Zone from './-rectangle';
 import Ember from 'ember';
 
 

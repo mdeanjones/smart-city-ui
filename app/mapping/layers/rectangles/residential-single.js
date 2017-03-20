@@ -1,9 +1,9 @@
-import Zone from './-zone';
+import Zone from './-rectangle';
 
 
 export default Zone.extend({
   polygonProperties: {
-    color: '#800080',
+    color: '#FF0000',
     weight: 1,
   },
 });
