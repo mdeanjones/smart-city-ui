@@ -9,6 +9,10 @@ module.exports = function(defaults) {
         'bower_components/bootstrap-sass/assets/stylesheets',
       ]
     },
+
+    fingerprint: {
+      exclude: ['assets/images/'],
+    },
   });
 
   // Use `app.import` to add additional libraries to the generated
