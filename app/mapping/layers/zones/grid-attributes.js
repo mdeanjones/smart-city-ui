@@ -21,6 +21,22 @@ export default Zone.extend({
   },
 
 
+  containsArrayItems(input) {
+    const bounds = get(this, 'layer').getBounds();
+    const results = [];
+
+    if (input && get(input, 'length')) {
+      input.forEach((item) => {
+        if (bounds.contains(get(item, 'coordinates'))) {
+          results.push(item);
+        }
+      });
+    }
+
+    return results;
+  },
+
+
   createRectangle(bounds, polygonProperties, record) {
     const rectangle = this._super(bounds, polygonProperties);
     const popup = L.popup({ maxWidth: 170 });
@@ -64,36 +80,36 @@ export default Zone.extend({
         <p class="features-title">Cell Name/Number</p>
         <hr class="rule">
         <p class="heading">Features:</p>
-
+        
         <table class="features-table">
             <tbody>
                 <tr>
-                    <td><strong></strong></td>
-                    <td class="features-description">Proposed Charging Stations</td>
+                    <td><strong>${get(record, 'proposedEVStations.length')}</strong></td>
+                    <td>Proposed Charging Stations</td>
                 </tr>
                 <tr>
-                    <td><strong></strong></td>
-                    <td class="features-description">Existing Charging Stations</td>
+                    <td><strong>${get(record, 'currentEVStations.length')}</strong></td>
+                    <td>Existing Charging Stations</td>
                 </tr>
                 <tr>
                     <td><strong>${get(record, 'gasStations')}</strong></td>
-                    <td class="features-description">Gas Stations</td>
+                    <td>Gas Stations</td>
                 </tr>
                 <tr>
                     <td><strong>${get(record, 'busStops')}</strong></td>
-                    <td class="features-description">Bus Stops</td>
+                    <td>Bus Stops</td>
                 </tr>
                 <tr>
                     <td><strong>${get(record, 'schools')}</strong></td>
-                    <td class="features-description">Schools</td>
+                    <td>Schools</td>
                 </tr>
                 <tr>
                     <td><strong>${get(record, 'isPark')}</strong></td>
-                    <td class="features-description">Parks</td>
+                    <td>Parks</td>
                 </tr>
             </tbody>
         </table>
-
+        
         <p class="heading">Zones:</p>
         <p class="zones-list">${zones.join(', ')}</p>
     `;

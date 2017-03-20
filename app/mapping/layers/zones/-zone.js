@@ -32,7 +32,7 @@ export default MapLayer.extend({
         items.push(this.createRectangle(get(item, boundaryKey), polygonProperties, item));
       });
 
-      return L.layerGroup(items);
+      return L.featureGroup(items);
     }
 
     return null;
@@ -41,5 +41,10 @@ export default MapLayer.extend({
 
   createRectangle(bounds, polygonProperties) {
     return L.rectangle(bounds, polygonProperties);
+  },
+
+
+  rebuildLayer() {
+    this.notifyPropertyChange('layer');
   },
 });
