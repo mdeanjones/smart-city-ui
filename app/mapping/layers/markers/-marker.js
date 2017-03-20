@@ -14,6 +14,7 @@ export default MapLayer.extend({
 
   cluster: false,
 
+
   clusterOptions: {},
 
 
@@ -58,5 +59,34 @@ export default MapLayer.extend({
 
   createMarker(coordinates, icon) {
     return L.marker(coordinates, { icon });
+  },
+
+
+  getCustomIconCreateFunction(className) {
+    return function (cluster) {
+      const childCount = cluster.getChildCount();
+
+      let c = ' marker-cluster-';
+
+      if (childCount < 10) {
+        c = `${c}small`;
+      }
+      else if (childCount < 100) {
+        c = `${c}medium`;
+      }
+      else {
+        c = `${c}large`;
+      }
+
+      if (className) {
+        c += ` ${className}`;
+      }
+
+      return new L.DivIcon({
+        html: '<div><span>' + childCount + '</span></div>',
+        className: 'marker-cluster' + c,
+        iconSize: new L.Point(40, 40)
+      });
+    };
   },
 });
