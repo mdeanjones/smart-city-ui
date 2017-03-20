@@ -21,6 +21,22 @@ export default Zone.extend({
   },
 
 
+  containsArrayItems(input) {
+    const bounds = get(this, 'layer').getBounds();
+    const results = [];
+
+    if (input && get(input, 'length')) {
+      input.forEach((item) => {
+        if (bounds.contains(get(item, 'coordinates'))) {
+          results.push(item);
+        }
+      });
+    }
+
+    return results;
+  },
+
+
   createRectangle(bounds, polygonProperties, record) {
     const rectangle = this._super(bounds, polygonProperties);
     const popup = L.popup({ maxWidth: 170 });
@@ -66,11 +82,11 @@ export default Zone.extend({
         <table class="features-table">
             <tbody>
                 <tr>
-                    <td><strong></strong></td>
+                    <td><strong>${get(record, 'proposedEVStations.length')}</strong></td>
                     <td>Proposed Charging Stations</td>
                 </tr>
                 <tr>
-                    <td><strong></strong></td>
+                    <td><strong>${get(record, 'currentEVStations.length')}</strong></td>
                     <td>Existing Charging Stations</td>
                 </tr>
                 <tr>

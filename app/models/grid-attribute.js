@@ -1,3 +1,4 @@
+/* global L */
 import DS from 'ember-data';
 import Ember from 'ember';
 
@@ -5,11 +6,13 @@ import Ember from 'ember';
 const {
   Model,
   attr,
+  hasMany,
 } = DS;
 
 const {
   computed,
   get,
+  A: EmberArray,
 } = Ember;
 
 
@@ -28,6 +31,9 @@ const GridAttributes = Model.extend({
   unzoned: attr('number'),
   vehicles: attr('number'),
 
+  proposedEVStations: hasMany('ev-station-location'),
+
+  currentEVStations: hasMany('existing-charging-station'),
 
   agricultureOpenSpace: attr('number', {
     ident: 'ag',
@@ -189,6 +195,11 @@ const GridAttributes = Model.extend({
   }).readOnly(),
 
 
+  latLngBounds: computed('bounds', function() {
+    return L.latLngBounds(get(this, 'bounds'));
+  }).readOnly(),
+
+
   // Computed roll-ups
   agricultureRollupValue: computed.sum('agricultureRollupKeys'),
 
@@ -234,6 +245,27 @@ const GridAttributes = Model.extend({
   pudRollupKeys: computed.collect('plannedUnitDevelopment'),
 
   parkingRollupKeys: computed.collect('parking'),
+
+
+  doBoundsContain(latLng) {
+    return get(this, 'latLngBounds').contains(latLng);
+  },
+
+
+  containsArrayItems(input) {
+    const results = EmberArray([]);
+    const bounds = get(this, 'latLngBounds');
+
+    if (input && get(input, 'length')) {
+      input.forEach((item) => {
+        if (bounds.contains(get(item, 'coordinates'))) {
+          results.pushObject(item);
+        }
+      });
+    }
+
+    return results;
+  },
 });
 
 
