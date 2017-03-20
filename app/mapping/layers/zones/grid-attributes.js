@@ -77,7 +77,9 @@ export default Zone.extend({
 
 
     const content = `
-        <p class="features-heading">Features:</p>
+        <p class="features-title">Cell Name/Number</p>
+        <hr class="rule">
+        <p class="heading">Features:</p>
         
         <table class="features-table">
             <tbody>
@@ -108,7 +110,7 @@ export default Zone.extend({
             </tbody>
         </table>
         
-        <p class="zones-heading">Zones:</p>
+        <p class="heading">Zones:</p>
         <p class="zones-list">${zones.join(', ')}</p>
     `;
 
