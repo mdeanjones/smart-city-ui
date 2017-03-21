@@ -12,7 +12,7 @@ const {
 const Toggle =  Component.extend({
   classNameBindings: ['disabled'],
 
-  isChecked: false,
+  isChecked: true,
 
   on: 'On',
 
