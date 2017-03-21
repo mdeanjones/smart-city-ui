@@ -49,9 +49,10 @@ input {
   margin-top: -6px;
 }
 
-.slider.slider-horizontal .slider-selection {
+.slider.slider-horizontal .slider-selection, .slider-handle.round {
   border-radius: 0;
 }
+
 
 // .slider.slider-track .slider-selection {
 //   width: 250px;
