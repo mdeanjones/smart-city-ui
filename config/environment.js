@@ -5,7 +5,7 @@ module.exports = function(environment) {
     modulePrefix: 'smart-city-ui',
     podModulePrefix: 'smart-city-ui/pods',
     environment: environment,
-    rootURL: '/smart-city-ui',
+    rootURL: '/',
     locationType: 'hash',
     EmberENV: {
       FEATURES: {
