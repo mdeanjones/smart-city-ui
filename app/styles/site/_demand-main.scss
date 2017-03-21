@@ -17,7 +17,7 @@ p {
 
 input {
   @extend %text;
-  border: $br $main-text-color;
+  border: $br #adadad;
   border-radius: 3px;
   margin-left: 15px;
   width: 40px;
@@ -26,11 +26,11 @@ input {
 
 .input-left {
   margin-left: 0;
-  margin-right: 83px;
+  margin-right: 80px;
 }
 
 .input-right {
-  margin-left: 83px;
+  margin-left: 82px;
 }
 
 // Sliders
@@ -97,9 +97,18 @@ input {
   padding-left: 75px;
 }
 
-// Glyphicon
-.glyphicon {
+// Play / Pause button
+.btn {
+  background-color: #e4e4e4;
+}
+
+.play-pause-btn {
+  padding: 5px 17px;
+}
+
+.play-pause {
   display: block;
+  width: 12px;
 }
 
 
