@@ -15,7 +15,7 @@ export default Marker.extend({
 
   icon: computed(function() {
     return L.icon({
-      iconUrl: '/assets/images/icon_bus.png',
+      iconUrl: 'assets/images/icon_bus.png',
       // shadowUrl: '/assets/images/icon_fastcharge.png',
       iconSize: [30, 30],        // size of the icon
       // shadowSize: [50, 64],   // size of the shadow

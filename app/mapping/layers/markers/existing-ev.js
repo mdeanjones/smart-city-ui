@@ -11,7 +11,7 @@ const {
 export default Marker.extend({
   icon: computed(function() {
     return L.icon({
-      iconUrl: '/assets/images/ex-fastcharge-pin.png',
+      iconUrl: 'assets/images/ex-fastcharge-pin.png',
       // shadowUrl: '/assets/images/icon_fastcharge.png',
       iconSize: [35, 47],        // size of the icon
       // shadowSize: [50, 64],   // size of the shadow

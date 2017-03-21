@@ -13,7 +13,8 @@
     "build": "ember build",
     "start": "ember server",
     "test": "ember test",
-    "postinstall": "bower install"
+    "postinstall": "bower install",
+    "gh-deploy": "git checkout master && ember build --environment=production && git checkout gh-pages && cp -R dist/* . && git -c core.safecrlf=false add \".\" && git commit -m \"GH Pages Build\" && git push && git checkout master"
   },
   "devDependencies": {
     "bower": "^1.8.0",

@@ -44,7 +44,11 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-
+    ENV.locationType = 'hash';
+    ENV.rootURL = '/smart-city-ui/';
+    ENV['ember-cli-mirage'] = {
+      enabled: true,
+    };
   }
 
   return ENV;
