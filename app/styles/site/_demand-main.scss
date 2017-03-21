@@ -27,7 +27,7 @@ input {
   width: 250px;
 }
 
-.slider.slider-horizontal .slider-tick, .slider.slider-horizontal .slider-handle {
+ .slider-tick, .slider.slider-horizontal .slider-handle {
   margin-left: 0;
 }
 
@@ -35,7 +35,7 @@ input {
   border: 2px solid black;
   background-color: $light-blue;
   background-image: none;
-  margin-right: 0;
+  margin-right: -10px;
   width: 8px;
   height: 18px;
 }
@@ -53,6 +53,9 @@ input {
   border-radius: 0;
 }
 
+// .slider.slider-track .slider-selection {
+//   width: 250px;
+// }
 
 
 //Slider Info
@@ -63,19 +66,19 @@ input {
 }
 
 .ev-charge-left {
-  padding-right: 70px;
+  padding-right: 71px;
 }
 
 .ev-charge-right {
-  padding-left: 70px;
+  padding-left: 73px;
 }
 
 .left {
-  padding-right: 90px;
+  padding-right: 75px;
 }
 
 .right {
-  padding-left: 90px;
+  padding-left: 75px;
 }
 
 
