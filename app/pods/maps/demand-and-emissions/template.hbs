@@ -6,24 +6,25 @@
   <!-- Sidebar Ends -->
 
   <!-- Top Section - First Starts -->
-  <div class="col-sm-9 no-pad">
+  <div class="col-sm-9 fix-pad">
     <!-- Top - Left Column, First Row Starts -->
-    <div class="col-sm-7 no-pad">
+    <div class="col-sm-7 fix-pad">
       <h4 class="section-title">Demand & Emissions</h4>
       <hr>
 
-      <div class="col-sm-7 no-pad">
-        <div class="col-sm-6 no-pad">
+      <div class="col-sm-7 fix-pad">
+        <div class="col-sm-6 fix-pad">
           <p>View information on predicted charging demand or actual emissions data.</p>
         </div>
 
-        <div class="col-sm-6 no-pad">
+        <div class="col-sm-6 fix-pad">
           {{toggle-switch on='Demand' off='Emissions' offStyle=“btn-default”}}
         </div>
       </div>
 
-      <div class="col-sm-5 no-pad">
-        <p>Select percentage of EV in fleet</p>
+      <div class="col-sm-5 fix-pad">
+        <p>Select percentage <br>of EV in fleet</p>
+        <input type="text" name="" value="">
         {{ui-slider
             value=0
             min=0
@@ -50,14 +51,23 @@
       <hr>
 
       <!-- Aggregate Switch Button Starts -->
-      <div class="col-sm-5 no-pad">
+      <div class="col-sm-5 fix-pad">
         <br>
         {{toggle-switch on='Aggregate' off='Sweep' offStyle=“btn-default”}}
+        <br>
+        <button type="button" class="btn btn-default btn-sm">
+          <span class="glyphicon glyphicon-play" aria-hidden="true"></span>Play
+        </button>
+
+        <button type="button" class="btn btn-default btn-sm">
+          <span class="glyphicon glyphicon-pause" aria-hidden="true"></span>Pause
+        </button>
+        <br>
       </div>
       <!-- Aggregate Switch Button Ends -->
 
       <!-- Dropdown Menu Starts -->
-      <div class="col-sm-7 no-pad">
+      <div class="col-sm-7 fix-pad">
         <p>Select day:</p>
         <select class="select-dropdown">
           <option class="btn btn-default" value="monday">Monday</option>
@@ -76,20 +86,21 @@
   <!-- Top Section - First Row Ends -->
 
   <!-- Top Section - Second Row Starts -->
-  <div class="col-sm-9 no-pad">
-    <div class="col-sm-7 no-pad">
+  <div class="col-sm-9 fix-pad">
+    <div class="col-sm-7 fix-pad">
       <h4 class="section-title pad-top">Select Vehicle Type</h4>
       <hr>
 
-      <div class="col-sm-7 no-pad">
-        <div class="col-sm-6 no-pad">
+      <div class="col-sm-6 fix-pad">
+        <div class="col-sm-6 fix-pad">
           <p>Select between EV and IC vehicles.</p>
         </div>
         {{toggle-switch on='EV' off='IC'  offStyle=“primary”}}
       </div>
 
-      <div class="col-sm-5 no-pad">
+      <div class="col-sm-6 fix-pad">
         <p>Charge remaining or less</p>
+        <input type="text" name="" value="">
         {{ui-slider
             value=0
             min=0
@@ -105,10 +116,13 @@
             immediateResponse=false
         }}
         <div class="range ev-charge-left">0</div>
-        <div class="range ev-charge-right">100</div>
+        <div class="range ev-charge-right charge">100</div>
       </div>
     </div>
+    <br>
     <div class="col-sm-5">
+      <input class="input-left" type="text" name="" value="">
+      <input class="input-right" type="text" name="" value="">
       {{range-slider }}
       <div class="range left">12:00am</div>
       <div class="range">Noon</div>

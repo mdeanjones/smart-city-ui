@@ -2,11 +2,12 @@
 p {
   @extend %text;
   margin: 0;
+  display: inline-block;
 }
 
-.no-pad {
+.fix-pad {
   padding-left: 0;
-  padding-right: 0;
+  padding-right: 2px;
 }
 
 .main-text {
@@ -15,7 +16,21 @@ p {
 }
 
 input {
+  @extend %text;
+  border: $br $main-text-color;
+  border-radius: 3px;
+  margin-left: 15px;
   width: 40px;
+  vertical-align: middle;
+}
+
+.input-left {
+  margin-left: 0;
+  margin-right: 83px;
+}
+
+.input-right {
+  margin-left: 83px;
 }
 
 // Sliders
@@ -54,24 +69,24 @@ input {
 }
 
 
-// .slider.slider-track .slider-selection {
-//   width: 250px;
-// }
-
-
 //Slider Info
 .range {
   font-size: 10px;
   display: inline;
   padding-top: 5px;
+  margin: 0;
 }
 
 .ev-charge-left {
-  padding-right: 71px;
+  padding-right: 70px;
 }
 
 .ev-charge-right {
-  padding-left: 73px;
+  padding-left: 72px;
+}
+
+.charge {
+  padding-left: 100px;
 }
 
 .left {
@@ -80,6 +95,11 @@ input {
 
 .right {
   padding-left: 75px;
+}
+
+// Glyphicon
+.glyphicon {
+  display: block;
 }
 
 
