@@ -1,4 +1,5 @@
 export default function() {
+  this.passthrough('/grid-data/**');
 
   this.get('/evStationLocations', ({ evStationLocations }) => {
     return evStationLocations.all();
