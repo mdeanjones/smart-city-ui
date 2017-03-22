@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import ENV from 'smart-city-ui/config/environment';
 
 const {
   Route,
@@ -7,11 +8,14 @@ const {
   },
   get,
   inject,
+  setProperties,
 } = Ember;
 
 
 export default Route.extend({
   mapService: inject.service('smart-city-maps'),
+
+  ajax: inject.service(),
 
 
   // Load fixture data when the application first initializes.
@@ -24,6 +28,8 @@ export default Route.extend({
       grid: this.store.findAll('grid-attribute'),
       zones: this.store.findAll('zone-class-cord'),
     }).then((results) => {
+      const ajax = get(this, 'ajax');
+
       // Start by getting the overall layer boundaries to prune the set of
       // charging stations that will need to be compared.
       const layer = get(this, 'mapService.gridAttributes');
@@ -52,7 +58,21 @@ export default Route.extend({
 
       layer.rebuildLayer();
 
-      return results;
+      return ajax.request(`${ENV.rootURL}grid-data/aggregate.json`).then((data) => {
+        data.forEach((item) => {
+          const record = this.store.peekRecord('grid-attribute', item.c);
+
+          setProperties(record, {
+            mon: item.mon,
+            tues: item.tues,
+            wed: item.wed,
+            thur: item.thur,
+            fri: item.fri,
+            sat: item.sat,
+            sun: item.sun,
+          });
+        });
+      });
     });
   },
 });
