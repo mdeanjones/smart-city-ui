@@ -14,7 +14,7 @@ p {
   @extend %text;
   font-weight: bold;
 }
-
+// ------
 .info-icon-wrapper .info-text {
   // position: relative;
   bottom: 30px;
@@ -34,6 +34,39 @@ p {
   visibility: visible;
 }
 
+// --
+
+.tool-tip {
+    position: relative;
+    display: inline-block;
+    border-bottom: none;
+    color: black;
+}
+
+.tool-tip .tool-tip-text {
+    visibility: hidden;
+    width: 400px;
+    background-color: $light-yellow;
+    color: #000;
+    text-align: center;
+    border-radius: 15px;
+    border: $br #FFCCCC;
+    padding: 13px;
+    position: absolute;
+    // z-index: 1;
+    bottom: 40%;
+    left: 145%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+.tool-tip:hover .tool-tip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+// ------
 input {
   @extend %text;
   border: $br #adadad;
