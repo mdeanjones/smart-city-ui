@@ -15,6 +15,25 @@ p {
   font-weight: bold;
 }
 
+.info-icon-wrapper .info-text {
+  // position: relative;
+  bottom: 30px;
+  left: 0px;
+  visibility: hidden;
+}
+
+.info-icon {
+  width: 17px;
+}
+
+.inline {
+  display: inline;
+}
+
+.info-icon-wrapper:hover .info-text {
+  visibility: visible;
+}
+
 input {
   @extend %text;
   border: $br #adadad;
