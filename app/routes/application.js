@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import ENV from 'smart-city-ui/config/environment';
 
 const {
   Route,
@@ -57,7 +58,7 @@ export default Route.extend({
 
       layer.rebuildLayer();
 
-      return ajax.request('grid-data/aggregate.json').then((data) => {
+      return ajax.request(`${ENV.rootURL}grid-data/aggregate.json`).then((data) => {
         data.forEach((item) => {
           const record = this.store.peekRecord('grid-attribute', item.c);
 
