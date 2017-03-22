@@ -1,0 +1,36 @@
+.nav {
+  &.nav-tabs {
+    li {
+      a{
+        background: $tab-bg;
+        border: solid 1px $tab-border;
+        color: $tab-color;
+        font-size: 13px;
+        padding: 3px 15px;
+      }
+
+      &.active {
+        a, a:hover, a:focus {
+          background: $tab-active-bg;
+          border: solid 1px $tab-active-border;
+          color: $tab-active-color;
+          font-weight: bold;
+        }
+      }
+    }
+
+    &.panel-tabs {
+      margin-right: 40px;
+
+      li a {
+        border-bottom: none;
+      }
+
+      li.active {
+        a, a:hover, a:focus {
+          border-bottom: none;
+        }
+      }
+    }
+  }
+}

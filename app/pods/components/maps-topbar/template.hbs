@@ -1,0 +1,127 @@
+<div class="row">
+    <div class="col-xs-7">
+        <h4>Demand & Emissions</h4>
+
+        <div class="row">
+            <div class="col-xs-6 form-horizontal">
+                <div class="form-group">
+                    <label class="col-xs-6 control-label pt-0">View information on predicted charging demand or actual emissions data.</label>
+                    <div class="col-xs-6">
+                        {{toggle-switch on='Demand' off='Emissions'}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-6 form-horizontal">
+                <div class="form-group">
+                    <label class="col-xs-8 control-label pt-0">Select percentage of EV in fleet</label>
+                    <div class="col-xs-4">
+                        {{input type='text' class='form-control'}}
+                    </div>
+                </div>
+
+                {{ui-slider
+                        value=2
+                        min=2
+                        max=20
+                        step=2
+                        orientation='horizontal'
+                        tooltip='show'
+                        disabled=false
+                        handle='square'
+                        reversed=false
+                        focus=false
+                        naturalArrowKeys=false
+                        immediateResponse=false
+                }}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <h4>Select Vehicle Type</h4>
+
+                <div class="row">
+                    <div class="col-xs-6 form-horizontal">
+                        <div class="form-group">
+                            <label class="col-xs-6 control-label pt-0">Select between EV and IC vehicles.</label>
+                            <div class="col-xs-6">
+                                {{toggle-switch on='EV' off='IC'}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-6 form-horizontal">
+                        <div class="form-group">
+                            <label class="col-xs-8 control-label">Charge remaining or less</label>
+                            <div class="col-xs-4">
+                                {{input type='text' class='form-control'}}
+                            </div>
+                        </div>
+
+                        {{ui-slider
+                                value=0
+                                min=0
+                                max=100
+                                step=1
+                                orientation='horizontal'
+                                tooltip='show'
+                                disabled=false
+                                handle='square'
+                                reversed=false
+                                focus=false
+                                naturalArrowKeys=false
+                                immediateResponse=false
+                        }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-5">
+        <h4>Set Time Range</h4>
+
+        <div class="row">
+            <div class="col-xs-5 pb-1">
+                <div class="form-group">
+                    <label class="control-label">&nbsp;{{! This is a cheat - and also a handlebars comment that will never appear in the markup }}<span class="sr-only">Aggregate or Sweep</span></label>
+                    {{toggle-switch on='Aggregate' off='Sweep'}}
+                </div>
+
+                <div class="btn-group" role="group" aria-label="play or pause">
+                    <button type="button" class="btn btn-default btn-sm">
+                        <span class="fa fa-play" aria-hidden="true"></span>
+                        <span class="sr-only">Play Sweep</span>
+                    </button>
+
+                    <button type="button" class="btn btn-default btn-sm">
+                        <span class="fa fa-pause" aria-hidden="true"></span>
+                        <span class="sr-only">Pause Sweep</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-xs-7">
+                <div class="form-group">
+                    <label class="control-label">Select day:</label>
+                    <select class="form-control">
+                        <option value="mon">Monday</option>
+                        <option value="tue">Tuesday</option>
+                        <option value="wed">Wednesday</option>
+                        <option value="thu">Thursday</option>
+                        <option value="fri">Friday</option>
+                        <option value="sat">Saturday</option>
+                        <option value="sun">Sunday</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                {{range-slider}}
+            </div>
+        </div>
+    </div>
+</div>

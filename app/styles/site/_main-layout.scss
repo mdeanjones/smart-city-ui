@@ -1,16 +1,3 @@
 body {
-  background-image: url('images/smart-cities-bg.jpg');
-  background-position: center top;
-}
-
-.panel {
-  @extend %blue-border;
-}
-
-.panel-primary {
-  background-color:rgba(250,250,250,0.65);
-}
-
-#map {
-  @extend %blue-border;
+  background: $body-bg $body-bg-img;
 }

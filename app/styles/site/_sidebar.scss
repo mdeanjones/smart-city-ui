@@ -1,84 +1,72 @@
-.map-features {
-  padding-bottom: 30px;
+@mixin color-box-variant($color, $border-style: solid, $border-color: null, $opacity: 0.5) {
+  @if not($border-color) {
+    $border-color: $color;
+  }
+
+  background-color: rgba($color, $opacity);
+  border: $border-style 1px $border-color;
 }
 
-.section-title {
-  @extend %font-family;
-  font-weight: bold;
-  margin: 0;
-}
 
-hr {
-  @extend %blue-border;
-  margin: 3px auto 10px;
-}
+.map-sidebar {
+  > div {
+    padding-bottom: 30px;
 
-// input[type="checkbox"] + label:before {
-//   background-color: red;
-//   width: 17px;
-//   height: 17px;
-//   padding: 30px;
-//   vertical-align: middle;
-//   border: 5px solid black;
-// }
+    &:first-child h4 {
+      margin-top: 0;
+    }
 
-.icon {
-  width: 25px;
-  margin: 0 5px;
-}
+    &:last-child {
+      padding-bottom: 0;
+    }
 
-.color-box {
-  display: inline-block;
-  margin: 0 5px;
-  width: 17px;
-  height: 17px;
-  vertical-align: middle;
-}
+    .checkbox:last-child {
+      margin-bottom: 0;
+    }
+  }
 
-.agriculture {
-  background-color: rgba($agriculture-green, $opacity-half);
-  border: $br $agriculture-border;
-}
+  .icon {
+    width: 25px;
+    margin: 0 5px;
+  }
 
-.commercial {
-  background-color: rgba($commercial-yellow, $opacity-half);
-  border: $br $commercial-border;
-}
+  .color-box {
+    display: inline-block;
+    height: 17px;
+    margin: 0 5px;
+    vertical-align: middle;
+    width: 17px;
 
-.downtown {
-  background-color: rgba($downtown-blue, $opacity-half);
-  border: $br $downtown-blue;
-}
+    &.agriculture {
+      @include color-box-variant($agriculture-green, solid, $agriculture-border-green);
+    }
 
-.industrial {
-  background-color: rgba($industrial-grey, $opacity-half);
-  border: $br $industrial-border;
-}
+    &.commercial {
+      @include color-box-variant($commercial-yellow, solid, $commercial-border-yellow);
+    }
 
-.parking {
-  background-color: rgba($parking-purple, $opacity-half);
-  border: $br $parking-purple;
-}
+    &.downtown {
+      @include color-box-variant($downtown-blue);
+    }
 
-.public-land {
-  background-color: rgba($public-green, $opacity-half);
-  border: $br $public-green;
-}
+    &.industrial {
+      @include color-box-variant($industrial-grey, solid, $industrial-border-grey);
+    }
 
-.residential {
-  background-color: rgba($residential-red, $opacity-half);
-  border: $br $residential-red;
-}
+    &.parking {
+      @include color-box-variant($parking-purple);
+    }
 
-.residential-multi {
-  background-color: rgba($residential-red, $opacity-half);
-  border: 1px dotted $residential-red;
-}
+    &.public-land {
+      @include color-box-variant($public-green);
+    }
 
-label {
-  @extend %text;
-  margin: 0;
-  display: inline-block;
-  // padding-bottom: 20px;
-  // vertical-align: top;
+    &.residential {
+      @include color-box-variant($residential-red);
+    }
+
+    &.residential-multi {
+      @include color-box-variant($residential-red, dotted);
+    }
+  }
 }

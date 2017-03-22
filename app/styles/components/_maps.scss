@@ -1,0 +1,45 @@
+.leaflet-map {
+  border: solid 1px $map-border;
+
+  .leaflet-popup {
+    .leaflet-popup-close-button {
+      margin: 6px 8px 0 0;
+    }
+
+    .leaflet-popup-content-wrapper {
+      border: solid 1px $text-grey;
+    }
+
+    .leaflet-popup-content {
+      margin: 10px;
+
+      p {
+        margin: 0;
+      }
+
+      .features-title {
+        font-size: 14px;
+        font-weight: bold;
+      }
+
+      .rule {
+        border: solid 1px $text-grey;
+        margin: 0;
+      }
+
+      .heading {
+        color: #999;
+        padding-top: 10px;
+      }
+
+      table tbody tr td:first-child {
+        padding-right: 10px;
+      }
+    }
+
+    .leaflet-popup-tip {
+      background-color: transparent;
+      box-shadow: none;
+    }
+  }
+}

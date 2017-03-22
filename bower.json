@@ -5,6 +5,7 @@
     "leaflet": "^1.0.3",
     "bootstrap-toggle": "^2.2.2",
     "seiyria-bootstrap-slider": "~6.0.6",
-    "leaflet.markercluster": "^1.0.4"
+    "leaflet.markercluster": "^1.0.4",
+    "font-awesome": "^4.7.0"
   }
 }

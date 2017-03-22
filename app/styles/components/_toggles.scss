@@ -1,14 +1,3 @@
-$toggle-font-weight:    bold;
-$toggle-font-size:      12px;
-$toggle-border-weight:  2px;
-$toggle-border-color:   #ccc;
-$toggle-handle-bg:      #e4e4e4;
-$toggle-primary-bg:     #2ee7cf;
-$toggle-primary-color:  #333;
-$toggle-default-bg:     #eee;
-$toggle-default-color:  #999;
-
-
 .toggle {
   border-radius: 0;
 
@@ -73,12 +62,12 @@ $toggle-default-color:  #999;
   }
 
   .btn-default {
-    background-color: $toggle-primary-bg;
-    color: $toggle-primary-color;
+    background-color: $toggle-default-bg;
+    color: $toggle-default-color;
 
     &:hover, &:focus, &:active {
-      background-color: $toggle-primary-bg;
-      color: $toggle-primary-color;
+      background-color: $toggle-default-bg;
+      color: $toggle-default-color;
     }
   }
 }

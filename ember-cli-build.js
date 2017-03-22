@@ -7,6 +7,7 @@ module.exports = function(defaults) {
     sassOptions: {
       includePaths: [
         'bower_components/bootstrap-sass/assets/stylesheets',
+        'bower_components/font-awesome/scss',
       ]
     },
 
@@ -42,6 +43,13 @@ module.exports = function(defaults) {
   app.import('bower_components/leaflet/dist/images/marker-icon.png', { destDir: 'assets/images' });
   app.import('bower_components/leaflet/dist/images/marker-icon-2x.png', { destDir: 'assets/images' });
   app.import('bower_components/leaflet/dist/images/marker-shadow.png', { destDir: 'assets/images' });
+
+  app.import('bower_components/font-awesome/fonts/fontawesome-webfont.eot', { destDir: 'fonts' });
+  app.import('bower_components/font-awesome/fonts/fontawesome-webfont.svg', { destDir: 'fonts' });
+  app.import('bower_components/font-awesome/fonts/fontawesome-webfont.ttf', { destDir: 'fonts' });
+  app.import('bower_components/font-awesome/fonts/fontawesome-webfont.woff', { destDir: 'fonts' });
+  app.import('bower_components/font-awesome/fonts/fontawesome-webfont.woff2', { destDir: 'fonts' });
+  app.import('bower_components/font-awesome/fonts/FontAwesome.otf', { destDir: 'fonts' });
 
   return app.toTree();
 };
