@@ -15,7 +15,14 @@ export default Component.extend({
 
   mapService: null,
 
-  defaultTimeRange: [0, 287],
+  // 5 minute increments across 24 hrs
+  timeRange: [0, 287],
+
+  timeRangeIntervalId: null,
+
+  timeRangeTickCounter: null,
+
+  timeRangeTickDuration: 1000,
 
   evPercentageInFleet: 2,
 
@@ -78,6 +85,11 @@ export default Component.extend({
   }),
 
 
+  isTimeRangeDisabled: computed('isPlaying', 'sweepActive', function() {
+    return get(this, 'isPlaying') && get(this, 'sweepActive');
+  }),
+
+
   actions: {
     onDemandOrEmissionsToggle(isDemand) {
       setProperties(this, {
@@ -108,17 +120,41 @@ export default Component.extend({
 
 
     onPlayClick() {
+      const range = get(this, 'timeRange');
+      const max = range[1] - range[0];
+
+      const ticker = () => {
+        const tickCount = get(this, 'timeRangeTickCounter');
+        const newRange = [range[0] + tickCount, range[1]];
+
+        set(this, 'timeRange', newRange);
+
+        if (tickCount === max) {
+          this.send('onPauseClick');
+        }
+
+        this.incrementProperty('timeRangeTickCounter');
+      };
+
       setProperties(this, {
         isPlaying: true,
         isPaused: false,
+        timeRangeIntervalId: setInterval(ticker, get(this, 'timeRangeTickDuration')),
+        timeRangeTickCounter: 0,
       });
+
+      ticker();
     },
 
 
     onPauseClick() {
+      clearInterval(get(this, 'timeRangeIntervalId'));
+
       setProperties(this, {
         isPlaying: false,
         isPaused: true,
+        timeRangeIntervalId: null,
+        timeRangeTickCounter: null,
       });
     },
   },

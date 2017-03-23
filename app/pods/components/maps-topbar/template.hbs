@@ -37,7 +37,7 @@
                         <div class="form-group">
                             <label class="col-xs-6 control-label pt-0">Select between EV and IC vehicles.</label>
                             <div class="col-xs-6">
-                                {{toggle-switch on='EV' off='IC' onChange=(action 'onEvOrIcToggle')}}
+                                {{toggle-switch on='EV' off='IC' onChange=(action 'onEvOrIcToggle') disabled=true}}
                             </div>
                         </div>
                     </div>
@@ -47,13 +47,13 @@
                             <label class="col-xs-7 control-label pt-0">Charge remaining or less</label>
                             <div class="col-xs-5">
                                 <div class="input-group">
-                                    {{input type='number' class='form-control' min=0 max=100 step=1 value=chargeRemainingInt disabled=icActive}}
+                                    {{input type='number' class='form-control' min=0 max=100 step=1 value=chargeRemainingInt disabled=emissionsActive}}
                                     <span class="input-group-addon addon-slim">%</span>
                                 </div>
                             </div>
                         </div>
 
-                        {{ui-slider value=chargeRemainingInt min=0 max=100 step=1 ticksLabels='0%,100%' tooltip='hide' class='mb-2' disabled=icActive}}
+                        {{ui-slider value=chargeRemainingInt min=0 max=100 step=1 ticksLabels='0%,100%' tooltip='hide' class='mb-2' disabled=emissionsActive}}
                     </div>
                 </div>
             </div>
@@ -101,7 +101,7 @@
 
         <div class="row">
             <div class="col-xs-12">
-                {{range-slider value=defaultTimeRange min=0 max=287 ticksLabels='12:00am,11:55pm'}}
+                {{range-slider value=timeRange min=0 max=287 ticksLabels='12:00am,11:55pm' disabled=isTimeRangeDisabled}}
             </div>
         </div>
     </div>
