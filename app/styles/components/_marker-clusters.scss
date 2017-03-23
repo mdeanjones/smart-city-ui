@@ -32,4 +32,8 @@
   &.marker-cluster-bus-stops {
     @include markerClusterColorVariant(#0433ff, #fff);
   }
+
+  &.marker-cluster-charging-stations {
+    @include markerClusterColorVariant(#ff8800, #fff);
+  }
 }
