@@ -16,3 +16,7 @@ label {
     padding-right: 2px;
   }
 }
+
+.form-control {
+  padding: $padding-base-vertical $padding-base-horizontal / 2;
+}

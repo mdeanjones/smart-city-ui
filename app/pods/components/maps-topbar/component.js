@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import moment from 'moment';
 
 const {
   Component,
@@ -87,6 +88,22 @@ export default Component.extend({
 
   isTimeRangeDisabled: computed('isPlaying', 'sweepActive', function() {
     return get(this, 'isPlaying') && get(this, 'sweepActive');
+  }),
+
+
+  formattedTimeRangeStart: computed('timeRange.@each', function() {
+    const range = get(this, 'timeRange');
+    const time = moment('00:00', 'hh:mm').add(range[0] * 5, 'm');
+
+    return time.format('hh:mma');
+  }),
+
+
+  formattedTimeRangeEnd: computed('timeRange.@each', function() {
+    const range = get(this, 'timeRange');
+    const time = moment('00:00', 'hh:mm').add(range[1] * 5, 'm');
+
+    return time.format('hh:mma');
   }),
 
 
