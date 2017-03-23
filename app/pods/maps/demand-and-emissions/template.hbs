@@ -1,156 +1,19 @@
 <div class="row">
-  <!-- Sidebar Starts -->
-  <div class="col-sm-3">
+    <div class="col-xs-3">
     {{maps-sidebar mapService=mapService}}
-  </div>
-  <!-- Sidebar Ends -->
+    </div>
 
-  <!-- Top Section - First Starts -->
-  <div class="col-sm-9 fix-pad">
-    <!-- Top - Left Column, First Row Starts -->
-    <div class="col-sm-7 fix-pad">
-      <h4 class="section-title">Demand & Emissions</h4>
-      <hr>
-
-      <div class="col-sm-7 fix-pad">
-        <div class="col-sm-6 fix-pad">
-          <p>View information on predicted charging demand or actual emissions data.</p>
+    <div class="col-xs-9">
+        <div class="row mb-2">
+            <div class="col-xs-12">
+                {{maps-topbar mapService=mapService}}
+            </div>
         </div>
 
-        <div class="col-sm-6 fix-pad">
-          {{toggle-switch on='Demand' off='Emissions' offStyle=“btn-default”}}
+        <div class="row">
+            <div class="col-xs-12">
+                {{leaflet-map height='500px' onMapReady=(action 'mapReady')}}
+            </div>
         </div>
-      </div>
-
-      <div class="col-sm-5 fix-pad">
-        <p>Select percentage <br>of EV in fleet</p>
-        <input type="text" name="" value="">
-        {{ui-slider
-            value=0
-            min=0
-            max=20
-            step=1
-            orientation='horizontal'
-            tooltip='show'
-            disabled=false
-            handle='square'
-            reversed=false
-            focus=false
-            naturalArrowKeys=false
-            immediateResponse=false
-        }}
-        <div class="range ev-charge-left">0</div>
-        <div class="range ev-charge-right">20</div>
-      </div>
     </div>
-    <!-- Top - Left Column, First Row Ends -->
-
-    <!-- Top - Rigth Column Starts -->
-    <div class="col-sm-5">
-      <h4 class="section-title">Set time range</h4>
-      <hr>
-
-      <!-- Aggregate Switch Button Starts -->
-      <div class="col-sm-5 fix-pad">
-        <br>
-        {{toggle-switch on='Aggregate' off='Sweep' offStyle=“btn-default”}}
-        <br>
-        <button type="button" class="btn btn-default btn-sm play-pause-btn">
-          <img class="play-pause" src="assets/images/play-button.png" alt="Play Sweep">
-        </button>
-
-        <button type="button" class="btn btn-default btn-sm play-pause-btn">
-          <img class="play-pause" src="assets/images/pause-button.png" alt="Pause Sweep">
-        </button>
-        <br>
-      </div>
-      <!-- Aggregate Switch Button Ends -->
-
-      <!-- Dropdown Menu Starts -->
-      <div class="col-sm-7 fix-pad">
-        <p>Select day:</p>
-        <select class="select-dropdown">
-          <option class="btn btn-default" value="monday">Monday</option>
-          <option class="btn btn-default" value="monday">Tuesday</option>
-          <option class="btn btn-default" value="monday">Wednesday</option>
-          <option class="btn btn-default" value="monday">Thursday</option>
-          <option class="btn btn-default" value="monday">Friday</option>
-          <option class="btn btn-default" value="monday">Saturday</option>
-          <option class="btn btn-default" value="monday">Sunday</option>
-        </select>
-      </div>
-      <!-- Dropdown Menu Ends -->
-    </div>
-    <!-- Top - Rigth Column Ends -->
-  </div>
-  <!-- Top Section - First Row Ends -->
-
-  <!-- Top Section - Second Row Starts -->
-  <div class="col-sm-9 fix-pad">
-    <div class="col-sm-7 fix-pad">
-
-      <div class="tool-tip">
-        <h4 class="section-title pad-top inline">Select Vehicle Type</h4>
-        <img class="info-icon" src="assets/images/info-icon.png" alt="More information">
-        <p class="tool-tip-text">When you select between and electric vehicle (EV) and internal combustion (IC) you will need to change the percentage of energy used, charge versus remaining fuel.</p>
-      </div>
-
-
-      <!-- <div class="info-icon-wrapper">
-        <h4 class="section-title pad-top inline">Select Vehicle Type</h4>
-        <img class="info-icon" src="assets/images/info-icon.png" alt="More information">
-        <p class="info-text">When you select between and electric vehicle (EV) and internal combustion (IC) you will need to change the percentage of energy used, charge versus remaining fuel.</p>
-      </div> -->
-
-      <hr>
-
-
-
-      <div class="col-sm-6 fix-pad">
-        <div class="col-sm-6 fix-pad">
-          <p>Select between EV and IC vehicles.</p>
-        </div>
-        {{toggle-switch on='EV' off='IC'  offStyle=“primary”}}
-      </div>
-
-      <div class="col-sm-6 fix-pad">
-        <p>Charge remaining or less</p>
-        <input type="text" name="" value="">
-        {{ui-slider
-            value=0
-            min=0
-            max=100
-            step=1
-            orientation='horizontal'
-            tooltip='show'
-            disabled=false
-            handle='square'
-            reversed=false
-            focus=false
-            naturalArrowKeys=false
-            immediateResponse=false
-        }}
-        <div class="range ev-charge-left">0</div>
-        <div class="range ev-charge-right charge">100</div>
-      </div>
-    </div>
-    <br>
-    <div class="col-sm-5">
-      <input class="input-left" type="text" name="" value="">
-      <input class="input-right" type="text" name="" value="">
-      {{range-slider }}
-      <div class="range left">12:00am</div>
-      <div class="range">Noon</div>
-      <div class="range right">11:59pm</div>
-    </div>
-  </div>
-  <!-- Top Section - Second Row End-->
-
-  <!-- Map Section Starts -->
-  <div class="col-sm-9 pad-map">
-    <div id="map">
-      {{leaflet-map height='500px' onMapReady=(action 'mapReady')}}
-    </div>
-  </div>
-  <!-- Map Section Ends -->
 </div>

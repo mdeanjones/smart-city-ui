@@ -6,7 +6,7 @@ const {
 
 
 export default Component.extend({
-  classNames: ['map-sidebar'],
+  classNames: ['topbar'],
 
   mapService: null,
 });

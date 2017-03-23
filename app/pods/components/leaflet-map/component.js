@@ -5,6 +5,8 @@ const { Component, get, set, computed, String: EmberString } = Ember;
 
 
 export default Component.extend({
+  classNames: ['leaflet-map'],
+
   attributeBindings: ['style'],
 
   height: '200px',
