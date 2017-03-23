@@ -6,6 +6,10 @@
     height: 6px;
   }
 
+  &.slider-horizontal .slider-handle {
+    margin-left: -5px;
+  }
+
   .slider-handle {
     border: 2px solid black;
     background-color: $slider-handle-bg;
@@ -16,6 +20,20 @@
 
     &.round {
       border-radius: 0;
+    }
+  }
+
+  .slider-tick-label-container {
+    .slider-tick-label {
+      flex: 1;
+
+      &:first-child {
+        text-align: left;
+      }
+
+      &:last-child {
+        text-align: right;
+      }
     }
   }
 }

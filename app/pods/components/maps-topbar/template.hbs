@@ -7,33 +7,24 @@
                 <div class="form-group">
                     <label class="col-xs-6 control-label pt-0">View information on predicted charging demand or actual emissions data.</label>
                     <div class="col-xs-6">
-                        {{toggle-switch on='Demand' off='Emissions'}}
+                        {{toggle-switch on='Demand' off='Emissions' onChange=(action 'onDemandOrEmissionsToggle')}}
                     </div>
                 </div>
             </div>
 
             <div class="col-xs-6 form-horizontal">
                 <div class="form-group">
-                    <label class="col-xs-8 control-label pt-0">Select percentage of EV in fleet</label>
-                    <div class="col-xs-4">
-                        {{input type='text' class='form-control'}}
+                    <label class="col-xs-7 control-label pt-0">Select percentage of EV in fleet</label>
+                    <div class="col-xs-5">
+                        <div class="input-group">
+                            {{input type='number' class='form-control' min=2 max=20 step=2 value=evPercentageInFleetInt}}
+                            <span class="input-group-addon addon-slim">%</span>
+                        </div>
+
                     </div>
                 </div>
 
-                {{ui-slider
-                        value=2
-                        min=2
-                        max=20
-                        step=2
-                        orientation='horizontal'
-                        tooltip='show'
-                        disabled=false
-                        handle='square'
-                        reversed=false
-                        focus=false
-                        naturalArrowKeys=false
-                        immediateResponse=false
-                }}
+                {{ui-slider value=evPercentageInFleetInt min=2 max=20 step=2 ticksLabels='2%,20%' tooltip='hide'}}
             </div>
         </div>
 
@@ -46,33 +37,23 @@
                         <div class="form-group">
                             <label class="col-xs-6 control-label pt-0">Select between EV and IC vehicles.</label>
                             <div class="col-xs-6">
-                                {{toggle-switch on='EV' off='IC'}}
+                                {{toggle-switch on='EV' off='IC' onChange=(action 'onEvOrIcToggle')}}
                             </div>
                         </div>
                     </div>
 
                     <div class="col-xs-6 form-horizontal">
                         <div class="form-group">
-                            <label class="col-xs-8 control-label">Charge remaining or less</label>
-                            <div class="col-xs-4">
-                                {{input type='text' class='form-control'}}
+                            <label class="col-xs-7 control-label pt-0">Charge remaining or less</label>
+                            <div class="col-xs-5">
+                                <div class="input-group">
+                                    {{input type='number' class='form-control' min=0 max=100 step=1 value=chargeRemainingInt disabled=icActive}}
+                                    <span class="input-group-addon addon-slim">%</span>
+                                </div>
                             </div>
                         </div>
 
-                        {{ui-slider
-                                value=0
-                                min=0
-                                max=100
-                                step=1
-                                orientation='horizontal'
-                                tooltip='show'
-                                disabled=false
-                                handle='square'
-                                reversed=false
-                                focus=false
-                                naturalArrowKeys=false
-                                immediateResponse=false
-                        }}
+                        {{ui-slider value=chargeRemainingInt min=0 max=100 step=1 ticksLabels='0%,100%' tooltip='hide' class='mb-2' disabled=icActive}}
                     </div>
                 </div>
             </div>
@@ -86,16 +67,16 @@
             <div class="col-xs-5 pb-1">
                 <div class="form-group">
                     <label class="control-label">&nbsp;{{! This is a cheat - and also a handlebars comment that will never appear in the markup }}<span class="sr-only">Aggregate or Sweep</span></label>
-                    {{toggle-switch on='Aggregate' off='Sweep'}}
+                    {{toggle-switch on='Aggregate' off='Sweep' onChange=(action 'onAggregateOrSweepToggle')}}
                 </div>
 
                 <div class="btn-group" role="group" aria-label="play or pause">
-                    <button type="button" class="btn btn-default btn-sm">
+                    <button type="button" class="btn btn-default btn-sm" onclick={{action 'onPlayClick'}} disabled={{isPlayDisabled}}>
                         <span class="fa fa-play" aria-hidden="true"></span>
                         <span class="sr-only">Play Sweep</span>
                     </button>
 
-                    <button type="button" class="btn btn-default btn-sm">
+                    <button type="button" class="btn btn-default btn-sm" onclick={{action 'onPauseClick'}} disabled={{isPauseDisabled}}>
                         <span class="fa fa-pause" aria-hidden="true"></span>
                         <span class="sr-only">Pause Sweep</span>
                     </button>
@@ -105,8 +86,8 @@
             <div class="col-xs-7">
                 <div class="form-group">
                     <label class="control-label">Select day:</label>
-                    <select class="form-control">
-                        <option value="mon">Monday</option>
+                    <select class="form-control" onchange={{action (mut dayOfWeek) value='target.value'}}>
+                        <option value="mon" selected>Monday</option>
                         <option value="tue">Tuesday</option>
                         <option value="wed">Wednesday</option>
                         <option value="thu">Thursday</option>
@@ -120,7 +101,7 @@
 
         <div class="row">
             <div class="col-xs-12">
-                {{range-slider}}
+                {{range-slider value=defaultTimeRange min=0 max=287 ticksLabels='12:00am,11:55pm'}}
             </div>
         </div>
     </div>
