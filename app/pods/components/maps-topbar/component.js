@@ -158,4 +158,15 @@ export default Component.extend({
       });
     },
   },
+
+
+  willDestroyElement() {
+    const intervalId = get(this, 'timeRangeIntervalId');
+
+    if (intervalId) {
+      clearInterval(intervalId);
+    }
+
+    this._super(...arguments);
+  },
 });
