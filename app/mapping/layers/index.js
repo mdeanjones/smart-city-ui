@@ -1,7 +1,6 @@
 import StreetMapTiles from './tiles/street-map';
 
 import ExistingEvMarkers from './markers/existing-ev';
-import ProposedEvMarkers from './markers/proposed-ev';
 import GasStationMarkers from './markers/gas-stations';
 import BusStopMarkers from './markers/bus-stops';
 
@@ -21,7 +20,6 @@ export {
   StreetMapTiles,
 
   ExistingEvMarkers,
-  ProposedEvMarkers,
   GasStationMarkers,
   BusStopMarkers,
 

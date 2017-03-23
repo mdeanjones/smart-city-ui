@@ -4,7 +4,6 @@ import {
   StreetMapTiles,
 
   ExistingEvMarkers,
-  ProposedEvMarkers,
   GasStationMarkers,
   BusStopMarkers,
 
@@ -51,7 +50,7 @@ export default Service.extend({
 
 
   layerKeys: computed(function() {
-    return ['streetMapTiles', 'existingEvMarkers', 'proposedEvMarkers', 'gasStationMarkers',
+    return ['streetMapTiles', 'existingEvMarkers', 'gasStationMarkers',
       'busStopMarkers', 'agricultureZone', 'commercialZone', 'downtownZone', 'industrialZone',
       'parkingZone', 'publicLandZone', 'residentialSingleZone', 'residentialMultiZone',
       'gridAttributes'];
@@ -67,12 +66,6 @@ export default Service.extend({
   existingEvMarkers: computed(function() {
     const records = get(this, 'store').peekAll('existing-charging-station');
     return ExistingEvMarkers.create({ records });
-  }).readOnly(),
-
-
-  proposedEvMarkers: computed(function() {
-    const records = get(this, 'store').peekAll('ev-station-location');
-    return ProposedEvMarkers.create({ records });
   }).readOnly(),
 
 
