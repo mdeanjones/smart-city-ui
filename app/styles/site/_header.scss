@@ -1,13 +1,11 @@
-.title {
-  color: $main-text-color;
-  display: inline;
-  font-family: $main-stack;
-  font-size: 28px;
-  font-weight: bold;
-  padding-left: 15px;
-  vertical-align: bottom;
-}
-
-.row {
+header {
   padding: 10px 0 20px 0;
+
+  h1 {
+    display: inline;
+    font-size: 28px;
+    font-weight: bold;
+    padding-left: 15px;
+    vertical-align: bottom;
+  }
 }

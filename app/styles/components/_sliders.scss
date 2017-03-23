@@ -1,0 +1,21 @@
+.slider {
+  margin-top: 10px;
+
+  .slider-track {
+    border-radius: 0;
+    height: 6px;
+  }
+
+  .slider-handle {
+    border: 2px solid black;
+    background-color: $slider-handle-bg;
+    background-image: none;
+    width: 8px;
+    height: 18px;
+    border-radius: 0;
+
+    &.round {
+      border-radius: 0;
+    }
+  }
+}
