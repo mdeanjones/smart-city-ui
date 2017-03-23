@@ -31,8 +31,6 @@ const GridAttributes = Model.extend({
   unzoned: attr('number'),
   vehicles: attr('number'),
 
-  proposedEVStations: hasMany('ev-station-location'),
-
   currentEVStations: hasMany('existing-charging-station'),
 
   agricultureOpenSpace: attr('number', {

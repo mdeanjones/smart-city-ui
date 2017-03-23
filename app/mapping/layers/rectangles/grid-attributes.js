@@ -157,10 +157,6 @@ export default Rectangle.extend({
         <table class="features-table">
             <tbody>
                 <tr>
-                    <td><strong>${get(record, 'proposedEVStations.length')}</strong></td>
-                    <td>Proposed Charging Stations</td>
-                </tr>
-                <tr>
                     <td><strong>${get(record, 'currentEVStations.length')}</strong></td>
                     <td>Existing Charging Stations</td>
                 </tr>

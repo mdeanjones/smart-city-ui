@@ -1,10 +1,6 @@
 export default function() {
   this.passthrough('/grid-data/**', '/smart-city-ui/grid-data/**');
 
-  this.get('/evStationLocations', ({ evStationLocations }) => {
-    return evStationLocations.all();
-  });
-
 
   this.get('/existingChargingStations', ({ existingChargingStations }) => {
     return existingChargingStations.all();
