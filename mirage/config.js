@@ -22,6 +22,11 @@ export default function() {
   });
 
 
+  this.get('/parks', ({ parks }) => {
+    return parks.all();
+  });
+
+
   this.get('/gridCells', ({ gridCells }) => {
     return gridCells.all();
   });

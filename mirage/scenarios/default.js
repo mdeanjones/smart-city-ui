@@ -4,6 +4,7 @@ export default function(server) {
   server.loadFixtures('gas-station-locations');
   server.loadFixtures('bus-stops');
   server.loadFixtures('schools');
+  server.loadFixtures('parks');
   server.loadFixtures('grid-cells');
   server.loadFixtures('zone-class-cords');
 }
