@@ -5,10 +5,13 @@ import Ember from 'ember';
 
 const {
   computed,
+  set,
 } = Ember;
 
 
 export default Marker.extend({
+  cluster: true,
+
   icon: computed(function() {
     return L.icon({
       iconUrl: 'assets/images/icon_gas.png',
@@ -20,4 +23,13 @@ export default Marker.extend({
       // popupAnchor: [-3, -76]  // point from which the popup should open relative to the iconAnchor
     });
   }).readOnly(),
+
+
+  init() {
+    this._super(...arguments);
+
+    set(this, 'clusterOptions', {
+      iconCreateFunction: this.getCustomIconCreateFunction('marker-cluster-gas-stations'),
+    });
+  },
 });
