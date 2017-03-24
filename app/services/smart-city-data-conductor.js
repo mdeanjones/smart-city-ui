@@ -1,5 +1,7 @@
 import Ember from 'ember';
 import ENV from 'smart-city-ui/config/environment';
+import StatUtils from 'smart-city-ui/utils/stat-utils';
+
 
 const {
   Service,
@@ -73,7 +75,9 @@ export default Service.extend({
 
     return this.loadDataSet(day, sample, metric).then((data) => {
       data = this.processDataSet(data, range);
-      set(this, 'activeDataSet', data);
+
+      // console.log(data);
+      // set(this, 'activeDataSet', data);
     });
   },
 
@@ -147,67 +151,93 @@ export default Service.extend({
 
 
   processDataSet(dataSet, limits = null) {
-    // The mean, variance, and standard deviation of each cell's values
-    // based on the aggregate time range selected.
-    const cellResults = [];
-
-    dataSet.forEach((item) => {
-      const result = { id: item.id, cellId: item.c };
+    const means = dataSet.map((item) => {
       let temp = item.t;
 
       if (limits) {
         temp = item.t.slice(limits[0], (limits[1] + 1));
       }
 
-      result.mean = this.getMean(temp);
-      result.variance = this.getVariance(temp, result.mean);
-      result.standardDeviation = this.getStandardDeviation(result.variance);
-
-      cellResults.push(result);
+      return StatUtils.getMean(temp);
     });
 
+    const deciles = StatUtils.getDeciles(means);
+    const ranks = means.map(item => StatUtils.decileRank(deciles, item));
 
-    // The entire grid's mean, variance, and standard deviation based on the
-    // computed values of each cell.
-    const gridResults = {
-      mean: this.getMean(cellResults.map((item) => item.mean)),
-      variance: this.getMean(cellResults.map((item) => item.variance)),
-      standardDeviation: this.getMean(cellResults.map((item) => item.standardDeviation)),
-      cells: cellResults,
-    };
-
-    return gridResults;
+    return means.map((item, idx) => {
+      return {
+        mean: item,
+        percentile: ranks[idx],
+      };
+    });
   },
 
 
-  getMean(array) {
-    return array.reduce((prev, curr) => prev + curr) / array.length;
-  },
 
 
-  getVariance(array, mean = null) {
-    if (typeOf(mean) !== 'number') {
-      mean = this.getMean(array);
-    }
 
-    return this.getMean(
-      array.map((value) => {
-        return Math.pow(value - mean, 2);
-      })
-    );
-  },
-
-
-  getStandardDeviation(variance, array = null) {
-    if (typeOf(variance) !== 'number') {
-      if (array) {
-        variance = this.getVariance(array);
-      }
-      else {
-        return null;
-      }
-    }
-
-    return Math.sqrt(variance);
-  },
+  // processDataSet(dataSet, limits = null) {
+  //   // The mean, variance, and standard deviation of each cell's values
+  //   // based on the aggregate time range selected.
+  //   const cellResults = [];
+  //
+  //   dataSet.forEach((item) => {
+  //     const result = { id: item.id, cellId: item.c };
+  //     let temp = item.t;
+  //
+  //     if (limits) {
+  //       temp = item.t.slice(limits[0], (limits[1] + 1));
+  //     }
+  //
+  //     result.mean = this.getMean(temp);
+  //     result.variance = this.getVariance(temp, result.mean);
+  //     result.standardDeviation = this.getStandardDeviation(result.variance);
+  //
+  //     cellResults.push(result);
+  //   });
+  //
+  //
+  //   // The entire grid's mean, variance, and standard deviation based on the
+  //   // computed values of each cell.
+  //   const gridResults = {
+  //     mean: this.getMean(cellResults.map((item) => item.mean)),
+  //     variance: this.getMean(cellResults.map((item) => item.variance)),
+  //     standardDeviation: this.getMean(cellResults.map((item) => item.standardDeviation)),
+  //     cells: cellResults,
+  //   };
+  //
+  //   return gridResults;
+  // },
+  //
+  //
+  // getMean(array) {
+  //   return array.reduce((prev, curr) => prev + curr) / array.length;
+  // },
+  //
+  //
+  // getVariance(array, mean = null) {
+  //   if (typeOf(mean) !== 'number') {
+  //     mean = this.getMean(array);
+  //   }
+  //
+  //   return this.getMean(
+  //     array.map((value) => {
+  //       return Math.pow(value - mean, 2);
+  //     })
+  //   );
+  // },
+  //
+  //
+  // getStandardDeviation(variance, array = null) {
+  //   if (typeOf(variance) !== 'number') {
+  //     if (array) {
+  //       variance = this.getVariance(array);
+  //     }
+  //     else {
+  //       return null;
+  //     }
+  //   }
+  //
+  //   return Math.sqrt(variance);
+  // },
 });

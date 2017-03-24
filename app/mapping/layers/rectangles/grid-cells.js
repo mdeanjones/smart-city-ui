@@ -1,7 +1,7 @@
 /* global L */
 import Rectangle from './-rectangle';
 import Ember from 'ember';
-
+import ColorUtils from 'smart-city-ui/utils/color-utils';
 
 const {
   get,
@@ -23,38 +23,7 @@ export default Rectangle.extend({
     fillOpacity: 0,
   },
 
-
-  scoreColorPolygonProperties: {
-    score1: {
-      fillColor: '#ce0e00',
-      fillOpacity: 0.5,
-    },
-
-    score2: {
-      fillColor: '#ca4b00',
-      fillOpacity: 0.5,
-    },
-
-    score3: {
-      fillColor: '#c68500',
-      fillOpacity: 0.5,
-    },
-
-    score4: {
-      fillColor: '#c2bd00',
-      fillOpacity: 0.5,
-    },
-
-    score5: {
-      fillColor: '#8bbf00',
-      fillOpacity: 0.5,
-    },
-
-    score6: {
-      fillColor: '#19c600',
-      fillOpacity: 0.5,
-    },
-  },
+  scoreColors: ColorUtils.getColorPalette('#ce0e00', '#19c600', [0.2, 0.4, 0.6, 0.8]),
 
 
   showScoreColorObserver: observer('showScoreColors', function() {
@@ -68,7 +37,7 @@ export default Rectangle.extend({
         const score = get(layer, 'smartCityData.score');
 
         if (score > 0 && score < 7) {
-          layer.setStyle(get(styles, `score${score}`));
+          layer.setStyle({ fillColor: get(this, 'scoreColors')[score - 1], fillOpacity: 0.5 });
         }
       });
     }

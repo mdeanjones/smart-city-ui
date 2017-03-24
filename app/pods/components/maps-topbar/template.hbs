@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-xs-7">
-        <h4>Demand & Emissions</h4>
+        <h4>Demand & Emissions{{tool-tip class='fa fa-info-circle' side='right' title='Select a percentage of EV market penetration to see predicted changes in EV charging station demand or emissions.'}}</h4>
 
         <div class="row">
             <div class="col-xs-6 form-horizontal">
@@ -30,12 +30,12 @@
 
         <div class="row">
             <div class="col-xs-12">
-                <h4>Select Vehicle Type {{tool-tip class='fa fa-info-circle' side='right' title='When you select between and electric vehicle (EV) and internal combustion (IC) you will need to change the percentage of energy used, charge versus remaining fuel.'}}</h4>
+                <h4>Select Vehicle Type {{tool-tip class='fa fa-info-circle' side='right' title='When you select between EV and IC, you will need to adjust the percentage of energy remaining, electric charge or fuel. Charging and refueling demand predictions are based on the demand of vehicles with less energy remaining than the selected percentage.'}}</h4>
 
                 <div class="row">
                     <div class="col-xs-6 form-horizontal">
                         <div class="form-group">
-                            <label class="col-xs-6 control-label pt-0">Select between EV and IC vehicles.</label>
+                            <label class="col-xs-6 control-label pt-0">Select between Electric Vehicles (EV) and Internal Combustion (IC) vehicles.</label>
                             <div class="col-xs-6">
                                 {{toggle-switch on='EV' off='IC' onChange=(action 'onEvOrIcToggle') disabled=true}}
                             </div>
@@ -61,7 +61,7 @@
     </div>
 
     <div class="col-xs-5">
-        <h4>Set Time Range</h4>
+        <h4>Set Time Range{{tool-tip class='fa fa-info-circle' side='right' title='Select between Aggregate (i.e., average demand or emissions intensity over the selected time period) and Sweep (i.e., animated change of demand or emissions intensity over the selected time period.'}}</h4>
 
         <div class="row mb-2">
             <div class="col-xs-5 pb-1">
