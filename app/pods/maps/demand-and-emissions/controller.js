@@ -10,6 +10,9 @@ const {
 export default Controller.extend({
   mapService: inject.service('smart-city-maps'),
 
+  dataConductor: inject.service('smart-city-data-conductor'),
+
+
   actions: {
     mapReady(map) {
       get(this, 'mapService')
