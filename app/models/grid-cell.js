@@ -12,12 +12,11 @@ const {
 const {
   computed,
   get,
-  A: EmberArray,
   getProperties,
 } = Ember;
 
 
-const GridCell = Model.extend({
+export default Model.extend({
   busStops: attr('number'),
   gasStations: attr('number'),
   isPark: attr('number'),
@@ -340,86 +339,4 @@ const GridCell = Model.extend({
           <p class="zones-list">${get(this, 'rollupValueStringArray').join(', ')}</p>
       `;
   }),
-
-
-  doBoundsContain(latLng) {
-    return get(this, 'latLngBounds').contains(latLng);
-  },
-
-
-  containsArrayItems(input) {
-    const results = EmberArray([]);
-    const bounds = get(this, 'latLngBounds');
-
-    if (input && get(input, 'length')) {
-      input.forEach((item) => {
-        if (bounds.contains(get(item, 'coordinates'))) {
-          results.pushObject(item);
-        }
-      });
-    }
-
-    return results;
-  },
 });
-
-
-/*
-// Define rollup computed properties.
-// This code is a bit easier to manage than typing out each computed
-// value. If an attr's "ident" meta value matches something in the loop
-// below, it'll get added to that rollup's computed property.
-const attributes = get(GridAttributes, 'attributes');
-const rollupGroups = {};
-
-const addToGroup = function(groupName, propName) {
-  if (get(rollupGroups, groupName)) {
-    rollupGroups[groupName].push(propName);
-  }
-  else {
-    rollupGroups[groupName] = [propName];
-  }
-};
-
-attributes.forEach((meta, name) => {
-  const ident = get(meta, 'options.ident');
-
-  if (ident) {
-    const char = ident.charAt(0);
-    const chars = ident.substr(0, 2);
-
-    if (chars === 'ag') {
-      addToGroup('agricultureRollupValue', name);
-    }
-    else if (char === 'c' || char === 'o' || chars === 're' || chars === 'r5') {
-      addToGroup('commercialRollupValue', name);
-    }
-    else if (chars === 'r1' || chars === 'r6') {
-      addToGroup('residentialSingleRollupValue', name);
-    }
-    else if (chars === 'r2' || chars === 'r3' || chars === 'r4') {
-      addToGroup('residentialMultiRollupValue', name);
-    }
-    else if (char === 'm') {
-      addToGroup('industrialRollupValue', name);
-    }
-    else if (char === 'd') {
-      addToGroup('downtownRollupValue', name);
-    }
-    else if (chars === 'pl') {
-      addToGroup('publicLandRollupValue', name);
-    }
-    else if (chars === 'pu') {
-      addToGroup('pudRollupValue', name);
-    }
-    else if (char === 'p') {
-      addToGroup('parkingRollupValue', name);
-    }
-  }
-});
-
-console.log(rollupGroups);
-*/
-
-
-export default GridCell;

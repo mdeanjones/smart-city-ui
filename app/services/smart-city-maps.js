@@ -1,3 +1,4 @@
+/* global L */
 import Ember from 'ember';
 
 import {
@@ -136,6 +137,8 @@ export default Service.extend({
 
   updateTargetMap(map) {
     set(this, 'map', map);
+
+    L.control.scale().addTo(map);
 
     const layerKeys = get(this, 'layerKeys');
 

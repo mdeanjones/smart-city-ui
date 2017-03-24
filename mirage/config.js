@@ -17,6 +17,16 @@ export default function() {
   });
 
 
+  this.get('/schools', ({ schools }) => {
+    return schools.all();
+  });
+
+
+  this.get('/parks', ({ parks }) => {
+    return parks.all();
+  });
+
+
   this.get('/gridCells', ({ gridCells }) => {
     return gridCells.all();
   });
