@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import ENV from 'smart-city-ui/config/environment';
 
 const {
   Route,
@@ -8,7 +7,6 @@ const {
   },
   get,
   inject,
-  setProperties,
 } = Ember;
 
 
@@ -47,22 +45,6 @@ export default Route.extend({
       }
 
       layer.rebuildLayer();
-
-      return ajax.request(`${ENV.rootURL}grid-data/aggregate.json`).then((data) => {
-        data.forEach((item) => {
-          const record = this.store.peekRecord('grid-attribute', item.c);
-
-          setProperties(record, {
-            mon: item.mon,
-            tues: item.tues,
-            wed: item.wed,
-            thur: item.thur,
-            fri: item.fri,
-            sat: item.sat,
-            sun: item.sun,
-          });
-        });
-      });
     });
   },
 });
