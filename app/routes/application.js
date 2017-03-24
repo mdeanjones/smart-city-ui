@@ -21,6 +21,7 @@ export default Route.extend({
       existingEv: this.store.findAll('existing-charging-station'),
       gasStations: this.store.findAll('gas-station-location'),
       busStops: this.store.findAll('bus-stop'),
+      schools: this.store.findAll('school'),
       grid: this.store.findAll('grid-cell'),
       zones: this.store.findAll('zone-class-cord'),
     }).then((results) => {
