@@ -303,10 +303,10 @@ const GridCell = Model.extend({
   cellDetailsHtml: computed('rollupValueStringArray', 'currentEvStations.length', 'gasStations',
     'busStops', 'schools', 'isPark', 'score', function() {
       return `
-          <p class="features-title">Cell Name/Number</p>
+          <p class="features-title">Score: 1-6</p>
           <hr class="rule">
           <p class="heading">Features:</p>
-          
+
           <table class="features-table">
               <tbody>
                     <tr>
@@ -335,7 +335,7 @@ const GridCell = Model.extend({
                   </tr>
               </tbody>
           </table>
-          
+
           <p class="heading">Zones:</p>
           <p class="zones-list">${get(this, 'rollupValueStringArray').join(', ')}</p>
       `;
