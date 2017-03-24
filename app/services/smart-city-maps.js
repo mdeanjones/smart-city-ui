@@ -16,7 +16,7 @@ import {
   ResidentialSingleZone,
   ResidentialMultiZone,
 
-  GridAttributes,
+  GridCells,
 } from 'smart-city-ui/mapping/layers';
 
 const {
@@ -50,10 +50,9 @@ export default Service.extend({
 
 
   layerKeys: computed(function() {
-    return ['streetMapTiles', 'existingEvMarkers', 'gasStationMarkers',
-      'busStopMarkers', 'agricultureZone', 'commercialZone', 'downtownZone', 'industrialZone',
-      'parkingZone', 'publicLandZone', 'residentialSingleZone', 'residentialMultiZone',
-      'gridAttributes'];
+    return ['streetMapTiles', 'existingEvMarkers', 'gasStationMarkers', 'busStopMarkers', 'agricultureZone',
+      'commercialZone', 'downtownZone', 'industrialZone', 'parkingZone', 'publicLandZone',
+      'residentialSingleZone', 'residentialMultiZone', 'gridCells'];
   }).readOnly(),
 
 
@@ -129,9 +128,9 @@ export default Service.extend({
   }).readOnly(),
 
 
-  gridAttributes: computed(function() {
-    const records = get(this, 'store').peekAll('grid-attribute');
-    return GridAttributes.create({ records });
+  gridCells: computed(function() {
+    const records = get(this, 'store').peekAll('grid-cell');
+    return GridCells.create({ records });
   }).readOnly(),
 
 

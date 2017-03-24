@@ -17,8 +17,8 @@ export default function() {
   });
 
 
-  this.get('/gridAttributes', ({ gridAttributes }) => {
-    return gridAttributes.all();
+  this.get('/gridCells', ({ gridCells }) => {
+    return gridCells.all();
   });
 
 

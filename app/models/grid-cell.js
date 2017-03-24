@@ -16,7 +16,7 @@ const {
 } = Ember;
 
 
-const GridAttributes = Model.extend({
+const GridCell = Model.extend({
   busStops: attr('number'),
   gasStations: attr('number'),
   isPark: attr('number'),
@@ -325,4 +325,4 @@ console.log(rollupGroups);
 */
 
 
-export default GridAttributes;
+export default GridCell;

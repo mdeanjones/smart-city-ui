@@ -13,7 +13,7 @@ import PublicLandZone from './rectangles/public-land';
 import ResidentialSingleZone from './rectangles/residential-single';
 import ResidentialMultiZone from './rectangles/residential-multi';
 
-import GridAttributes from './rectangles/grid-attributes';
+import GridCells from './rectangles/grid-cells';
 
 
 export {
@@ -32,5 +32,5 @@ export {
   ResidentialSingleZone,
   ResidentialMultiZone,
 
-  GridAttributes,
+  GridCells,
 };
