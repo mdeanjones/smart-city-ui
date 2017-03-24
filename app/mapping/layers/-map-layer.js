@@ -6,6 +6,7 @@ const {
   Object: EmberObject,
   computed,
   observer,
+  set,
   setProperties,
   get,
   getProperties,
@@ -21,6 +22,9 @@ export default EmberObject.extend({
 
   isVisible: false,
 
+  isEnabled: true,
+
+
   layer: computed(function() {
     throw new Error('-map-layer: The layer computed property needs to be overridden on the implementing class!');
   }),
@@ -28,6 +32,13 @@ export default EmberObject.extend({
 
   isVisibleObserver: observer('isVisible', function() {
     this.toggleLayer(get(this, 'isVisible'));
+  }),
+
+
+  isEnabledObserver: observer('isEnabled', function() {
+    if (!get(this, 'isEnabled')) {
+      set(this, 'isVisible', false);
+    }
   }),
 
 

@@ -36,4 +36,8 @@
   &.marker-cluster-charging-stations {
     @include markerClusterColorVariant(#ff8800, #fff);
   }
+
+  &.marker-cluster-gas-stations {
+    @include markerClusterColorVariant(#333, #fff);
+  }
 }

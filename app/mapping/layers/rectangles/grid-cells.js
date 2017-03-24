@@ -1,20 +1,33 @@
 /* global L */
 import Rectangle from './-rectangle';
 import Ember from 'ember';
-
+import ColorUtils from 'smart-city-ui/utils/color-utils';
 
 const {
   get,
   observer,
+  setProperties,
+  getProperties,
+  computed,
 } = Ember;
 
 
 export default Rectangle.extend({
+  scoreColorsEnabled: true,
+
+  scoreColorsDisabled: computed.not('scoreColorsEnabled'),
+
   showScoreColors: false,
 
   isVisible: true,
 
   defaultVisibility: true,
+
+  heatMapping: false,
+
+  scoreColors: ColorUtils.getColorPalette('#ce0e00', '#19c600', [0.2, 0.4, 0.6, 0.8]),
+
+  heatMapColors: ColorUtils.getColorPalette('#ff0000', '#0000ff', [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8]),
 
   polygonProperties: {
     color: '#000',
@@ -24,78 +37,9 @@ export default Rectangle.extend({
   },
 
 
-  scoreColorPolygonProperties: {
-    score1: {
-      fillColor: '#ce0e00',
-      fillOpacity: 0.5,
-    },
-
-    score2: {
-      fillColor: '#ca4b00',
-      fillOpacity: 0.5,
-    },
-
-    score3: {
-      fillColor: '#c68500',
-      fillOpacity: 0.5,
-    },
-
-    score4: {
-      fillColor: '#c2bd00',
-      fillOpacity: 0.5,
-    },
-
-    score5: {
-      fillColor: '#8bbf00',
-      fillOpacity: 0.5,
-    },
-
-    score6: {
-      fillColor: '#19c600',
-      fillOpacity: 0.5,
-    },
-  },
-
-
   showScoreColorObserver: observer('showScoreColors', function() {
-    const showScoreColors = get(this, 'showScoreColors');
-    const layer = get(this, 'layer');
-
-    if (showScoreColors) {
-      const styles = get(this, 'scoreColorPolygonProperties');
-
-      layer.getLayers().forEach((layer) => {
-        const score = get(layer, 'smartCityData.score');
-
-        if (score > 0 && score < 7) {
-          layer.setStyle(get(styles, `score${score}`));
-        }
-      });
-    }
-    else {
-      const defaultStyles = get(this, 'polygonProperties');
-
-      layer.getLayers().forEach((layer) => {
-        layer.setStyle(defaultStyles);
-      });
-    }
+    this.paintGridCells();
   }),
-
-
-  containsArrayItems(input) {
-    const bounds = get(this, 'layer').getBounds();
-    const results = [];
-
-    if (input && get(input, 'length')) {
-      input.forEach((item) => {
-        if (bounds.contains(get(item, 'coordinates'))) {
-          results.push(item);
-        }
-      });
-    }
-
-    return results;
-  },
 
 
   createRectangle(bounds, polygonProperties, record) {
@@ -116,5 +60,63 @@ export default Rectangle.extend({
     popup.setContent(get(record, 'cellDetailsHtml'));
 
     return popup;
+  },
+
+
+  enableHeatMap(dataSet) {
+    setProperties(this, {
+      scoreColorsEnabled: false,
+      showScoreColors: false,
+      heatMapping: true,
+    });
+
+    this.updateHeatMap(dataSet);
+  },
+
+
+  updateHeatMap(dataSet) {
+    this.paintGridCells(dataSet);
+  },
+
+
+  disableHeatMap() {
+    setProperties(this, {
+      scoreColorsEnabled: true,
+      heatMapping: false,
+    });
+
+    this.paintGridCells();
+  },
+
+
+  paintGridCells(dataSet = null) {
+    const {
+      scoreColorsEnabled,
+      showScoreColors,
+      heatMapping,
+      layer,
+    } = getProperties(this, ['scoreColorsEnabled', 'showScoreColors', 'heatMapping', 'layer']);
+
+    if ((scoreColorsEnabled && showScoreColors) || (heatMapping && dataSet)) {
+      const palette = heatMapping ? get(this, 'heatMapColors') : get(this, 'scoreColors');
+
+      layer.getLayers().forEach((item, idx) => {
+        if (heatMapping) {
+          // item.getPopup().setContent(palette[dataSet[idx].percentile - 1]);
+          item.setStyle({ fillColor: palette[dataSet[idx].percentile - 1], fillOpacity: 0.5 });
+        }
+        else {
+          const score = get(item, 'smartCityData.score');
+          item.setStyle({ fillColor: palette[score - 1], fillOpacity: 0.5 });
+        }
+      });
+    }
+    else {
+      const defaults = get(this, 'polygonProperties');
+
+      layer.getLayers().forEach((item) => {
+        item.setStyle(defaults);
+      });
+    }
   },
 });
