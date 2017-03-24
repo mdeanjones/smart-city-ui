@@ -3,6 +3,6 @@ export default function(server) {
   server.loadFixtures('existing-charging-stations');
   server.loadFixtures('gas-station-locations');
   server.loadFixtures('bus-stops');
-  server.loadFixtures('grid-attributes');
+  server.loadFixtures('grid-cells');
   server.loadFixtures('zone-class-cords');
 }

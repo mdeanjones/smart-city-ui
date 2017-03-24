@@ -13,10 +13,11 @@ const {
   computed,
   get,
   A: EmberArray,
+  getProperties,
 } = Ember;
 
 
-const GridAttributes = Model.extend({
+const GridCell = Model.extend({
   busStops: attr('number'),
   gasStations: attr('number'),
   isPark: attr('number'),
@@ -245,6 +246,102 @@ const GridAttributes = Model.extend({
   parkingRollupKeys: computed.collect('parking'),
 
 
+  rollupValueStringArray: computed('agricultureRollupValue', 'commercialRollupValue', 'downtownRollupValue',
+    'industrialRollupValue', 'parkingRollupValue', 'publicLandRollupValue', 'residentialSingleRollupValue',
+    'residentialMultiRollupValue', function() {
+      const zones = [];
+
+      const {
+        agricultureRollupValue,
+        commercialRollupValue,
+        downtownRollupValue,
+        industrialRollupValue,
+        parkingRollupValue,
+        publicLandRollupValue,
+        residentialSingleRollupValue,
+        residentialMultiRollupValue,
+      } = getProperties(this, ['agricultureRollupValue', 'commercialRollupValue', 'downtownRollupValue',
+        'industrialRollupValue', 'parkingRollupValue', 'publicLandRollupValue', 'residentialSingleRollupValue',
+        'residentialMultiRollupValue']);
+
+      if (agricultureRollupValue) {
+        zones.push('Agriculture');
+      }
+
+      if (commercialRollupValue) {
+        zones.push('Commercial');
+      }
+
+      if (downtownRollupValue) {
+        zones.push('Downtown');
+      }
+
+      if (industrialRollupValue) {
+        zones.push('Industrial');
+      }
+
+      if (parkingRollupValue) {
+        zones.push('Parking');
+      }
+
+      if (publicLandRollupValue) {
+        zones.push('Public Land');
+      }
+
+      if (residentialSingleRollupValue) {
+        zones.push('Residential Single Family');
+      }
+
+      if (residentialMultiRollupValue) {
+        zones.push('Residential Multi-family');
+      }
+
+      return zones;
+  }),
+
+
+  cellDetailsHtml: computed('rollupValueStringArray', 'currentEvStations.length', 'gasStations',
+    'busStops', 'schools', 'isPark', 'score', function() {
+      return `
+          <p class="features-title">Cell Name/Number</p>
+          <hr class="rule">
+          <p class="heading">Features:</p>
+          
+          <table class="features-table">
+              <tbody>
+                    <tr>
+                      <td><strong>${get(this, 'score')}</strong></td>
+                      <td>Recommended Charging Score (1-6)</td>
+                  </tr>
+                  <tr>
+                      <td><strong>${get(this, 'currentEVStations.length')}</strong></td>
+                      <td>Existing Charging Stations</td>
+                  </tr>
+                  <tr>
+                      <td><strong>${get(this, 'gasStations')}</strong></td>
+                      <td>Gas Stations</td>
+                  </tr>
+                  <tr>
+                      <td><strong>${get(this, 'busStops')}</strong></td>
+                      <td>Bus Stops</td>
+                  </tr>
+                  <tr>
+                      <td><strong>${get(this, 'schools')}</strong></td>
+                      <td>Schools</td>
+                  </tr>
+                  <tr>
+                      <td><strong>${get(this, 'isPark')}</strong></td>
+                      <td>Parks</td>
+                  </tr>
+              </tbody>
+          </table>
+          
+          <p class="heading">Zones:</p>
+          <p class="zones-list">${get(this, 'rollupValueStringArray').join(', ')}</p>
+      `;
+  }),
+
+
   doBoundsContain(latLng) {
     return get(this, 'latLngBounds').contains(latLng);
   },
@@ -325,4 +422,4 @@ console.log(rollupGroups);
 */
 
 
-export default GridAttributes;
+export default GridCell;
