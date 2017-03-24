@@ -24,6 +24,8 @@ const {
 export default Service.extend({
   ajax: inject.service(),
 
+  mapService: inject.service('smart-city-maps'),
+
   isLoading: false,
 
   // 5 minute increments across 24 hrs
@@ -57,8 +59,6 @@ export default Service.extend({
 
   dayOfWeek: 'mon',
 
-  activeDataSet: null,
-
   cache: {},
 
 
@@ -75,9 +75,7 @@ export default Service.extend({
 
     return this.loadDataSet(day, sample, metric).then((data) => {
       data = this.processDataSet(data, range);
-
-      // console.log(data);
-      // set(this, 'activeDataSet', data);
+      get(this, 'mapService.gridCells').updateHeatMap(data);
     });
   },
 
