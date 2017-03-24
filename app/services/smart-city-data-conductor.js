@@ -9,6 +9,7 @@ const {
   observer,
   set,
   setProperties,
+  typeOf,
   RSVP : {
     resolve,
   },
@@ -54,40 +55,45 @@ export default Service.extend({
 
   dayOfWeek: 'mon',
 
-
-  changeWatcher: observer('dayOfWeek,evPercentageInFleet,demandActive', function() {
-    debounce(this, 'changeDataSet', 250);
-  }),
-
+  activeDataSet: null,
 
   cache: {},
 
 
+  changeWatcher: observer('dayOfWeek,evPercentageInFleet,demandActive,timeRange.@each', function() {
+    debounce(this, 'changeDataSet', 250);
+  }),
+
+
   changeDataSet() {
+    const range = get(this, 'timeRange');
     const day = get(this, 'dayOfWeek');
     const sample = get(this, 'evPercentageInFleet');
     const metric = get(this, 'demandActive') ? 'perc_ee' : 'co2_em';
 
-    this.loadDataSet(day, sample, metric);
+    return this.loadDataSet(day, sample, metric).then((data) => {
+      data = this.processDataSet(data, range);
+      set(this, 'activeDataSet', data);
+    });
   },
 
 
   loadDataSet(day, sample, metric) {
-    const keyChain = `cache.${day}.p${sample}.${metric}`;
-    const cached = get(this, keyChain);
+    const url = `${ENV.rootURL}grid-data/${day}/p${sample}/${metric}.json`;
+    const cached = get(this, 'cache')[url];
 
     if (cached) {
       return resolve(cached);
     }
     else {
-      const url = `${ENV.rootURL}${day}/p${sample}/${metric}.json`;
+      set(this, 'loading', true);
 
-      console.log(url);
+      return get(this, 'ajax').request(url).then((data) => {
+        get(this, 'cache')[url] = data;
+        set(this, 'loading', false);
 
-      // return get(this, 'ajax').request(url).then((results) => {
-      //  set(this, keyChain, results);
-      //  return results;
-      // });
+        return data;
+      });
     }
   },
 
@@ -137,5 +143,71 @@ export default Service.extend({
       timeRangeIntervalId: null,
       timeRangeTickCounter: null,
     });
+  },
+
+
+  processDataSet(dataSet, limits = null) {
+    // The mean, variance, and standard deviation of each cell's values
+    // based on the aggregate time range selected.
+    const cellResults = [];
+
+    dataSet.forEach((item) => {
+      const result = { id: item.id, cellId: item.c };
+      let temp = item.t;
+
+      if (limits) {
+        temp = item.t.slice(limits[0], (limits[1] + 1));
+      }
+
+      result.mean = this.getMean(temp);
+      result.variance = this.getVariance(temp, result.mean);
+      result.standardDeviation = this.getStandardDeviation(result.variance);
+
+      cellResults.push(result);
+    });
+
+
+    // The entire grid's mean, variance, and standard deviation based on the
+    // computed values of each cell.
+    const gridResults = {
+      mean: this.getMean(cellResults.map((item) => item.mean)),
+      variance: this.getMean(cellResults.map((item) => item.variance)),
+      standardDeviation: this.getMean(cellResults.map((item) => item.standardDeviation)),
+      cells: cellResults,
+    };
+
+    return gridResults;
+  },
+
+
+  getMean(array) {
+    return array.reduce((prev, curr) => prev + curr) / array.length;
+  },
+
+
+  getVariance(array, mean = null) {
+    if (typeOf(mean) !== 'number') {
+      mean = this.getMean(array);
+    }
+
+    return this.getMean(
+      array.map((value) => {
+        return Math.pow(value - mean, 2);
+      })
+    );
+  },
+
+
+  getStandardDeviation(variance, array = null) {
+    if (typeOf(variance) !== 'number') {
+      if (array) {
+        variance = this.getVariance(array);
+      }
+      else {
+        return null;
+      }
+    }
+
+    return Math.sqrt(variance);
   },
 });
