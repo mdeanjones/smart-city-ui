@@ -113,77 +113,7 @@ export default Rectangle.extend({
 
   createRectanglePopup(record) {
     const popup = L.popup({ maxWidth: 170 });
-    const zones = [];
-
-
-    if (get(record, 'agricultureRollupValue')) {
-      zones.push('Agriculture');
-    }
-
-    if (get(record, 'commercialRollupValue')) {
-      zones.push('Commercial');
-    }
-
-    if (get(record, 'downtownRollupValue')) {
-      zones.push('Downtown');
-    }
-
-    if (get(record, 'industrialRollupValue')) {
-      zones.push('Industrial');
-    }
-
-    if (get(record, 'parkingRollupValue')) {
-      zones.push('Parking');
-    }
-
-    if (get(record, 'publicLandRollupValue')) {
-      zones.push('Public Land');
-    }
-
-    if (get(record, 'residentialSingleRollupValue')) {
-      zones.push('Residential Single Family');
-    }
-
-    if (get(record, 'residentialMultiRollupValue')) {
-      zones.push('Residential Multi-family');
-    }
-
-
-    const content = `
-        <p class="features-title">Cell Name/Number</p>
-        <hr class="rule">
-        <p class="heading">Features:</p>
-        
-        <table class="features-table">
-            <tbody>
-                <tr>
-                    <td><strong>${get(record, 'currentEVStations.length')}</strong></td>
-                    <td>Existing Charging Stations</td>
-                </tr>
-                <tr>
-                    <td><strong>${get(record, 'gasStations')}</strong></td>
-                    <td>Gas Stations</td>
-                </tr>
-                <tr>
-                    <td><strong>${get(record, 'busStops')}</strong></td>
-                    <td>Bus Stops</td>
-                </tr>
-                <tr>
-                    <td><strong>${get(record, 'schools')}</strong></td>
-                    <td>Schools</td>
-                </tr>
-                <tr>
-                    <td><strong>${get(record, 'isPark')}</strong></td>
-                    <td>Parks</td>
-                </tr>
-            </tbody>
-        </table>
-        
-        <p class="heading">Zones:</p>
-        <p class="zones-list">${zones.join(', ')}</p>
-    `;
-
-    popup.setContent(content);
+    popup.setContent(get(record, 'cellDetailsHtml'));
 
     return popup;
   },
