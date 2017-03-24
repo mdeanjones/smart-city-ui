@@ -6,7 +6,6 @@ const {
   computed,
   get,
   set,
-  setProperties,
   typeOf,
 } = Ember;
 
@@ -14,165 +13,79 @@ const {
 export default Component.extend({
   classNames: ['topbar'],
 
-  mapService: null,
+  dataConductor: null,
 
-  // 5 minute increments across 24 hrs
-  timeRange: [0, 287],
+  isPlayDisabled: computed.or('dataConductor.{isPlaying,aggregateActive}'),
 
-  timeRangeIntervalId: null,
+  isPauseDisabled: computed.or('dataConductor.{isPaused,aggregateActive}'),
 
-  timeRangeTickCounter: null,
-
-  timeRangeTickDuration: 1000,
-
-  evPercentageInFleet: 2,
-
-  chargeRemaining: 50,
-
-  demandActive: true,
-
-  emissionsActive: false,
-
-  evActive: true,
-
-  icActive: false,
-
-  aggregateActive: true,
-
-  sweepActive: false,
-
-  isPlaying: false,
-
-  isPaused: true,
-
-  dayOfWeek: 'mon',
+  isTimeRangeDisabled: computed.and('dataConductor.{isPlaying,sweepActive}'),
 
 
-  evPercentageInFleetInt: computed('evPercentageInFleet', {
+  evPercentageInFleetInt: computed('dataConductor.evPercentageInFleet', {
     get() {
-      return get(this, 'evPercentageInFleet');
+      return get(this, 'dataConductor.evPercentageInFleet');
     },
 
     set(key, value) {
       value = typeOf(value) === 'string' ? parseInt(value) : value;
 
-      set(this, 'evPercentageInFleet', value);
+      set(this, 'dataConductor.evPercentageInFleet', value);
       return value;
     },
   }),
 
 
-  chargeRemainingInt: computed('chargeRemaining', {
+  chargeRemainingInt: computed('dataConductor.chargeRemaining', {
     get() {
-      return get(this, 'chargeRemaining');
+      return get(this, 'dataConductor.chargeRemaining');
     },
 
     set(key, value) {
       value = typeOf(value) === 'string' ? parseInt(value) : value;
 
-      set(this, 'chargeRemaining', value);
+      set(this, 'dataConductor.chargeRemaining', value);
       return value;
     },
   }),
 
 
-  isPlayDisabled: computed('isPlaying', 'aggregateActive', function() {
-    return get(this, 'isPlaying') || get(this, 'aggregateActive');
-  }),
+  formattedTimeRange: computed('dataConductor.timeRange.@each', function() {
+    const range = get(this, 'dataConductor.timeRange');
+    const start = moment('00:00', 'hh:mm').add(range[0] * 5, 'm').format('hh:mma');
+    const end = moment('00:00', 'hh:mm').add(range[1] * 5, 'm').format('hh:mma');
 
-
-  isPauseDisabled: computed('isPaused', 'aggregateActive', function() {
-    return get(this, 'isPaused') || get(this, 'aggregateActive');
-  }),
-
-
-  isTimeRangeDisabled: computed('isPlaying', 'sweepActive', function() {
-    return get(this, 'isPlaying') && get(this, 'sweepActive');
-  }),
-
-
-  formattedTimeRangeStart: computed('timeRange.@each', function() {
-    const range = get(this, 'timeRange');
-    const time = moment('00:00', 'hh:mm').add(range[0] * 5, 'm');
-
-    return time.format('hh:mma');
-  }),
-
-
-  formattedTimeRangeEnd: computed('timeRange.@each', function() {
-    const range = get(this, 'timeRange');
-    const time = moment('00:00', 'hh:mm').add(range[1] * 5, 'm');
-
-    return time.format('hh:mma');
+    return { start, end };
   }),
 
 
   actions: {
     onDemandOrEmissionsToggle(isDemand) {
-      setProperties(this, {
-        demandActive: isDemand,
-        emissionsActive: !isDemand,
-      });
+      set(this, 'dataConductor.demandActive', isDemand);
     },
 
 
     onEvOrIcToggle(isEv) {
-      setProperties(this, {
-        evActive: isEv,
-        icActive: !isEv,
-      });
+      set(this, 'dataConductor.evActive', isEv);
     },
 
 
     onAggregateOrSweepToggle(isAggregate) {
-      setProperties(this, {
-        aggregateActive: isAggregate,
-        sweepActive: !isAggregate,
-      });
+      set(this, 'dataConductor.aggregateActive', isAggregate);
 
       if (isAggregate) {
-        this.send('onPauseClick');
+        get(this, 'dataConductor').pauseTimeRange();
       }
     },
 
 
     onPlayClick() {
-      const range = get(this, 'timeRange');
-      const max = range[1] - range[0];
-
-      const ticker = () => {
-        const tickCount = get(this, 'timeRangeTickCounter');
-        const newRange = [range[0] + tickCount, range[1]];
-
-        set(this, 'timeRange', newRange);
-
-        if (tickCount === max) {
-          this.send('onPauseClick');
-        }
-
-        this.incrementProperty('timeRangeTickCounter');
-      };
-
-      setProperties(this, {
-        isPlaying: true,
-        isPaused: false,
-        timeRangeIntervalId: setInterval(ticker, get(this, 'timeRangeTickDuration')),
-        timeRangeTickCounter: 0,
-      });
-
-      ticker();
+      get(this, 'dataConductor').playTimeRange();
     },
 
 
     onPauseClick() {
-      clearInterval(get(this, 'timeRangeIntervalId'));
-
-      setProperties(this, {
-        isPlaying: false,
-        isPaused: true,
-        timeRangeIntervalId: null,
-        timeRangeTickCounter: null,
-      });
+      get(this, 'dataConductor').pauseTimeRange();
     },
   },
 
@@ -185,5 +98,15 @@ export default Component.extend({
     }
 
     this._super(...arguments);
+  },
+
+
+  changeDataSet() {
+    const day = get(this, 'dayOfWeek');
+    const sample = get(this, 'evPercentageInFleet');
+    const metric = get(this, 'demandActive') ? 'perc_ee' : 'co2_em';
+
+
+    get(this, 'dataConductor').loadDataSet(day, sample, metric);
   },
 });
