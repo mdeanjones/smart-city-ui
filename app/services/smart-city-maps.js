@@ -3,6 +3,7 @@ import Ember from 'ember';
 
 import {
   StreetMapTiles,
+  GreyScaleTiles,
 
   ExistingEvMarkers,
   GasStationMarkers,
@@ -50,16 +51,35 @@ export default Service.extend({
   accessToken: 'pk.eyJ1IjoiYmR1bGFuIiwiYSI6ImNpemZzOTYyYTAwbncycW5ueWYyaHkyeTkifQ.Iotxd_KBWcont6Hggmal1g',
 
 
-  layerKeys: computed(function() {
-    return ['streetMapTiles', 'existingEvMarkers', 'gasStationMarkers', 'busStopMarkers', 'agricultureZone',
-      'commercialZone', 'downtownZone', 'industrialZone', 'parkingZone', 'publicLandZone',
-      'residentialSingleZone', 'residentialMultiZone', 'gridCells'];
-  }).readOnly(),
+  tileLayerKeys: computed(function() {
+    return ['streetMapTiles', 'greyScaleTiles'];
+  }),
+
+
+  markerLayerKeys: computed(function() {
+    return ['existingEvMarkers', 'gasStationMarkers', 'busStopMarkers'];
+  }),
+
+
+  polygonLayerKeys: computed(function() {
+    return ['agricultureZone', 'commercialZone', 'downtownZone', 'industrialZone',
+      'parkingZone', 'publicLandZone', 'residentialSingleZone', 'residentialMultiZone',
+      'gridCells'];
+  }),
+
+
+  layerKeys: computed.uniq('tileLayerKeys', 'markerLayerKeys', 'polygonLayerKeys'),
 
 
   streetMapTiles: computed(function() {
     const accessToken = get(this, 'accessToken');
     return StreetMapTiles.create({ accessToken });
+  }).readOnly(),
+
+
+  greyScaleTiles: computed(function() {
+    const accessToken = get(this, 'accessToken');
+    return GreyScaleTiles.create({ accessToken });
   }).readOnly(),
 
 
@@ -135,7 +155,7 @@ export default Service.extend({
   }).readOnly(),
 
 
-  updateTargetMap(map) {
+  updateTargetMap(map, baseMapName = 'streetMapTiles') {
     set(this, 'map', map);
 
     L.control.scale().addTo(map);
@@ -145,6 +165,8 @@ export default Service.extend({
     for (let i = 0; i < layerKeys.length; i += 1) {
       get(this, layerKeys[i]).updateTargetMap(map);
     }
+
+    this.setBaseMap(baseMapName);
 
     return this;
   },
@@ -166,6 +188,17 @@ export default Service.extend({
 
     if (map) {
       map.setZoom(zoom || get(this, 'defaultZoom'));
+    }
+
+    return this;
+  },
+
+
+  setBaseMap(name) {
+    const tileLayers = get(this, 'tileLayerKeys');
+
+    for (let i = 0; i < get(tileLayers, 'length'); i += 1) {
+      set(this, `${tileLayers[i]}.isVisible`, tileLayers[i] === name);
     }
 
     return this;
