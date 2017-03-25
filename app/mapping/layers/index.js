@@ -1,4 +1,5 @@
 import StreetMapTiles from './tiles/street-map';
+import GreyScaleTiles from './tiles/grey-scale';
 
 import ExistingEvMarkers from './markers/existing-ev';
 import GasStationMarkers from './markers/gas-stations';
@@ -18,6 +19,7 @@ import GridCells from './rectangles/grid-cells';
 
 export {
   StreetMapTiles,
+  GreyScaleTiles,
 
   ExistingEvMarkers,
   GasStationMarkers,
