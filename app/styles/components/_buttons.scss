@@ -1,0 +1,8 @@
+.btn.btn-reset {
+  background: transparent;
+  border: none;
+
+  &:active, &.active {
+    box-shadow: none;
+  }
+}

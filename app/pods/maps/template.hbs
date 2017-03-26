@@ -1,20 +1,34 @@
-<ul class="nav nav-tabs panel-tabs pull-right">
-    {{#link-to 'maps.charging-stations' tagName='li' ariaRole='presentation'}}
-        {{link-to 'Charging Stations' 'maps.charging-stations'}}
-    {{/link-to}}
+<header>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <a href="#" title="Home">
+                    <img src="assets/images/smart-cities-logo.png" />
+                </a>
+                <h1>Electric Vehicles Dashboard</h1>
+            </div>
+        </div>
+    </div>
+</header>
 
-    {{#link-to 'maps.demand-and-emissions' tagName='li' ariaRole='presentation'}}
-        {{link-to 'Demand & Emissions' 'maps.demand-and-emissions'}}
-    {{/link-to}}
-</ul>
+<div class="container">
+    <ul class="nav nav-tabs panel-tabs pull-right">
+        {{#link-to 'maps.charging-stations' tagName='li' ariaRole='presentation'}}
+            {{link-to 'Charging Stations' 'maps.charging-stations'}}
+        {{/link-to}}
 
-<div class="row">
-    <div class="col-xs-12">
-        <div class="panel panel-primary">
-            <div class="panel-body">
-                {{outlet}}
+        {{#link-to 'maps.demand-and-emissions' tagName='li' ariaRole='presentation'}}
+            {{link-to 'Demand & Emissions' 'maps.demand-and-emissions'}}
+        {{/link-to}}
+    </ul>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    {{outlet}}
+                </div>
             </div>
         </div>
     </div>
 </div>
-

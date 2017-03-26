@@ -1,0 +1,41 @@
+<div class="dashboard-sidebar">
+    <ul class="list-unstyled vertical-sidebar">
+        <li class="faux-cell">
+            <img src="assets/images/smart-cities-logo-icon.png" class="img-logo" title="Smart Cities Electric Vehicle Dashboard" />
+        </li>
+
+        {{#tool-tip tagName='li' title='Map markers and layers' side='right'}}
+            <button type="button" class="btn btn-reset {{if mapLayersPaneVisible 'active'}}" onclick={{action 'toggleFlyoutMenu' 'layers'}}>
+                <span class="fa fa-map-signs fa-2x"></span>
+            </button>
+        {{/tool-tip}}
+
+        {{#tool-tip tagName='li' title='Demand and emission analytics' side='right'}}
+            <button type="button" class="btn btn-reset {{if mapAnalyticsPaneVisible 'active'}}" onclick={{action 'toggleFlyoutMenu' 'analytics'}}>
+                <span class="fa fa-bar-chart fa-2x"></span>
+            </button>
+        {{/tool-tip}}
+
+        {{#tool-tip tagName='li' title='Map information' side='right'}}
+            <button type="button" class="btn btn-reset {{if mapInfoPaneVisible 'active'}}"  onclick={{action 'toggleFlyoutMenu' 'mapinfo'}}>
+                <span class="fa fa-globe fa-2x"></span>
+            </button>
+        {{/tool-tip}}
+    </ul>
+</div>
+
+<div class="dashboard-layers">
+
+</div>
+
+<div class="dashboard-analytics">
+
+</div>
+
+<div class="dashboard-mapinfo">
+
+</div>
+
+<div class="dashboard-map-container">
+    {{leaflet-map height='100%' class='leaflet-map-fullscreen' onMapReady=(action 'mapReady')}}
+</div>

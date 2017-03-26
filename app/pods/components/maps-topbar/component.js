@@ -13,6 +13,8 @@ const {
 export default Component.extend({
   classNames: ['topbar'],
 
+  mapService: null,
+
   dataConductor: null,
 
   isPlayDisabled: computed.or('dataConductor.{isPlaying,aggregateActive}'),
@@ -90,23 +92,18 @@ export default Component.extend({
   },
 
 
-  willDestroyElement() {
-    const intervalId = get(this, 'timeRangeIntervalId');
-
-    if (intervalId) {
-      clearInterval(intervalId);
-    }
-
+  didInsertElement() {
     this._super(...arguments);
+
+    get(this, 'mapService.gridCells').enableHeatMap();
+    get(this, 'dataConductor').computeFromCurrentSettings();
   },
 
 
-  changeDataSet() {
-    const day = get(this, 'dayOfWeek');
-    const sample = get(this, 'evPercentageInFleet');
-    const metric = get(this, 'demandActive') ? 'perc_ee' : 'co2_em';
+  willDestroyElement() {
+    get(this, 'dataConductor').pauseTimeRange();
+    get(this, 'mapService.gridCells').disableHeatMap();
 
-
-    get(this, 'dataConductor').loadDataSet(day, sample, metric);
+    this._super(...arguments);
   },
 });

@@ -1,0 +1,51 @@
+.dashboard-map-container {
+  height: 100%;
+  margin-left: 56px;
+}
+
+.dashboard-sidebar {
+  background-color: $body-bg;
+  border-right: solid 1px $panel-primary-border;
+  box-shadow: 5px 0 8px 0 rgba(0,0,0,0.1);
+  bottom: 0;
+  position: fixed;
+  top: 0;
+  width: 55px;
+  z-index: 1001;
+
+  .img-logo {
+    width: 45px;
+    height: 50px;
+  }
+
+  .vertical-sidebar {
+    li {
+      border-bottom: solid 1px $panel-primary-border;
+      border-top: solid 1px #c8f9ff;
+      text-align: center;
+
+      &:first-child {
+        border-top: none;
+      }
+
+      &.faux-cell {
+        padding-top: 12px;
+        padding-bottom: 12px;
+      }
+
+      button {
+        display: block;
+        width: 100%;
+        outline-offset: -4px;
+        color: $panel-primary-border;
+        padding-top: 12px;
+        padding-bottom: 12px;
+
+        &:hover, &:focus, &.active {
+          background-color: darken($body-bg, 10%);
+          color: darken($panel-primary-border, 15%);
+        }
+      }
+    }
+  }
+}

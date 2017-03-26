@@ -13,6 +13,10 @@ export default Component.extend({
 
   map: null,
 
+  mapOptions: {
+
+  },
+
 
   style: computed('height', function() {
     return EmberString.htmlSafe(`height: ${get(this, 'height')};`);
@@ -23,7 +27,7 @@ export default Component.extend({
     this._super(...arguments);
 
     const id = get(this, 'elementId');
-    const map = L.map(id);
+    const map = L.map(id, get(this, 'mapOptions'));
 
     set(this, 'map', map);
 
