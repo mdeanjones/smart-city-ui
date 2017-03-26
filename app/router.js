@@ -11,6 +11,8 @@ Router.map(function() {
     this.route('charging-stations');
     this.route('demand-and-emissions');
   });
+
+  this.route('dashboard', function() {});
 });
 
 export default Router;

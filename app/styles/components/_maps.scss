@@ -1,6 +1,10 @@
 .leaflet-map {
   border: solid 1px $map-border;
 
+  &.leaflet-map-fullscreen {
+    border: none;
+  }
+
   .leaflet-popup {
     .leaflet-popup-close-button {
       margin: 6px 8px 0 0;
