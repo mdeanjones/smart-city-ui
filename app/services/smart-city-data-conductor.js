@@ -8,6 +8,7 @@ const {
   inject,
   computed,
   get,
+  getProperties,
   observer,
   set,
   setProperties,
@@ -35,11 +36,11 @@ export default Service.extend({
 
   timeRangeTickCounter: null,
 
-  timeRangeTickDuration: 1000,
+  timeRangeTickDuration: 250,
 
   evPercentageInFleet: 2,
 
-  chargeRemaining: 50,
+  chargeRemaining: 100,
 
   demandActive: true,
 
@@ -62,41 +63,119 @@ export default Service.extend({
   cache: {},
 
 
-  changeWatcher: observer('dayOfWeek,evPercentageInFleet,demandActive,timeRange.@each', function() {
-    debounce(this, 'changeDataSet', 250);
-  }),
-
-
-  changeDataSet() {
-    const range = get(this, 'timeRange');
+  // Generates a URL to the JSON file needed to render the heat map based on current settings.
+  requestedDataUrl: computed('dayOfWeek,evPercentageInFleet,demandActive', function() {
     const day = get(this, 'dayOfWeek');
     const sample = get(this, 'evPercentageInFleet');
     const metric = get(this, 'demandActive') ? 'perc_ee' : 'co2_em';
 
-    return this.loadDataSet(day, sample, metric).then((data) => {
-      data = this.processDataSet(data, range);
-      get(this, 'mapService.gridCells').updateHeatMap(data);
+    return `${ENV.rootURL}grid-data/${day}/p${sample}/${metric}.json`;
+  }),
+
+
+  // Does the
+  isRequestedDataCached: computed('requestedDataUrl', function() {
+    return !!this.getFromCache(get(this, 'requestedDataUrl'));
+  }),
+
+
+  // An observer who watches the property values that when changed might require a fresh
+  // AJAX call. If an AJAX call is going to be required, then the execution is debounced
+  // so we don't wind up spamming the server.
+  cacheUpdateRequiredWatcher: observer('dayOfWeek,evPercentageInFleet,demandActive,isRequestedDataCached', function() {
+    if (get(this, 'isRequestedDataCached')) {
+      this.computeFromCurrentSettings();
+    }
+    else {
+      debounce(this, 'computeFromCurrentSettings', 250);
+    }
+  }),
+
+
+  // An observer who watches property values that when changes will require the active data
+  // set to be recomputed for the map. No AJAX calls required here.
+  recomputeRequiredWatcher: observer('timeRange.@each,chargeRemaining,aggregateActive', function() {
+    this.computeFromCurrentSettings();
+  }),
+
+
+  // Retrieves an already loaded data set from the cache. A key can be provided,
+  // or the current requestedDataUrl key will be used. Returns undefined if nothing
+  // is stored in the cache under the provided key.
+  getFromCache(key = null) {
+    key = key || get(this, 'requestedDataUrl');
+    return get(this, 'cache')[key];
+  },
+
+
+  addToCache(key, value) {
+    get(this, 'cache')[key] = value;
+  },
+
+
+  computeFromCurrentSettings() {
+    this.getDataSet().then((data) => {
+      get(this, 'mapService.gridCells').updateHeatMap(
+        this.processDataSet(data)
+      );
     });
   },
 
 
-  loadDataSet(day, sample, metric) {
-    const url = `${ENV.rootURL}grid-data/${day}/p${sample}/${metric}.json`;
-    const cached = get(this, 'cache')[url];
+  getDataSet(key = null) {
+    key = key || get(this, 'requestedDataUrl');
+    const cacheItem = this.getFromCache(key);
 
-    if (cached) {
-      return resolve(cached);
+    if (!!cacheItem) {
+      return resolve(cacheItem);
     }
     else {
-      set(this, 'loading', true);
+      set(this, 'isLoading', true);
 
-      return get(this, 'ajax').request(url).then((data) => {
-        get(this, 'cache')[url] = data;
-        set(this, 'loading', false);
+      return get(this, 'ajax').request(key).then((data) => {
+        this.addToCache(key, data);
+        set(this, 'isLoading', false);
 
         return data;
       });
     }
+  },
+
+
+  processDataSet(dataSet) {
+    const {
+      timeRange,
+      chargeRemaining,
+      demandActive,
+      aggregateActive,
+    } = getProperties(this, ['timeRange', 'chargeRemaining', 'demandActive', 'aggregateActive']);
+
+    let timeSlice = null;
+
+    if (aggregateActive) {
+      timeSlice = dataSet.map((item) => {
+        let subset = item.t.slice(timeRange[0], (timeRange[1] + 1));
+
+        if (demandActive) {
+          subset = subset.filter((perc) => perc < chargeRemaining / 100);
+        }
+
+        return StatUtils.getMean(subset);
+      });
+    }
+    else {
+      timeSlice = dataSet.map(item => item.t[timeRange[0]]);
+    }
+
+    const deciles = StatUtils.getDeciles(timeSlice);
+    const ranks = timeSlice.map(item => StatUtils.decileRank(deciles, item));
+
+    return timeSlice.map((item, idx) => {
+      return {
+        mean: item,
+        percentile: ranks[idx],
+      };
+    });
   },
 
 
@@ -115,7 +194,7 @@ export default Service.extend({
       set(this, 'timeRange', newRange);
 
       if (tickCount === max) {
-        this.send('onPauseClick');
+        this.pauseTimeRange();
       }
 
       this.incrementProperty('timeRangeTickCounter');
@@ -146,96 +225,4 @@ export default Service.extend({
       timeRangeTickCounter: null,
     });
   },
-
-
-  processDataSet(dataSet, limits = null) {
-    const means = dataSet.map((item) => {
-      let temp = item.t;
-
-      if (limits) {
-        temp = item.t.slice(limits[0], (limits[1] + 1));
-      }
-
-      return StatUtils.getMean(temp);
-    });
-
-    const deciles = StatUtils.getDeciles(means);
-    const ranks = means.map(item => StatUtils.decileRank(deciles, item));
-
-    return means.map((item, idx) => {
-      return {
-        mean: item,
-        percentile: ranks[idx],
-      };
-    });
-  },
-
-
-
-
-
-  // processDataSet(dataSet, limits = null) {
-  //   // The mean, variance, and standard deviation of each cell's values
-  //   // based on the aggregate time range selected.
-  //   const cellResults = [];
-  //
-  //   dataSet.forEach((item) => {
-  //     const result = { id: item.id, cellId: item.c };
-  //     let temp = item.t;
-  //
-  //     if (limits) {
-  //       temp = item.t.slice(limits[0], (limits[1] + 1));
-  //     }
-  //
-  //     result.mean = this.getMean(temp);
-  //     result.variance = this.getVariance(temp, result.mean);
-  //     result.standardDeviation = this.getStandardDeviation(result.variance);
-  //
-  //     cellResults.push(result);
-  //   });
-  //
-  //
-  //   // The entire grid's mean, variance, and standard deviation based on the
-  //   // computed values of each cell.
-  //   const gridResults = {
-  //     mean: this.getMean(cellResults.map((item) => item.mean)),
-  //     variance: this.getMean(cellResults.map((item) => item.variance)),
-  //     standardDeviation: this.getMean(cellResults.map((item) => item.standardDeviation)),
-  //     cells: cellResults,
-  //   };
-  //
-  //   return gridResults;
-  // },
-  //
-  //
-  // getMean(array) {
-  //   return array.reduce((prev, curr) => prev + curr) / array.length;
-  // },
-  //
-  //
-  // getVariance(array, mean = null) {
-  //   if (typeOf(mean) !== 'number') {
-  //     mean = this.getMean(array);
-  //   }
-  //
-  //   return this.getMean(
-  //     array.map((value) => {
-  //       return Math.pow(value - mean, 2);
-  //     })
-  //   );
-  // },
-  //
-  //
-  // getStandardDeviation(variance, array = null) {
-  //   if (typeOf(variance) !== 'number') {
-  //     if (array) {
-  //       variance = this.getVariance(array);
-  //     }
-  //     else {
-  //       return null;
-  //     }
-  //   }
-  //
-  //   return Math.sqrt(variance);
-  // },
 });

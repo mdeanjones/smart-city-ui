@@ -8,7 +8,7 @@ const {
 export default class StatUtils {
   // Calculate the mean of an array of numbers.
   static getMean(array) {
-    return array.reduce((prev, curr) => prev + curr) / array.length;
+    return array.reduce((prev, curr) => prev + curr, 0) / array.length;
   };
 
 
