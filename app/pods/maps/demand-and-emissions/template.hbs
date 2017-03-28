@@ -11,6 +11,12 @@
         </div>
 
         <div class="row">
+            <div class="col-xs-12 mb-1">
+                <div class="pull-right">
+                    {{gradient-legend colors=gridDirector.currentColorPalette}}
+                </div>
+            </div>
+
             <div class="col-xs-12">
                 {{leaflet-map height='500px' onMapReady=(action 'mapReady')}}
             </div>
