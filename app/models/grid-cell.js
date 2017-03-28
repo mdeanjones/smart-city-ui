@@ -302,16 +302,12 @@ export default Model.extend({
   cellDetailsHtml: computed('rollupValueStringArray', 'currentEvStations.length', 'gasStations',
     'busStops', 'schools', 'isPark', 'score', function() {
       return `
-          <p class="features-title">Score: 1-6</p>
+          <p class="features-title">Score: ${get(this, 'score')}</p>
           <hr class="rule">
           <p class="heading">Features:</p>
 
           <table class="features-table">
               <tbody>
-                    <tr>
-                      <td><strong>${get(this, 'score')}</strong></td>
-                      <td>Recommended Charging Score (1-6)</td>
-                  </tr>
                   <tr>
                       <td><strong>${get(this, 'currentEVStations.length')}</strong></td>
                       <td>Existing Charging Stations</td>

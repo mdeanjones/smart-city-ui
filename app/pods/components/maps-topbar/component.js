@@ -15,45 +15,48 @@ export default Component.extend({
 
   mapService: null,
 
-  dataConductor: null,
-
-  isPlayDisabled: computed.or('dataConductor.{isPlaying,aggregateActive}'),
-
-  isPauseDisabled: computed.or('dataConductor.{isPaused,aggregateActive}'),
-
-  isTimeRangeDisabled: computed.and('dataConductor.{isPlaying,sweepActive}'),
+  gridDirector: null,
 
 
-  evPercentageInFleetInt: computed('dataConductor.evPercentageInFleet', {
+
+
+  isPlayDisabled: computed.or('gridDirector.{timeRange.isPlaying,aggregateActive}'),
+
+  isPauseDisabled: computed.or('gridDirector.{timeRange.isPaused,aggregateActive}'),
+
+  isTimeRangeDisabled: computed.and('gridDirector.{timeRange.isPlaying,sweepActive}'),
+
+
+  evPercentageInFleetInt: computed('gridDirector.evPercentageInFleet', {
     get() {
-      return get(this, 'dataConductor.evPercentageInFleet');
+      return get(this, 'gridDirector.evPercentageInFleet');
     },
 
     set(key, value) {
       value = typeOf(value) === 'string' ? parseInt(value) : value;
 
-      set(this, 'dataConductor.evPercentageInFleet', value);
+      set(this, 'gridDirector.evPercentageInFleet', value);
       return value;
     },
   }),
 
 
-  chargeRemainingInt: computed('dataConductor.chargeRemaining', {
+  chargeRemainingInt: computed('gridDirector.chargeRemaining', {
     get() {
-      return get(this, 'dataConductor.chargeRemaining');
+      return get(this, 'gridDirector.chargeRemaining');
     },
 
     set(key, value) {
       value = typeOf(value) === 'string' ? parseInt(value) : value;
 
-      set(this, 'dataConductor.chargeRemaining', value);
+      set(this, 'gridDirector.chargeRemaining', value);
       return value;
     },
   }),
 
 
-  formattedTimeRange: computed('dataConductor.timeRange.@each', function() {
-    const range = get(this, 'dataConductor.timeRange');
+  formattedTimeRange: computed('gridDirector.timeRange.range.@each', function() {
+    const range = get(this, 'gridDirector.timeRange.range');
     const start = moment('00:00', 'hh:mm').add(range[0] * 5, 'm').format('hh:mma');
     const end = moment('00:00', 'hh:mm').add(range[1] * 5, 'm').format('hh:mma');
 
@@ -63,46 +66,52 @@ export default Component.extend({
 
   actions: {
     onDemandOrEmissionsToggle(isDemand) {
-      set(this, 'dataConductor.demandActive', isDemand);
+      set(this, 'gridDirector.demandActive', isDemand);
     },
 
 
     onEvOrIcToggle(isEv) {
-      set(this, 'dataConductor.evActive', isEv);
+      set(this, 'gridDirector.evActive', isEv);
     },
 
 
     onAggregateOrSweepToggle(isAggregate) {
-      set(this, 'dataConductor.aggregateActive', isAggregate);
+      set(this, 'gridDirector.aggregateActive', isAggregate);
 
       if (isAggregate) {
-        get(this, 'dataConductor').pauseTimeRange();
+        get(this, 'gridDirector.timeRange').pauseRange();
       }
     },
 
 
     onPlayClick() {
-      get(this, 'dataConductor').playTimeRange();
+      get(this, 'gridDirector.timeRange').playRange();
     },
 
 
     onPauseClick() {
-      get(this, 'dataConductor').pauseTimeRange();
+      get(this, 'gridDirector.timeRange').pauseRange();
     },
   },
 
 
-  didInsertElement() {
-    this._super(...arguments);
+  // didInsertElement() {
+  //  this._super(...arguments);
 
-    get(this, 'mapService.gridCells').enableHeatMap();
-    get(this, 'dataConductor').computeFromCurrentSettings();
-  },
+  //  set(this, 'dataConductor.scoreColorsEnabled', false);
+  //  get(this, 'dataConductor').computeFromCurrentSettings();
+
+    // get(this, 'mapService.gridCells').enableHeatMap();
+    // get(this, 'dataConductor').computeFromCurrentSettings();
+  // },
 
 
   willDestroyElement() {
-    get(this, 'dataConductor').pauseTimeRange();
-    get(this, 'mapService.gridCells').disableHeatMap();
+    get(this, 'gridDirector.timeRange').pauseRange();
+
+    // set(this, 'dataConductor.scoreColorsEnabled', true);
+
+    // get(this, 'mapService.gridCells').disableHeatMap();
 
     this._super(...arguments);
   },

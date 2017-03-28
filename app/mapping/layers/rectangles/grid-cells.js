@@ -1,33 +1,18 @@
 /* global L */
 import Rectangle from './-rectangle';
 import Ember from 'ember';
-import ColorUtils from 'smart-city-ui/utils/color-utils';
 
 const {
   get,
-  observer,
-  setProperties,
-  getProperties,
-  computed,
+  typeOf,
 } = Ember;
 
 
 export default Rectangle.extend({
-  scoreColorsEnabled: true,
-
-  scoreColorsDisabled: computed.not('scoreColorsEnabled'),
-
-  showScoreColors: false,
-
   isVisible: true,
 
   defaultVisibility: true,
 
-  heatMapping: false,
-
-  scoreColors: ColorUtils.getColorPalette('#ce0e00', '#19c600', [0.2, 0.4, 0.6, 0.8]),
-
-  heatMapColors: ColorUtils.getColorPalette('#ff0000', '#0000ff', [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8]),
 
   polygonProperties: {
     color: '#000',
@@ -35,11 +20,6 @@ export default Rectangle.extend({
     opacity: 0.3,
     fillOpacity: 0,
   },
-
-
-  showScoreColorObserver: observer('showScoreColors', function() {
-    this.paintGridCells();
-  }),
 
 
   createRectangle(bounds, polygonProperties, record) {
@@ -50,7 +30,16 @@ export default Rectangle.extend({
       score: get(record, 'score'),
     };
 
+    rectangle.on('popupopen', (e) => {
+      e.target.setStyle({ opacity: 1 });
+    });
+
+    rectangle.on('popupclose', (e) => {
+      e.target.setStyle({ opacity: 0.3 });
+    });
+
     rectangle.bindPopup(this.createRectanglePopup(record));
+
     return rectangle;
   },
 
@@ -63,60 +52,47 @@ export default Rectangle.extend({
   },
 
 
-  enableHeatMap(dataSet) {
-    setProperties(this, {
-      scoreColorsEnabled: false,
-      showScoreColors: false,
-      heatMapping: true,
-    });
+  paintGridCells2x(instructSet, stylePalette, paletteMapKey = null /* , popupMapKey = null */) {
+    const layer = get(this, 'layer');
+    const defaults = get(this, 'polygonProperties');
 
-    this.updateHeatMap(dataSet);
-  },
-
-
-  updateHeatMap(dataSet) {
-    this.paintGridCells(dataSet);
-  },
-
-
-  disableHeatMap() {
-    setProperties(this, {
-      scoreColorsEnabled: true,
-      heatMapping: false,
-    });
-
-    this.paintGridCells();
-  },
-
-
-  paintGridCells(dataSet = null) {
-    const {
-      scoreColorsEnabled,
-      showScoreColors,
-      heatMapping,
-      layer,
-    } = getProperties(this, ['scoreColorsEnabled', 'showScoreColors', 'heatMapping', 'layer']);
-
-    if ((scoreColorsEnabled && showScoreColors) || (heatMapping && dataSet)) {
-      const palette = heatMapping ? get(this, 'heatMapColors') : get(this, 'scoreColors');
-
-      layer.getLayers().forEach((item, idx) => {
-        if (heatMapping) {
-          // item.getPopup().setContent(palette[dataSet[idx].percentile - 1]);
-          item.setStyle({ fillColor: palette[dataSet[idx].percentile - 1], fillOpacity: 0.5 });
-        }
-        else {
-          const score = get(item, 'smartCityData.score');
-          item.setStyle({ fillColor: palette[score - 1], fillOpacity: 0.5 });
-        }
+    // If no instructSet has been provided then assume we want
+    // to set all grid cells to their default.
+    if (!instructSet) {
+      layer.getLayers().forEach((childLayer) => {
+        childLayer.setStyle(defaults);
       });
-    }
-    else {
-      const defaults = get(this, 'polygonProperties');
 
-      layer.getLayers().forEach((item) => {
-        item.setStyle(defaults);
-      });
+      return;
     }
+
+
+    let paletteKeys = instructSet;
+
+    // If `instructSet` is a string, assume it is informing us of
+    // where to find the required palette index value on the layer
+    // itself within the predefined `smartCityData` hash.
+    if (typeOf(instructSet) === 'string') {
+      paletteKeys = layer.getLayers().map(childLayer => get(childLayer, `smartCityData.${instructSet}`));
+    }
+
+
+    // If `paletteMapKey` is a string, then assume `instructSet` is
+    // an array of hashes and `paletteMapKey` informs us of where
+    // to find the required palette index value on each one.
+    if (typeOf(paletteMapKey) === 'string') {
+      paletteKeys = paletteKeys.map(item => get(item, paletteMapKey));
+    }
+
+
+    // Apply styles or defaults.
+    layer.getLayers().forEach((childLayer, idx) => {
+      if (paletteKeys[idx]) {
+        childLayer.setStyle({ fillColor: stylePalette[paletteKeys[idx] - 1], fillOpacity: 0.5 });
+      }
+      else {
+        childLayer.setStyle(defaults);
+      }
+    });
   },
 });

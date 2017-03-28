@@ -10,6 +10,7 @@ const {
 export default Controller.extend({
   mapService: inject.service('smart-city-maps'),
 
+  gridDirector: inject.service('grid-director'),
 
   actions: {
     mapReady(map) {
