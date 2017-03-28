@@ -9,6 +9,8 @@ import {
   GasStationMarkers,
   BusStopMarkers,
 
+  SchoolZones,
+
   AgricultureZone,
   CommercialZone,
   DowntownZone,
@@ -64,7 +66,7 @@ export default Service.extend({
   polygonLayerKeys: computed(function() {
     return ['agricultureZone', 'commercialZone', 'downtownZone', 'industrialZone',
       'parkingZone', 'publicLandZone', 'residentialSingleZone', 'residentialMultiZone',
-      'gridCells'];
+      'gridCells', 'schoolZones'];
   }),
 
 
@@ -98,6 +100,12 @@ export default Service.extend({
   busStopMarkers: computed(function() {
     const records = get(this, 'store').peekAll('bus-stop');
     return BusStopMarkers.create({ records });
+  }).readOnly(),
+
+
+  schoolZones: computed(function() {
+    const records = get(this, 'store').peekAll('school');
+    return SchoolZones.create({ records });
   }).readOnly(),
 
 

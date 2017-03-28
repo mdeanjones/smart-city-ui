@@ -35,8 +35,8 @@
 
     <div class="checkbox disabled">
         <label>
-            {{input type="checkbox" disabled=true}}
-            <img class="icon" src="assets/images/icon_school.png" alt="Schools">
+            {{input type="checkbox" checked=mapService.schoolZones.isVisible}}
+            <div class="color-box school"></div>
             Schools
         </label>
     </div>
@@ -115,7 +115,7 @@
 
     <div class="checkbox">
         <label>
-            {{input type="checkbox" checked=mapService.gridCells.showScoreColors disabled=mapService.gridCells.scoreColorsDisabled}} Show grid score clusters
+            {{input type="checkbox" checked=gridDirector.showScores disabled=gridDirector.scoresDisabled}} Show grid score clusters
         </label>
     </div>
 </div>

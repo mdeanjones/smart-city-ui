@@ -47,13 +47,13 @@
                             <label class="col-xs-7 control-label pt-0">Charge remaining or less</label>
                             <div class="col-xs-5">
                                 <div class="input-group">
-                                    {{input type='number' class='form-control' min=0 max=100 step=1 value=chargeRemainingInt disabled=dataConductor.emissionsActive}}
+                                    {{input type='number' class='form-control' min=0 max=100 step=1 value=chargeRemainingInt disabled=gridDirector.emissionsActive}}
                                     <span class="input-group-addon addon-slim">%</span>
                                 </div>
                             </div>
                         </div>
 
-                        {{ui-slider value=chargeRemainingInt min=0 max=100 step=1 ticksLabels='0%,100%' tooltip='hide' class='mb-2' focus=true immediateResponse=true disabled=dataConductor.emissionsActive}}
+                        {{ui-slider value=chargeRemainingInt min=0 max=100 step=1 ticksLabels='0%,100%' tooltip='hide' class='mb-2' focus=true immediateResponse=true disabled=gridDirector.emissionsActive}}
                     </div>
                 </div>
             </div>
@@ -86,7 +86,7 @@
             <div class="col-xs-7">
                 <div class="form-group">
                     <label class="control-label">Select day:</label>
-                    <select class="form-control" onchange={{action (mut dataConductor.dayOfWeek) value='target.value'}}>
+                    <select class="form-control" onchange={{action (mut gridDirector.dayOfWeek) value='target.value'}}>
                         <option value="mon" selected>Monday</option>
                         <option value="tues">Tuesday</option>
                         <option value="wed">Wednesday</option>
@@ -108,7 +108,7 @@
             </div>
 
             <div class="col-xs-12">
-                {{range-slider value=dataConductor.timeRange min=0 max=287 ticksLabels='12:00am,11:55pm' tooltip='hide' focus=true immediateResponse=true disabled=isTimeRangeDisabled}}
+                {{range-slider value=gridDirector.timeRange.range min=0 max=287 ticksLabels='12:00am,11:55pm' tooltip='hide' focus=true immediateResponse=true disabled=isTimeRangeDisabled}}
             </div>
         </div>
     </div>

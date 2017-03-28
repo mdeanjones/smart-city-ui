@@ -68,5 +68,10 @@
     &.residential-multi {
       @include color-box-variant($residential-red, dotted);
     }
+
+    &.school {
+      margin-right: 12px;
+      @include color-box-variant($school-blue, dotted, $school-border-blue, 0.6);
+    }
   }
 }
