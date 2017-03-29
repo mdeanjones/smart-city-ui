@@ -13,9 +13,14 @@ export default Component.extend({
 
   attributeBindings: ['styles:style'],
 
+  reverse: false,
+
   colors: [],
 
-  styles: computed('colors.@each', function() {
-    return EmberString.htmlSafe(`background: linear-gradient(to right, ${get(this, 'colors').join(', ')})`);
+  styles: computed('colors.@each', 'reverse', function() {
+    const colors = get(this, 'colors');
+    const string = (get(this, 'reverse') ? colors.slice().reverse() : colors).join(', ');
+
+    return EmberString.htmlSafe(`background: linear-gradient(to right, ${string})`);
   }).readOnly(),
 });
