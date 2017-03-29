@@ -24,9 +24,11 @@
     </ul>
 </div>
 
-<div class="dashboard-layers">
-
-</div>
+{{#if mapLayersPaneVisible}}
+    <div class="dashboard-layers">
+        {{maps-sidebar mapService=mapService gridDirector=gridDirector}}
+    </div>
+{{/if}}
 
 <div class="dashboard-analytics">
 
