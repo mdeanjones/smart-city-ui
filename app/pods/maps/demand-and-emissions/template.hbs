@@ -13,7 +13,9 @@
         <div class="row">
             <div class="col-xs-12 mb-1">
                 <div class="pull-right">
+                    {{if gridDirector.emissionsActive 'Low Emissions' 'High Demand'}}
                     {{gradient-legend colors=gridDirector.currentColorPalette}}
+                    {{if gridDirector.emissionsActive 'High Emissions' 'Low Demand'}}
                 </div>
             </div>
 
