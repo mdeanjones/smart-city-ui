@@ -5,6 +5,7 @@ import ExistingEvMarkers from './markers/existing-ev';
 import GasStationMarkers from './markers/gas-stations';
 import BusStopMarkers from './markers/bus-stops';
 
+import ParkZones from './rectangles/park';
 import SchoolZones from './rectangles/school';
 
 import AgricultureZone from './rectangles/agriculture';
@@ -27,6 +28,7 @@ export {
   GasStationMarkers,
   BusStopMarkers,
 
+  ParkZones,
   SchoolZones,
 
   AgricultureZone,
