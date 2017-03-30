@@ -69,6 +69,11 @@
       @include color-box-variant($residential-red, dotted);
     }
 
+    &.park {
+      margin-right: 12px;
+      @include color-box-variant($park-green, dotted, $park-border-green, 0.65);
+    }
+
     &.school {
       margin-right: 12px;
       @include color-box-variant($school-blue, dotted, $school-border-blue, 0.6);
